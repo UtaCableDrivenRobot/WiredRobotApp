@@ -67,12 +67,12 @@ public:
     QOpenGLWidget *openGLVideo;
     QHBoxLayout *bottom_Area;
     QComboBox *comboBox;
-    QLabel *label_6;
-    QLabel *label_5;
-    QLabel *label_4;
-    QLabel *label_3;
-    QLabel *label;
-    QLabel *label_2;
+    QLabel *xCurrent;
+    QLabel *yCurrent;
+    QLabel *zCurrent;
+    QLabel *yawCurrent;
+    QLabel *pitchCurrent;
+    QLabel *rollCurrent;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QToolBar *mainToolBar;
@@ -239,35 +239,35 @@ public:
 
         bottom_Area->addWidget(comboBox);
 
-        label_6 = new QLabel(centralWidget);
-        label_6->setObjectName(QStringLiteral("label_6"));
+        xCurrent = new QLabel(centralWidget);
+        xCurrent->setObjectName(QStringLiteral("xCurrent"));
 
-        bottom_Area->addWidget(label_6);
+        bottom_Area->addWidget(xCurrent);
 
-        label_5 = new QLabel(centralWidget);
-        label_5->setObjectName(QStringLiteral("label_5"));
+        yCurrent = new QLabel(centralWidget);
+        yCurrent->setObjectName(QStringLiteral("yCurrent"));
 
-        bottom_Area->addWidget(label_5);
+        bottom_Area->addWidget(yCurrent);
 
-        label_4 = new QLabel(centralWidget);
-        label_4->setObjectName(QStringLiteral("label_4"));
+        zCurrent = new QLabel(centralWidget);
+        zCurrent->setObjectName(QStringLiteral("zCurrent"));
 
-        bottom_Area->addWidget(label_4);
+        bottom_Area->addWidget(zCurrent);
 
-        label_3 = new QLabel(centralWidget);
-        label_3->setObjectName(QStringLiteral("label_3"));
+        yawCurrent = new QLabel(centralWidget);
+        yawCurrent->setObjectName(QStringLiteral("yawCurrent"));
 
-        bottom_Area->addWidget(label_3);
+        bottom_Area->addWidget(yawCurrent);
 
-        label = new QLabel(centralWidget);
-        label->setObjectName(QStringLiteral("label"));
+        pitchCurrent = new QLabel(centralWidget);
+        pitchCurrent->setObjectName(QStringLiteral("pitchCurrent"));
 
-        bottom_Area->addWidget(label);
+        bottom_Area->addWidget(pitchCurrent);
 
-        label_2 = new QLabel(centralWidget);
-        label_2->setObjectName(QStringLiteral("label_2"));
+        rollCurrent = new QLabel(centralWidget);
+        rollCurrent->setObjectName(QStringLiteral("rollCurrent"));
 
-        bottom_Area->addWidget(label_2);
+        bottom_Area->addWidget(rollCurrent);
 
 
         verticalLayout->addLayout(bottom_Area);
@@ -315,12 +315,12 @@ public:
         zLabel->setText(QApplication::translate("MainWindow", "Z:", Q_NULLPTR));
         pushButton->setText(QApplication::translate("MainWindow", "Insert Next", Q_NULLPTR));
         pushButton_2->setText(QApplication::translate("MainWindow", "Push To End", Q_NULLPTR));
-        label_6->setText(QApplication::translate("MainWindow", "X: {current.x}", Q_NULLPTR));
-        label_5->setText(QApplication::translate("MainWindow", "y: {current.y}", Q_NULLPTR));
-        label_4->setText(QApplication::translate("MainWindow", "z: {current.z}", Q_NULLPTR));
-        label_3->setText(QApplication::translate("MainWindow", "yaw: {current.yaw}", Q_NULLPTR));
-        label->setText(QApplication::translate("MainWindow", "pitch: {current.pitch}", Q_NULLPTR));
-        label_2->setText(QApplication::translate("MainWindow", "roll: {current.roll}", Q_NULLPTR));
+        xCurrent->setText(QApplication::translate("MainWindow", "X: {current.x}", Q_NULLPTR));
+        yCurrent->setText(QApplication::translate("MainWindow", "y: {current.y}", Q_NULLPTR));
+        zCurrent->setText(QApplication::translate("MainWindow", "z: {current.z}", Q_NULLPTR));
+        yawCurrent->setText(QApplication::translate("MainWindow", "yaw: {current.yaw}", Q_NULLPTR));
+        pitchCurrent->setText(QApplication::translate("MainWindow", "pitch: {current.pitch}", Q_NULLPTR));
+        rollCurrent->setText(QApplication::translate("MainWindow", "roll: {current.roll}", Q_NULLPTR));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", Q_NULLPTR));
     } // retranslateUi
 

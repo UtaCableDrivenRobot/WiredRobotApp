@@ -44,24 +44,24 @@
               <item row="0" column="1">
                <widget class="QLineEdit" name="yawLineEdit"/>
               </item>
-              <item row="1" column="0">
+              <item row="2" column="0">
                <widget class="QLabel" name="rollLabel">
                 <property name="text">
                  <string>Roll:</string>
                 </property>
                </widget>
               </item>
-              <item row="1" column="1">
+              <item row="2" column="1">
                <widget class="QLineEdit" name="rollLineEdit"/>
               </item>
-              <item row="2" column="0">
+              <item row="1" column="0">
                <widget class="QLabel" name="pitchLabel">
                 <property name="text">
                  <string>Pitch:</string>
                 </property>
                </widget>
               </item>
-              <item row="2" column="1">
+              <item row="1" column="1">
                <widget class="QLineEdit" name="pitchLineEdit"/>
               </item>
              </layout>
@@ -193,9 +193,47 @@
       <item>
        <layout class="QHBoxLayout" name="bottom_Area">
         <item>
+         <widget class="QComboBox" name="comboBox"/>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_6">
+          <property name="text">
+           <string>X: {current.x}</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>y: {current.y}</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>z: {current.z}</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>yaw: {current.yaw}</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>pitch: {current.pitch}</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QLabel" name="label_2">
           <property name="text">
-           <string>placeHolder</string>
+           <string>roll: {current.roll}</string>
           </property>
          </widget>
         </item>

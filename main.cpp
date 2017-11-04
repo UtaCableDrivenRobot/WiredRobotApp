@@ -1,14 +1,14 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include <QtDebug>
-#include "testclass.h"
+#include "model.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
     w.show();
-    TestClass t;
-    qDebug() << t.TestFunction();
+    Model t;
+    qDebug() << t.insertNewPoint(1,2,3,1,2,3);
     return a.exec();
 }

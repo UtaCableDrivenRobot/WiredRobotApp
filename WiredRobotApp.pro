@@ -17,6 +17,7 @@ SOURCES += main.cpp\
     model.cpp
 
 HEADERS  += mainwindow.h \
-    model.h
+    model.h \
+    coordinatestruct.h
 
 FORMS    += mainwindow.ui

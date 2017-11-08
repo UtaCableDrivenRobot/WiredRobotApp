@@ -8,10 +8,12 @@ class Model
 {
 public:
     Model();
+    void setCurrentPoint(int index);
     bool pushNewPoint(double x,double y,double z,double yaw,double pitch,double roll,double time);
     bool insertNewPoint(double x, double y, double z, double yaw, double pitch, double roll,double time);
-    int getCurrentPoint();
+    int getSelectedIndex();
     int getDataAmount();
+    coordinate getSelectedCoordinate();
 
 private:
     bool isPointInArea(double x,double y,double z);

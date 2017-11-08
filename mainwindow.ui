@@ -206,49 +206,49 @@
          <widget class="QComboBox" name="comboBox"/>
         </item>
         <item>
-         <widget class="QLabel" name="xCurrent">
+         <widget class="QLabel" name="currentX">
           <property name="text">
            <string>X: {current.x}</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="yCurrent">
+         <widget class="QLabel" name="currentY">
           <property name="text">
            <string>y: {current.y}</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="zCurrent">
+         <widget class="QLabel" name="currentZ">
           <property name="text">
            <string>z: {current.z}</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="yawCurrent">
+         <widget class="QLabel" name="currentYaw">
           <property name="text">
            <string>yaw: {current.yaw}</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="pitchCurrent">
+         <widget class="QLabel" name="currentPitch">
           <property name="text">
            <string>pitch: {current.pitch}</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="rollCurrent">
+         <widget class="QLabel" name="currentRoll">
           <property name="text">
            <string>roll: {current.roll}</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="timeCurrent">
+         <widget class="QLabel" name="currentTime">
           <property name="text">
            <string>time: time</string>
           </property>

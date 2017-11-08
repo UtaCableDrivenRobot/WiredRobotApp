@@ -68,7 +68,16 @@ int Model::getDataAmount()
     return static_cast<int>(coordinateList.size());
 }
 
-int Model::getCurrentPoint()
+void Model::setCurrentPoint(int index)
+{
+    currentPoint = index;
+}
+
+int Model::getSelectedIndex()
 {
     return currentPoint;
+}
+
+coordinate Model::getSelectedCoordinate(){
+    return coordinateList[currentPoint];
 }

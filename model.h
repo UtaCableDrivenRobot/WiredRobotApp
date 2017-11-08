@@ -8,7 +8,9 @@ class Model
 {
 public:
     Model();
-    bool insertNewPoint(double x,double y,double z,double yaw,double pitch,double roll);
+    bool pushNewPoint(double x,double y,double z,double yaw,double pitch,double roll,double time);
+    bool insertNewPoint(double x, double y, double z, double yaw, double pitch, double roll,double time);
+    int getDataAmount();
     int currentPoint = 0;
     const double ROBOT_WIDTH = 2000;
     const double ROBOT_DEPTH = 2000;

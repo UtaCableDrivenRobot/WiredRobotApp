@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>946</width>
-    <height>396</height>
+    <height>401</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,6 +32,40 @@
           </property>
           <item>
            <layout class="QHBoxLayout" name="dataEdit">
+            <item>
+             <layout class="QFormLayout" name="formLayout">
+              <item row="0" column="0">
+               <widget class="QLabel" name="xLabel">
+                <property name="text">
+                 <string>X:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLineEdit" name="xLineEdit"/>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="yLabel">
+                <property name="text">
+                 <string>Y:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLineEdit" name="yLineEdit"/>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="zLabel">
+                <property name="text">
+                 <string>Z:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QLineEdit" name="zLineEdit"/>
+              </item>
+             </layout>
+            </item>
             <item>
              <layout class="QFormLayout" name="formLayout_2">
               <item row="0" column="0">
@@ -64,39 +98,15 @@
               <item row="1" column="1">
                <widget class="QLineEdit" name="pitchLineEdit"/>
               </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QFormLayout" name="formLayout">
-              <item row="0" column="0">
-               <widget class="QLabel" name="xLabel">
+              <item row="3" column="0">
+               <widget class="QLabel" name="timeSecondsLabel">
                 <property name="text">
-                 <string>X:</string>
+                 <string>Time(Seconds)</string>
                 </property>
                </widget>
               </item>
-              <item row="0" column="1">
-               <widget class="QLineEdit" name="xLineEdit"/>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="yLabel">
-                <property name="text">
-                 <string>Y:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="1">
-               <widget class="QLineEdit" name="yLineEdit"/>
-              </item>
-              <item row="2" column="0">
-               <widget class="QLabel" name="zLabel">
-                <property name="text">
-                 <string>Z:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="1">
-               <widget class="QLineEdit" name="zLineEdit"/>
+              <item row="3" column="1">
+               <widget class="QLineEdit" name="timeSecondsLineEdit"/>
               </item>
              </layout>
             </item>
@@ -137,7 +147,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_2">
+             <widget class="QPushButton" name="pushToEndBtn">
               <property name="enabled">
                <bool>true</bool>
               </property>
@@ -234,6 +244,13 @@
          <widget class="QLabel" name="rollCurrent">
           <property name="text">
            <string>roll: {current.roll}</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_3">
+          <property name="text">
+           <string>Delete Point</string>
           </property>
          </widget>
         </item>

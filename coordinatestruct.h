@@ -8,6 +8,7 @@ struct coordinate{
     double yaw;
     double pitch;
     double roll;
+    double time;
 };
 
 #endif // COORDINATESTRUCT_H

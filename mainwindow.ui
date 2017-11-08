@@ -248,14 +248,14 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="label">
+         <widget class="QLabel" name="timeCurrent">
           <property name="text">
            <string>time: time</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_3">
+         <widget class="QPushButton" name="deletePointBtn">
           <property name="text">
            <string>Delete Point</string>
           </property>

@@ -19,6 +19,7 @@ public:
 private slots:
 
     void on_pushToEndBtn_clicked();
+    void on_insertNextBtn_clicked();
 
 private:
     Ui::MainWindow *ui;

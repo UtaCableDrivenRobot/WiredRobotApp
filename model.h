@@ -1,6 +1,8 @@
 #ifndef MODEL_H
 #define MODEL_H
 #include "coordinatestruct.h"
+#include <fstream>
+#include <iterator>
 #include <vector>
 
 
@@ -12,6 +14,7 @@ public:
     bool insertNewPoint(double x, double y, double z, double yaw, double pitch, double roll,double time);
     int getCurrentPoint();
     int getDataAmount();
+    void writeData(double x, double y, double z, double yaw, double pitch, double roll,double time);
 
 private:
     bool isPointInArea(double x,double y,double z);

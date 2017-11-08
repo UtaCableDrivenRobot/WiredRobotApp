@@ -28,7 +28,7 @@ bool Model::pushNewPoint(double x, double y, double z, double yaw, double pitch,
         currentPoint = saveCurrentPos;
         return false;
     }
-    currentPoint = saveCurrentPos;
+    currentPoint = saveCurrentPos + 1;
     return true;
 }
 
@@ -50,6 +50,7 @@ bool Model::insertNewPoint(double x, double y, double z, double yaw, double pitc
     newPoint.roll = roll;
     newPoint.time = time;
     coordinateList.insert(coordinateList.begin() + currentPoint,newPoint);
+    currentPoint += 1;
     return true;
 }
 
@@ -65,4 +66,9 @@ bool Model::isPointInArea(double x, double y, double z)
 int Model::getDataAmount()
 {
     return static_cast<int>(coordinateList.size());
+}
+
+int Model::getCurrentPoint()
+{
+    return currentPoint;
 }

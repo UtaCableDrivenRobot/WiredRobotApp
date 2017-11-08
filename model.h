@@ -10,7 +10,12 @@ public:
     Model();
     bool pushNewPoint(double x,double y,double z,double yaw,double pitch,double roll,double time);
     bool insertNewPoint(double x, double y, double z, double yaw, double pitch, double roll,double time);
+    int getCurrentPoint();
     int getDataAmount();
+
+private:
+    bool isPointInArea(double x,double y,double z);
+    std::vector<coordinate> coordinateList;
     int currentPoint = 0;
     const double ROBOT_WIDTH = 2000;
     const double ROBOT_DEPTH = 2000;
@@ -22,9 +27,6 @@ public:
     const double ROBOT_X_MAX = ROBOT_WIDTH - ROBOT_X_MIN;
     const double ROBOT_Y_MAX = ROBOT_HEIGHT - ROBOT_Y_MIN;
     const double ROBOT_Z_MAX = ROBOT_DEPTH - ROBOT_Z_MIN;
-private:
-    bool isPointInArea(double x,double y,double z);
-    std::vector<coordinate> coordinateList;
 
 };
 

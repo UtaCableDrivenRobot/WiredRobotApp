@@ -1,4 +1,5 @@
 #include "model.h"
+#include <QtDebug>
 
 Model::Model()
 {
@@ -28,7 +29,7 @@ bool Model::pushNewPoint(double x, double y, double z, double yaw, double pitch,
         currentPoint = saveCurrentPos;
         return false;
     }
-    currentPoint = saveCurrentPos + 1;
+    currentPoint = static_cast<int>(coordinateList.size())-1;
     return true;
 }
 

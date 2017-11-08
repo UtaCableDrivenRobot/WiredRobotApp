@@ -20,7 +20,7 @@ private slots:
 
     void on_pushToEndBtn_clicked();
     void on_insertNextBtn_clicked();
-    void updateUI();
+    void updateBottomData();
 
     void on_comboBox_currentIndexChanged(int index);
 

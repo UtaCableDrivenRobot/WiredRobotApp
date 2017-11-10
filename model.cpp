@@ -63,6 +63,13 @@ bool Model::insertNewPoint(double x, double y, double z, double yaw, double pitc
     return true;
 }
 
+void writeData(double x, double y, double z, double yaw, double pitch, double roll,double time)
+{
+    std::ofstream output_file("./example.txt");
+
+
+}
+
 // Returns if the point being added is within the bounds of the robot
 // TODO:
 bool Model::isPointInArea(double x, double y, double z)

@@ -22,7 +22,7 @@ bool Model::pushNewPoint(double x, double y, double z, double yaw, double pitch,
     // Push point on end
     // Change current point to the last one and then insert
     int saveCurrentPos = currentPoint;
-    currentPoint = static_cast<int>(coordinateList.size());
+    currentPoint = static_cast<int>(coordinateList.size())-1;
     if(!Model::insertNewPoint(x,y,z,yaw,pitch,roll,time))
     {
         // if adding the point failed...

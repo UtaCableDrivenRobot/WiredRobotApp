@@ -34,12 +34,14 @@ void MainWindow::updateComboBox()
 
 void MainWindow::on_insertNextBtn_clicked()
 {
+    // TODO pull the real data. Add logic for could not add warning message.
     myModel.insertNewPoint(30,30,30,30,30,30,30);
     updateComboBox();
 }
 
 void MainWindow::on_pushToEndBtn_clicked()
 {
+     // TODO pull the real data. Add logic for could not add warning message.
     myModel.pushNewPoint(30,30,30,30,30,30,30);
     updateComboBox();
 }
@@ -59,10 +61,17 @@ void MainWindow::updateBottomData()
     ui->currentTime->setText("Time: " + QString::number(selectedCoordinate.time));
 }
 
+// Called on all changes to combo box. Make sure when the index is changed it is reflected in all the data
 void MainWindow::on_comboBox_currentIndexChanged(int index)
 {
     if(index==-1)return;
     myModel.setCurrentPoint(index);
     qDebug() << index;
     updateBottomData();
+}
+
+void MainWindow::on_deletePointBtn_clicked()
+{
+    myModel.deleteCurrentIdex();
+    updateComboBox();
 }

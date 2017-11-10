@@ -14,6 +14,7 @@ public:
     int getSelectedIndex();
     int getDataAmount();
     coordinate getSelectedCoordinate();
+    bool deleteCurrentIdex();
 
 private:
     bool isPointInArea(double x,double y,double z);

@@ -1,4 +1,5 @@
 #include "model.h"
+#include <QtDebug>
 
 Model::Model()
 {
@@ -28,8 +29,16 @@ bool Model::pushNewPoint(double x, double y, double z, double yaw, double pitch,
         currentPoint = saveCurrentPos;
         return false;
     }
-    currentPoint = saveCurrentPos + 1;
+    currentPoint = static_cast<int>(coordinateList.size())-1;
     return true;
+}
+
+bool Model::deleteCurrentIdex()
+{
+    // Don't delete the starting point D:
+    if(currentPoint==0) return false;
+    coordinateList.erase(coordinateList.begin() + currentPoint);
+    currentPoint-=1;
 }
 
 
@@ -49,7 +58,7 @@ bool Model::insertNewPoint(double x, double y, double z, double yaw, double pitc
     newPoint.pitch = pitch;
     newPoint.roll = roll;
     newPoint.time = time;
-    coordinateList.insert(coordinateList.begin() + currentPoint,newPoint);
+    coordinateList.insert(coordinateList.begin() + currentPoint + 1,newPoint);
     currentPoint += 1;
     return true;
 }
@@ -75,7 +84,16 @@ int Model::getDataAmount()
     return static_cast<int>(coordinateList.size());
 }
 
-int Model::getCurrentPoint()
+void Model::setCurrentPoint(int index)
+{
+    currentPoint = index;
+}
+
+int Model::getSelectedIndex()
 {
     return currentPoint;
+}
+
+coordinate Model::getSelectedCoordinate(){
+    return coordinateList[currentPoint];
 }

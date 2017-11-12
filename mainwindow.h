@@ -29,7 +29,7 @@ private slots:
     void on_deletePointBtn_clicked();
     void on_actionLoad_triggered();
     void on_actionSave_triggered();
-    void on_actionSave_as_triggered();
+    void on_actionSave_As_triggered();
     void on_actionNew_triggered();
 
 

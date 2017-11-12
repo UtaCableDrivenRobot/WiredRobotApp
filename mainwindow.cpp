@@ -107,9 +107,11 @@ void MainWindow::on_actionSave_triggered()
 
 }
 //
-void MainWindow::on_actionSave_as_triggered()
+void MainWindow::on_actionSave_As_triggered()
 {
-    QString fileName = QFileDialog::getSaveFileName(this, tr("save as"), curFile);
+
+    QDir::currentPath();
+    //QString fileName = QFileDialog::getSaveFileName(this, tr("save as"), curFile);
 }
 
 void MainWindow::saveFile(const QString &fileName)

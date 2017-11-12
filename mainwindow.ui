@@ -183,14 +183,8 @@
          </layout>
         </item>
         <item>
-         <widget class="GLWidget" name="GLwidget">
+         <widget class="GLWidget" name="widget" native="true">
           <property name="minimumSize">
-           <size>
-            <width>400</width>
-            <height>300</height>
-           </size>
-          </property>
-          <property name="maximumSize">
            <size>
             <width>400</width>
             <height>300</height>
@@ -321,8 +315,9 @@
  <customwidgets>
   <customwidget>
    <class>GLWidget</class>
-   <extends>QOpenGLWidget</extends>
+   <extends>QWidget</extends>
    <header>glwidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <tabstops>

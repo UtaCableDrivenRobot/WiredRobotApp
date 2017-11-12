@@ -5,9 +5,9 @@
 class GLWidget : public QGLWidget
 {
 public:
-    GLWidget(QWidget *parent=0);
+    explicit GLWidget(QWidget *parent=0);
 
-    void initializeGl();
+    void initializeGL();
     void paintGL();
     void resizeGL(int w, int h);
 };

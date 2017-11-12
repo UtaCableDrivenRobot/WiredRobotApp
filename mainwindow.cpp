@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <string>
 #include <QtDebug>
+#include "QMessageBox"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -37,18 +38,28 @@ void MainWindow::on_insertNextBtn_clicked()
     coordinate* formData = getCoordinateField();
     if(formData)
     {
-        myModel.insertNewPoint(
+        if(!myModel.insertNewPoint(
                     formData->x,
                     formData->y,
                     formData->z,
                     formData->yaw,
                     formData->pitch,
                     formData->roll,
-                    formData->time);
+                    formData->time))
+        {
+            QMessageBox messageBox;
+            messageBox.critical(0,"Error","New coordinate is out of bounds!");
+            messageBox.setFixedSize(500,200);
+        }
+
         updateComboBox();
         delete formData;
+    }else
+    {
+        QMessageBox messageBox;
+        messageBox.critical(0,"Error","Missing or Incorrect Data!");
+        messageBox.setFixedSize(500,200);
     }
-    //TODO: else display error message
 }
 
 void MainWindow::on_pushToEndBtn_clicked()
@@ -56,18 +67,27 @@ void MainWindow::on_pushToEndBtn_clicked()
     coordinate* formData = getCoordinateField();
     if(formData)
     {
-        myModel.pushNewPoint(
+        if(!myModel.pushNewPoint(
                     formData->x,
                     formData->y,
                     formData->z,
                     formData->yaw,
                     formData->pitch,
                     formData->roll,
-                    formData->time);
+                    formData->time))
+        {
+            QMessageBox messageBox;
+            messageBox.critical(0,"Error","New coordinate is out of bounds!");
+            messageBox.setFixedSize(500,200);
+        }
         updateComboBox();
         delete formData;
+    }else
+    {
+        QMessageBox messageBox;
+        messageBox.critical(0,"Error","Missing or Incorrect Data!");
+        messageBox.setFixedSize(500,200);
     }
-    //TODO: else display error message
 }
 
 
@@ -96,7 +116,12 @@ void MainWindow::on_comboBox_currentIndexChanged(int index)
 
 void MainWindow::on_deletePointBtn_clicked()
 {
-    myModel.deleteCurrentIdex();
+    if(!myModel.deleteCurrentIdex())
+    {
+        QMessageBox messageBox;
+        messageBox.critical(0,"Error","Cannot Delete Starting Point!");
+        messageBox.setFixedSize(500,200);
+    }
     updateComboBox();
 }
 

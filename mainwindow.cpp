@@ -34,16 +34,40 @@ void MainWindow::updateComboBox()
 
 void MainWindow::on_insertNextBtn_clicked()
 {
-    // TODO pull the real data. Add logic for could not add warning message.
-    myModel.insertNewPoint(30,30,30,30,30,30,30);
-    updateComboBox();
+    coordinate* formData = getCoordinateField();
+    if(formData)
+    {
+        myModel.insertNewPoint(
+                    formData->x,
+                    formData->y,
+                    formData->z,
+                    formData->yaw,
+                    formData->pitch,
+                    formData->roll,
+                    formData->time);
+        updateComboBox();
+        delete formData;
+    }
+    //TODO: else display error message
 }
 
 void MainWindow::on_pushToEndBtn_clicked()
 {
-     // TODO pull the real data. Add logic for could not add warning message.
-    myModel.pushNewPoint(30,30,30,30,30,30,30);
-    updateComboBox();
+    coordinate* formData = getCoordinateField();
+    if(formData)
+    {
+        myModel.pushNewPoint(
+                    formData->x,
+                    formData->y,
+                    formData->z,
+                    formData->yaw,
+                    formData->pitch,
+                    formData->roll,
+                    formData->time);
+        updateComboBox();
+        delete formData;
+    }
+    //TODO: else display error message
 }
 
 
@@ -74,4 +98,24 @@ void MainWindow::on_deletePointBtn_clicked()
 {
     myModel.deleteCurrentIdex();
     updateComboBox();
+}
+
+coordinate* MainWindow::getCoordinateField()
+{
+    coordinate* newPoint = new coordinate();
+    bool xOk(false), yOk(false), zOk(false), yawOk(false), pitchOk(false), rollOk(false), timeOk(false);
+    newPoint->x = ui->xLineEdit->text().toDouble(&xOk);
+    newPoint->y = ui->yLineEdit->text().toDouble(&yOk);
+    newPoint->z = ui->zLineEdit->text().toDouble(&zOk);
+    newPoint->yaw = ui->yawLineEdit->text().toDouble(&yawOk);
+    newPoint->pitch = ui->pitchLineEdit->text().toDouble(&pitchOk);
+    newPoint->roll = ui->rollLineEdit->text().toDouble(&rollOk);
+    newPoint->time = ui->timeSecondsLineEdit->text().toDouble(&timeOk);
+    if(!(xOk && yOk && zOk && yawOk && pitchOk && rollOk && timeOk))
+    {
+        qDebug() << "didn't clear ok logic";
+        delete newPoint;
+        return NULL;
+    }
+    return newPoint;
 }

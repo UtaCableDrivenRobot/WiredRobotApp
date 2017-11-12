@@ -281,7 +281,7 @@
      <string>File</string>
     </property>
     <addaction name="actionNew"/>
-    <addaction name="actionOpen"/>
+    <addaction name="actionLoad"/>
     <addaction name="actionSave"/>
     <addaction name="actionSave_As"/>
    </widget>
@@ -301,9 +301,9 @@
     <string>New</string>
    </property>
   </action>
-  <action name="actionOpen">
+  <action name="actionLoad">
    <property name="text">
-    <string>Open</string>
+    <string>Load</string>
    </property>
   </action>
   <action name="actionSave">

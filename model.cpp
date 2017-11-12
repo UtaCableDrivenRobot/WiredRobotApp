@@ -97,3 +97,9 @@ int Model::getSelectedIndex()
 coordinate Model::getSelectedCoordinate(){
     return coordinateList[currentPoint];
 }
+
+std::vector<coordinate> Model::getCoordinateList(){
+    return coordinateList;
+}
+
+

@@ -7,8 +7,10 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+
     ui->setupUi(this);
     updateComboBox();
+
 }
 
 MainWindow::~MainWindow()
@@ -75,3 +77,44 @@ void MainWindow::on_deletePointBtn_clicked()
     myModel.deleteCurrentIdex();
     updateComboBox();
 }
+//TODO what are we going to do for new?
+void MainWindow::on_actionNew_triggered()
+{
+
+}
+
+void MainWindow::on_actionLoad_triggered()
+{
+    const QString fileName = QFileDialog::getOpenFileName(this);
+    if (!fileName.isEmpty())
+        loadFile(fileName);
+
+}
+
+void MainWindow::loadFile(const QString &fileName)
+{
+    QFile file(fileName);
+    if(!file.open(QFile::ReadOnly | QFile::Text)){
+        QMessageBox::warning(this, tr("Program"),
+                             tr("Cannot read file %1:\n%2.")
+                             .arg(QDir::toNativeSeparators(fileName), file.errorString()));
+    }
+
+}
+// TODO
+void MainWindow::on_actionSave_triggered()
+{
+
+}
+//
+void MainWindow::on_actionSave_as_triggered()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, tr("save as"), curFile);
+}
+
+void MainWindow::saveFile(const QString &fileName)
+{
+
+}
+
+

@@ -18,6 +18,9 @@ public:
     void writeData(double x, double y, double z, double yaw, double pitch, double roll,double time);
     coordinate getSelectedCoordinate();
     bool deleteCurrentIdex();
+    void saveToFile();
+    void loadFromFile();
+    std::vector<coordinate> getCoordinateList();
 
 
 private:

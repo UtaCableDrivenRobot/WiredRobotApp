@@ -23,7 +23,8 @@ void GLWidget::paintGL()
     // setting up camera
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(-1,1,-1,1,1,30);
+    // glOrtho(-1,1,-1,1,1,30);
+    glFrustum(-1,1,-1,1,1,30);
     gluLookAt(2,2,2,0,0,0,0,1,0);
 
     // drawing stuff

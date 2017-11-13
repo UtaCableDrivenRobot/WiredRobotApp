@@ -20,10 +20,13 @@ void GLWidget::initializeGL()
 void GLWidget::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    // setting up camera
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(-1,1,-1,1,1,30);
     gluLookAt(2,2,2,0,0,0,0,1,0);
+
+    // drawing stuff
     glMatrixMode(GL_MODELVIEW);
     glBegin(GL_LINES);
     glColor3f(1,0,0);
@@ -50,6 +53,5 @@ void GLWidget::resizeGL(int w, int h)
     glViewport(0,0,w,h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-
     updateGL();
 }

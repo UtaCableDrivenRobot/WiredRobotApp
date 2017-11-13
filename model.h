@@ -4,7 +4,7 @@
 #include <fstream>
 #include <iterator>
 #include <vector>
-
+#include <QString>
 
 class Model
 {
@@ -18,13 +18,12 @@ public:
     void writeData(double x, double y, double z, double yaw, double pitch, double roll,double time);
     coordinate getSelectedCoordinate();
     bool deleteCurrentIdex();
-    void saveToFile();
-    void loadFromFile();
-    std::vector<coordinate> getCoordinateList();
+    bool emptyWorkingPoints();
+    void writeToFile(QString fileName);
 
 
 private:
-    bool isPointInArea(double x,double y,double z);
+    bool isPointValid(double x, double y, double z, double yaw, double pitch, double roll);
     std::vector<coordinate> coordinateList;
     int currentPoint = 0;
     const double ROBOT_WIDTH = 2000;
@@ -37,6 +36,7 @@ private:
     const double ROBOT_X_MAX = ROBOT_WIDTH - ROBOT_X_MIN;
     const double ROBOT_Y_MAX = ROBOT_HEIGHT - ROBOT_Y_MIN;
     const double ROBOT_Z_MAX = ROBOT_DEPTH - ROBOT_Z_MIN;
+    const double MAX_ROTATION = 30.1;
 
 };
 

@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     updateComboBox();
-    ui->glWidget->testUpdate(-100);
+    ui->glWidget->setModel(&myModel);
 }
 
 MainWindow::~MainWindow()

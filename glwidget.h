@@ -3,6 +3,7 @@
 #include <QtOpenGL>
 #include <gl/GLU.h>
 #include <QTimer>
+#include "model.h"
 
 class GLWidget : public QGLWidget
 {
@@ -12,10 +13,11 @@ public:
     void initializeGL();
     void paintGL();
     void resizeGL(int w, int h);
-    void testUpdate(int x);
+    void setModel(Model* newModel);
 private:
-    int x = 0;
     QTimer timer;
+    Model* myModel;
+    void createAxisPaint();
 };
 
 #endif // GLWIDGET_H

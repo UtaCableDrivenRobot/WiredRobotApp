@@ -17,6 +17,7 @@ void GLWidget::initializeGL()
     glEnable(GL_LIGHTING);
     glEnable(GL_COLOR_MATERIAL);
     glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
+    createAxisPaint();
 }
 
 void GLWidget::paintGL()
@@ -31,6 +32,38 @@ void GLWidget::paintGL()
 
     // drawing stuff
     glMatrixMode(GL_MODELVIEW);
+
+    //X Y Z
+    glPushMatrix();
+    glLoadIdentity();
+    glCallList(1) ;
+    glPopMatrix();
+
+
+
+
+
+
+}
+
+void GLWidget::resizeGL(int w, int h)
+{
+    glViewport(0,0,w,w*3/4);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    updateGL();
+}
+
+void GLWidget::setModel(Model* newModel)
+{
+    myModel = newModel;
+}
+
+
+// Draws X Y Z lines
+void GLWidget::createAxisPaint()
+{
+    glNewList(1,GL_COMPILE);
     glBegin(GL_LINES);
     glColor3f(1,0,0);
     glVertex3f(0,0,0);
@@ -48,26 +81,7 @@ void GLWidget::paintGL()
     glVertex3f(0,0,0);
     glVertex3f(0,0,2);
     glEnd();
-
-    glBegin(GL_LINES);
-    glColor3f(1,1,1);
-    glVertex3f(-5,-5,-5);
-    glVertex3f(x,2,2);
-    glEnd();
-
-
-
+    glEndList();
 }
 
-void GLWidget::resizeGL(int w, int h)
-{
-    glViewport(0,0,w,w*3/4);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    updateGL();
-}
 
-void GLWidget::testUpdate(int x)
-{
-    this->x = x;
-}

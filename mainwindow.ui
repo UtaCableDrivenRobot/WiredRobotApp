@@ -318,6 +318,19 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>xLineEdit</tabstop>
+  <tabstop>yLineEdit</tabstop>
+  <tabstop>zLineEdit</tabstop>
+  <tabstop>yawLineEdit</tabstop>
+  <tabstop>pitchLineEdit</tabstop>
+  <tabstop>rollLineEdit</tabstop>
+  <tabstop>timeSecondsLineEdit</tabstop>
+  <tabstop>insertNextBtn</tabstop>
+  <tabstop>pushToEndBtn</tabstop>
+  <tabstop>comboBox</tabstop>
+  <tabstop>deletePointBtn</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

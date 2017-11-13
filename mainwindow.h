@@ -30,6 +30,7 @@ private:
     Ui::MainWindow *ui;
     Model myModel;
     void updateComboBox();
+    coordinate *getCoordinateField();
 };
 
 #endif // MAINWINDOW_H

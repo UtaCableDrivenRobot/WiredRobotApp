@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <string>
 #include <QtDebug>
+#include "QMessageBox"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -34,16 +35,59 @@ void MainWindow::updateComboBox()
 
 void MainWindow::on_insertNextBtn_clicked()
 {
-    // TODO pull the real data. Add logic for could not add warning message.
-    myModel.insertNewPoint(30,30,30,30,30,30,30);
-    updateComboBox();
+    coordinate* formData = getCoordinateField();
+    if(formData)
+    {
+        if(!myModel.insertNewPoint(
+                    formData->x,
+                    formData->y,
+                    formData->z,
+                    formData->yaw,
+                    formData->pitch,
+                    formData->roll,
+                    formData->time))
+        {
+            QMessageBox messageBox;
+            messageBox.critical(0,"Error","New coordinate is out of bounds!");
+            messageBox.setFixedSize(500,200);
+        }
+
+        updateComboBox();
+        delete formData;
+    }else
+    {
+        QMessageBox messageBox;
+        messageBox.critical(0,"Error","Missing or Incorrect Data!");
+        messageBox.setFixedSize(500,200);
+    }
 }
 
 void MainWindow::on_pushToEndBtn_clicked()
 {
-     // TODO pull the real data. Add logic for could not add warning message.
-    myModel.pushNewPoint(30,30,30,30,30,30,30);
-    updateComboBox();
+    coordinate* formData = getCoordinateField();
+    if(formData)
+    {
+        if(!myModel.pushNewPoint(
+                    formData->x,
+                    formData->y,
+                    formData->z,
+                    formData->yaw,
+                    formData->pitch,
+                    formData->roll,
+                    formData->time))
+        {
+            QMessageBox messageBox;
+            messageBox.critical(0,"Error","New coordinate is out of bounds!");
+            messageBox.setFixedSize(500,200);
+        }
+        updateComboBox();
+        delete formData;
+    }else
+    {
+        QMessageBox messageBox;
+        messageBox.critical(0,"Error","Missing or Incorrect Data!");
+        messageBox.setFixedSize(500,200);
+    }
 }
 
 
@@ -72,6 +116,31 @@ void MainWindow::on_comboBox_currentIndexChanged(int index)
 
 void MainWindow::on_deletePointBtn_clicked()
 {
-    myModel.deleteCurrentIdex();
+    if(!myModel.deleteCurrentIdex())
+    {
+        QMessageBox messageBox;
+        messageBox.critical(0,"Error","Cannot Delete Starting Point!");
+        messageBox.setFixedSize(500,200);
+    }
     updateComboBox();
+}
+
+coordinate* MainWindow::getCoordinateField()
+{
+    coordinate* newPoint = new coordinate();
+    bool xOk(false), yOk(false), zOk(false), yawOk(false), pitchOk(false), rollOk(false), timeOk(false);
+    newPoint->x = ui->xLineEdit->text().toDouble(&xOk);
+    newPoint->y = ui->yLineEdit->text().toDouble(&yOk);
+    newPoint->z = ui->zLineEdit->text().toDouble(&zOk);
+    newPoint->yaw = ui->yawLineEdit->text().toDouble(&yawOk);
+    newPoint->pitch = ui->pitchLineEdit->text().toDouble(&pitchOk);
+    newPoint->roll = ui->rollLineEdit->text().toDouble(&rollOk);
+    newPoint->time = ui->timeSecondsLineEdit->text().toDouble(&timeOk);
+    if(!(xOk && yOk && zOk && yawOk && pitchOk && rollOk && timeOk))
+    {
+        qDebug() << "didn't clear ok logic";
+        delete newPoint;
+        return NULL;
+    }
+    return newPoint;
 }

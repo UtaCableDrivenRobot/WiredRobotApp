@@ -46,7 +46,7 @@ bool Model::deleteCurrentIdex()
 // Returns false if the point couldn't be added
 bool Model::insertNewPoint(double x, double y, double z, double yaw, double pitch, double roll,double time)
 {
-    if(!isPointInArea(x,y,z))
+    if(!isPointValid(x,y,z,yaw,pitch,roll))
     {
         return false;
     }
@@ -71,9 +71,14 @@ void writeData(double x, double y, double z, double yaw, double pitch, double ro
 }
 
 // Returns if the point being added is within the bounds of the robot
-// TODO:
-bool Model::isPointInArea(double x, double y, double z)
+bool Model::isPointValid(double x, double y, double z,double yaw,double pitch,double roll)
 {
+    if(x>ROBOT_X_MAX || x<ROBOT_X_MIN) return false;
+    if(y>ROBOT_Y_MAX || y<ROBOT_Y_MIN) return false;
+    if(z>ROBOT_Z_MAX || z<ROBOT_Z_MIN) return false;
+    if(yaw>MAX_ROTATION || yaw<-1*MAX_ROTATION) return false;
+    if(pitch>MAX_ROTATION || pitch<-1*MAX_ROTATION) return false;
+    if(roll>MAX_ROTATION || roll<-1*MAX_ROTATION) return false;
     return true;
 }
 
@@ -94,6 +99,7 @@ int Model::getSelectedIndex()
     return currentPoint;
 }
 
-coordinate Model::getSelectedCoordinate(){
+coordinate Model::getSelectedCoordinate()
+{
     return coordinateList[currentPoint];
 }

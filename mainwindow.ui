@@ -183,7 +183,7 @@
          </layout>
         </item>
         <item>
-         <widget class="GLWidget" name="widget" native="true">
+         <widget class="GLWidget" name="glWidget" native="true">
           <property name="minimumSize">
            <size>
             <width>400</width>

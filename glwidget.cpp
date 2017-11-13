@@ -5,6 +5,8 @@ GLWidget::GLWidget(QWidget *parent) :
     QGLWidget(parent)
 {
     qDebug() <<"parent called";
+    connect(&timer,SIGNAL(timeout()),this,SLOT(updateGL()));
+    timer.start(16);
 }
 
 void GLWidget::initializeGL()
@@ -47,12 +49,25 @@ void GLWidget::paintGL()
     glVertex3f(0,0,2);
     glEnd();
 
+    glBegin(GL_LINES);
+    glColor3f(1,1,1);
+    glVertex3f(-5,-5,-5);
+    glVertex3f(x,2,2);
+    glEnd();
+
+
+
 }
 
 void GLWidget::resizeGL(int w, int h)
 {
-    glViewport(0,0,w,h);
+    glViewport(0,0,w,w*3/4);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     updateGL();
+}
+
+void GLWidget::testUpdate(int x)
+{
+    this->x = x;
 }

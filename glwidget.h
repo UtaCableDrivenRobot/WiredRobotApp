@@ -2,6 +2,7 @@
 #define GLWIDGET_H
 #include <QtOpenGL>
 #include <gl/GLU.h>
+#include <QTimer>
 
 class GLWidget : public QGLWidget
 {
@@ -11,6 +12,10 @@ public:
     void initializeGL();
     void paintGL();
     void resizeGL(int w, int h);
+    void testUpdate(int x);
+private:
+    int x = 0;
+    QTimer timer;
 };
 
 #endif // GLWIDGET_H

@@ -6,7 +6,6 @@
 #include <QDialog>
 #include<QFileDialog>
 
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -230,9 +229,3 @@ void MainWindow::on_actionSave_As_triggered()
     return;
 
 }
-
-
-
-
-
-

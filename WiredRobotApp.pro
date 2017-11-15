@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui opengl
+QT       += core gui
+QT += opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -24,5 +25,4 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui
 
-LIBS += opengl32.lib
-LIBS+= glu32.lib
+LIBS += -lopengl32 -lglu32

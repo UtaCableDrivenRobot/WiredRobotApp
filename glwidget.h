@@ -1,9 +1,9 @@
 #ifndef GLWIDGET_H
 #define GLWIDGET_H
 #include <QtOpenGL>
-#include <gl/GLU.h>
 #include <QTimer>
 #include "model.h"
+#include <GL/glu.h>
 
 class GLWidget : public QGLWidget
 {

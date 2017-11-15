@@ -1,5 +1,14 @@
 #include "model.h"
 #include <QtDebug>
+#include <QFile>
+#define trajDir "C:\\Users\\Martin\\Downloads\\CASPR-master\\CASPR-master\\data\\model_config\\models\\SCDM\\spatial_manipulators\\PoCaBot_spatial\\PoCaBot_spatial_trajectories.xml"
+#define fileHeader "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<!DOCTYPE trajectories SYSTEM \"../../../../templates/trajectories.dtd\">\n<trajectories>\n\t<joint_trajectories>\n\t\t<quintic_spline_trajectory id=\"traj_1\" time_definition = \"relative\" time_step=\"0.05\">\n\t\t\t<points>"
+#define fileCloser "\n\t\t\t</points>\n\t\t</quintic_spline_trajectory>\n\t</joint_trajectories>\n</trajectories>"
+#define openPoint "\n\t\t\t\t<point"
+#define closePoint "\n\t\t\t\t</point>"
+#define qDot "\n\t\t\t\t\t<q_dot>0.0 0.0 0.0 0.0 0.0 0.0</q_dot>\n\t\t\t\t\t<q_ddot>0.0 0.0 0.0 0.0 0.0 0.0</q_ddot>"
+
+
 
 Model::Model()
 {
@@ -39,6 +48,14 @@ bool Model::deleteCurrentIdex()
     if(currentPoint==0) return false;
     coordinateList.erase(coordinateList.begin() + currentPoint);
     currentPoint-=1;
+    return true;
+}
+
+bool Model::emptyWorkingPoints()
+{
+    int N= coordinateList.size();
+    coordinateList.erase(coordinateList.begin()+1, coordinateList.begin() +N);
+    currentPoint=0;
     return true;
 }
 
@@ -103,4 +120,45 @@ int Model::getSelectedIndex()
 coordinate Model::getSelectedCoordinate()
 {
     return coordinateList[currentPoint];
+}
+
+void Model::writeToFile(QString fileName){
+    int count, temp;
+    double a,b,c, yaw, pitch, roll, t;
+    if(fileName==NULL){
+        fileName=trajDir;
+    }
+    QFile outputFile(fileName);
+    outputFile.open((QIODevice::WriteOnly | QIODevice::Text));
+    QTextStream out(&outputFile);
+    out<<fileHeader;
+    temp=coordinateList.size();
+    for( count=0; count<temp; count++){
+        a=coordinateList[count].x/1000;
+        b=coordinateList[count].y/1000;
+        c=coordinateList[count].z/1000;
+        yaw=coordinateList[count].yaw;
+        pitch=coordinateList[count].pitch;
+        roll=coordinateList[count].roll;
+        t=coordinateList[count].time;
+        QString coor = "\n\t\t\t\t\t<q>"
+                + QString::number(a) + " "
+                + QString::number(b) + " "
+                + QString::number(c) + " "
+                + QString::number(yaw) + " "
+                + QString::number(pitch) + " "
+                + QString::number(roll)+
+                "</q>";
+        if(count==0){
+            out<<openPoint<<">"<<coor<<qDot<<closePoint;
+        }
+        else{
+            out<<openPoint<<" time=\""<<QString::number(t)<<".0\">"<<coor<<qDot<<closePoint;
+        }
+
+    }
+    out<<fileCloser;
+    outputFile.close();
+    return;
+
 }

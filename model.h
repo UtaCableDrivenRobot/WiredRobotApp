@@ -4,7 +4,7 @@
 #include <fstream>
 #include <iterator>
 #include <vector>
-
+#include <QString>
 
 class Model
 {
@@ -18,6 +18,8 @@ public:
     void writeData(double x, double y, double z, double yaw, double pitch, double roll,double time);
     coordinate getSelectedCoordinate();
     bool deleteCurrentIdex();
+    bool emptyWorkingPoints();
+    void writeToFile(QString fileName);
 
     const double ROBOT_WIDTH = 2000;
     const double ROBOT_DEPTH = 2000;

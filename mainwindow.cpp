@@ -225,12 +225,7 @@ void MainWindow::on_actionSave_As_triggered()
 {
     //get file dir/name
     QString fileName = QFileDialog::getSaveFileName(this,
-<<<<<<< HEAD
-                tr("Save Trajectory"), "/home", tr("XML Files (*.XML)"));
-=======
                 tr("Save Trajectory"), "/home/untitled.txt", tr("XML Files (*.XML);; Text files (*.txt)"));
-    qDebug()<<"testS";
->>>>>>> fa6904835af57708e39a784b30435257534815f5
     myModel.writeToFile(fileName);
     return;
 

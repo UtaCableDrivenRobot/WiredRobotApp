@@ -101,7 +101,7 @@
               <item row="3" column="0">
                <widget class="QLabel" name="timeSecondsLabel">
                 <property name="text">
-                 <string>Time(Seconds)</string>
+                 <string>Time(Seconds):</string>
                 </property>
                </widget>
               </item>
@@ -183,14 +183,8 @@
          </layout>
         </item>
         <item>
-         <widget class="QOpenGLWidget" name="openGLVideo">
+         <widget class="GLWidget" name="glWidget" native="true">
           <property name="minimumSize">
-           <size>
-            <width>400</width>
-            <height>300</height>
-           </size>
-          </property>
-          <property name="maximumSize">
            <size>
             <width>400</width>
             <height>300</height>
@@ -318,6 +312,14 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>GLWidget</class>
+   <extends>QWidget</extends>
+   <header>glwidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>xLineEdit</tabstop>
   <tabstop>yLineEdit</tabstop>

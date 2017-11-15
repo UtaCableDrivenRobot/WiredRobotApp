@@ -216,6 +216,7 @@ Makefile: ..\WiredRobotApp.pro C:\Qt\Qt5.6.3\5.6.3\msvc2015_64\mkspecs\win32-msv
 		C:\Qt\Qt5.6.3\5.6.3\msvc2015_64\mkspecs\features\lex.prf \
 		..\WiredRobotApp.pro \
 		C:\Qt\Qt5.6.3\5.6.3\msvc2015_64\lib\qtmaind.prl \
+		C:\Qt\Qt5.6.3\5.6.3\msvc2015_64\lib\Qt5OpenGL.prl \
 		C:\Qt\Qt5.6.3\5.6.3\msvc2015_64\lib\Qt5Widgets.prl \
 		C:\Qt\Qt5.6.3\5.6.3\msvc2015_64\lib\Qt5Gui.prl \
 		C:\Qt\Qt5.6.3\5.6.3\msvc2015_64\lib\Qt5Core.prl
@@ -363,6 +364,7 @@ C:\Qt\Qt5.6.3\5.6.3\msvc2015_64\mkspecs\features\yacc.prf:
 C:\Qt\Qt5.6.3\5.6.3\msvc2015_64\mkspecs\features\lex.prf:
 ..\WiredRobotApp.pro:
 C:\Qt\Qt5.6.3\5.6.3\msvc2015_64\lib\qtmaind.prl:
+C:\Qt\Qt5.6.3\5.6.3\msvc2015_64\lib\Qt5OpenGL.prl:
 C:\Qt\Qt5.6.3\5.6.3\msvc2015_64\lib\Qt5Widgets.prl:
 C:\Qt\Qt5.6.3\5.6.3\msvc2015_64\lib\Qt5Gui.prl:
 C:\Qt\Qt5.6.3\5.6.3\msvc2015_64\lib\Qt5Core.prl:

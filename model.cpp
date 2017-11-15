@@ -48,6 +48,7 @@ bool Model::deleteCurrentIdex()
     if(currentPoint==0) return false;
     coordinateList.erase(coordinateList.begin() + currentPoint);
     currentPoint-=1;
+    return true;
 }
 
 bool Model::emptyWorkingPoints()

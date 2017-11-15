@@ -22,13 +22,13 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
-#include <QtWidgets/QOpenGLWidget>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include "glwidget.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -66,7 +66,7 @@ public:
     QPushButton *insertNextBtn;
     QPushButton *pushToEndBtn;
     QSpacerItem *verticalSpacer;
-    QOpenGLWidget *openGLVideo;
+    GLWidget *glWidget;
     QHBoxLayout *bottom_Area;
     QComboBox *comboBox;
     QLabel *currentX;
@@ -235,12 +235,11 @@ public:
 
         top_Area->addLayout(modelAdder);
 
-        openGLVideo = new QOpenGLWidget(centralWidget);
-        openGLVideo->setObjectName(QStringLiteral("openGLVideo"));
-        openGLVideo->setMinimumSize(QSize(400, 300));
-        openGLVideo->setMaximumSize(QSize(400, 300));
+        glWidget = new GLWidget(centralWidget);
+        glWidget->setObjectName(QStringLiteral("glWidget"));
+        glWidget->setMinimumSize(QSize(400, 300));
 
-        top_Area->addWidget(openGLVideo);
+        top_Area->addWidget(glWidget);
 
 
         verticalLayout->addLayout(top_Area);
@@ -347,7 +346,7 @@ public:
         yawLabel->setText(QApplication::translate("MainWindow", "Yaw:", Q_NULLPTR));
         rollLabel->setText(QApplication::translate("MainWindow", "Roll:", Q_NULLPTR));
         pitchLabel->setText(QApplication::translate("MainWindow", "Pitch:", Q_NULLPTR));
-        timeSecondsLabel->setText(QApplication::translate("MainWindow", "Time(Seconds)", Q_NULLPTR));
+        timeSecondsLabel->setText(QApplication::translate("MainWindow", "Time(Seconds):", Q_NULLPTR));
         insertNextBtn->setText(QApplication::translate("MainWindow", "Insert Next", Q_NULLPTR));
         pushToEndBtn->setText(QApplication::translate("MainWindow", "Push To End", Q_NULLPTR));
         currentX->setText(QApplication::translate("MainWindow", "X: {current.x}", Q_NULLPTR));

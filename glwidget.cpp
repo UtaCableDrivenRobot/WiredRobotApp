@@ -30,9 +30,9 @@ void GLWidget::paintGL()
     // setting up camera
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    // glOrtho(-1,1,-1,1,1,30);
+    //glOrtho(-1,1,-1,1,1,500);
     glFrustum(-1,1,-1,1,1,5000);
-    gluLookAt(2500,3000,3000,0,0,0,0,1,0);
+    gluLookAt(1700,1500,3000,1000,1000,1000,0,1,0);
 
     // drawing stuff
     glMatrixMode(GL_MODELVIEW);
@@ -101,7 +101,7 @@ void GLWidget::createRobotFrame()
     float zMax = myModel->FRAME_LENGTH/2;
     float zMin = -1*zMax;
     glNewList(2,GL_COMPILE);
-    drawBox(1,1,1,-2,-2,-2);
+    // drawBox(1,1,1,-2,-2,-2);
 
     for(frame frameItem : robotFrame)
     {
@@ -113,6 +113,7 @@ void GLWidget::createRobotFrame()
 
 void GLWidget::drawBox(float x1, float y1,float z1, float x2, float y2, float z2)
 {
+    float color = 0;
     //Boxes have 8 points
     //      6-------7
     //    / |      /|
@@ -135,31 +136,37 @@ void GLWidget::drawBox(float x1, float y1,float z1, float x2, float y2, float z2
     //6 faces
     glBegin(GL_QUADS);
     //Top Face
+    glColor3f(1,0,0);
     glVertex3f(p2[0],p2[1],p2[2]);
     glVertex3f(p3[0],p3[1],p3[2]);
     glVertex3f(p7[0],p7[1],p7[2]);
     glVertex3f(p6[0],p6[1],p6[2]);
     //Left Face
+    glColor3f(0,1,0);
     glVertex3f(p2[0],p2[1],p2[2]);
     glVertex3f(p6[0],p6[1],p6[2]);
     glVertex3f(p5[0],p5[1],p5[2]);
     glVertex3f(p1[0],p1[1],p1[2]);
     //Back
+    glColor3f(0,0,1);
     glVertex3f(p6[0],p6[1],p6[2]);
     glVertex3f(p7[0],p7[1],p7[2]);
     glVertex3f(p8[0],p8[1],p8[2]);
     glVertex3f(p5[0],p5[1],p5[2]);
     //Right
+    glColor3f(1,1,0);
     glVertex3f(p3[0],p3[1],p3[2]);
     glVertex3f(p7[0],p7[1],p7[2]);
     glVertex3f(p8[0],p8[1],p8[2]);
     glVertex3f(p4[0],p4[1],p4[2]);
     //Near
+    glColor3f(0,1,1);
     glVertex3f(p3[0],p3[1],p3[2]);
     glVertex3f(p4[0],p4[1],p4[2]);
     glVertex3f(p1[0],p1[1],p1[2]);
     glVertex3f(p2[0],p2[1],p2[2]);
     //Bottom
+    glColor3f(1,1,1);
     glVertex3f(p1[0],p1[1],p1[2]);
     glVertex3f(p5[0],p5[1],p5[2]);
     glVertex3f(p8[0],p8[1],p8[2]);

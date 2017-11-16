@@ -171,6 +171,7 @@ std::vector<frame> Model::getFrame()
 
 std::vector<frame> Model::makeFrame()
 {
+    // https://puu.sh/ymSp4/85b41d2c20.png
     frame frame1(glm::vec3(ROBOT_FRAME_SIZE,0.0,0.0),glm::vec3(ROBOT_FRAME_SIZE+FRAME_LENGTH,ROBOT_FRAME_SIZE,ROBOT_FRAME_SIZE));
     frame frame2(glm::vec3(FRAME_LENGTH,0.0,ROBOT_FRAME_SIZE),glm::vec3(ROBOT_FRAME_SIZE+FRAME_LENGTH,ROBOT_FRAME_SIZE,ROBOT_FRAME_SIZE+FRAME_LENGTH));
     frame frame3(glm::vec3(FRAME_LENGTH,0.0,FRAME_LENGTH),glm::vec3(0.0,ROBOT_FRAME_SIZE,FRAME_LENGTH+ROBOT_FRAME_SIZE));

@@ -24,7 +24,7 @@ public:
     std::vector<frame> getFrame();
 
     const float FRAME_LENGTH = 2000;
-    const float ROBOT_HEIGHT = 2100; // TODO: Measure this out
+    const float ROBOT_HEIGHT = 2000; // TODO: Measure this out
     const float ROBOT_FRAME_SIZE = 20;
 
 

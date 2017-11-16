@@ -22,14 +22,13 @@ Model::Model()
     firstPoint.roll = 0;
     firstPoint.time = 0;
     coordinateList.push_back(firstPoint);
-    glm::vec3 myVector3(-5,-1,-1);
-    qDebug()<<myVector3[0];
+    robotFrame = makeFrame();
 }
 
 
 // Inserts new point at the end off the list
 // Returns false if the point couldn't be added
-bool Model::pushNewPoint(double x, double y, double z, double yaw, double pitch, double roll, double time)
+bool Model::pushNewPoint(float x, float y, float z, float yaw, float pitch, float roll, float time)
 {
     // Push point on end
     // Change current point to the last one and then insert
@@ -65,7 +64,7 @@ bool Model::emptyWorkingPoints()
 
 // Inserts new point after the current position
 // Returns false if the point couldn't be added
-bool Model::insertNewPoint(double x, double y, double z, double yaw, double pitch, double roll,double time)
+bool Model::insertNewPoint(float x, float y, float z, float yaw, float pitch, float roll,float time)
 {
     if(!isPointValid(x,y,z,yaw,pitch,roll))
     {
@@ -84,7 +83,7 @@ bool Model::insertNewPoint(double x, double y, double z, double yaw, double pitc
     return true;
 }
 
-void writeData(double x, double y, double z, double yaw, double pitch, double roll,double time)
+void writeData(float x, float y, float z, float yaw, float pitch, float roll,float time)
 {
     std::ofstream output_file("./example.txt");
 
@@ -92,7 +91,7 @@ void writeData(double x, double y, double z, double yaw, double pitch, double ro
 }
 
 // Returns if the point being added is within the bounds of the robot
-bool Model::isPointValid(double x, double y, double z,double yaw,double pitch,double roll)
+bool Model::isPointValid(float x, float y, float z,float yaw,float pitch,float roll)
 {
     if(x>ROBOT_X_MAX || x<ROBOT_X_MIN) return false;
     if(y>ROBOT_Y_MAX || y<ROBOT_Y_MIN) return false;
@@ -127,7 +126,7 @@ coordinate Model::getSelectedCoordinate()
 
 void Model::writeToFile(QString fileName){
     int count, temp;
-    double a,b,c, yaw, pitch, roll, t;
+    float a,b,c, yaw, pitch, roll, t;
     if(fileName==NULL){
         fileName=trajDir;
     }
@@ -164,4 +163,38 @@ void Model::writeToFile(QString fileName){
     outputFile.close();
     return;
 
+}
+std::vector<frame> Model::getFrame()
+{
+    return robotFrame;
+}
+
+std::vector<frame> Model::makeFrame()
+{
+    frame frame1(glm::vec3(ROBOT_FRAME_SIZE,0.0,0.0),glm::vec3(ROBOT_FRAME_SIZE+FRAME_LENGTH,ROBOT_FRAME_SIZE,ROBOT_FRAME_SIZE));
+    frame frame2(glm::vec3(FRAME_LENGTH,0.0,ROBOT_FRAME_SIZE),glm::vec3(ROBOT_FRAME_SIZE+FRAME_LENGTH,ROBOT_FRAME_SIZE,ROBOT_FRAME_SIZE+FRAME_LENGTH));
+    frame frame3(glm::vec3(FRAME_LENGTH,0.0,FRAME_LENGTH),glm::vec3(0.0,ROBOT_FRAME_SIZE,FRAME_LENGTH+ROBOT_FRAME_SIZE));
+    frame frame4(glm::vec3(ROBOT_FRAME_SIZE,0.0,FRAME_LENGTH),glm::vec3(0.0,ROBOT_FRAME_SIZE,0.0));
+    frame frame5(glm::vec3(0.0,ROBOT_FRAME_SIZE,0.0),glm::vec3(ROBOT_FRAME_SIZE,ROBOT_FRAME_SIZE+ROBOT_HEIGHT,ROBOT_FRAME_SIZE));
+    frame frame6(glm::vec3(FRAME_LENGTH,ROBOT_FRAME_SIZE,0.0),glm::vec3(FRAME_LENGTH+ROBOT_FRAME_SIZE,ROBOT_FRAME_SIZE+ROBOT_HEIGHT,ROBOT_FRAME_SIZE));
+    frame frame7(glm::vec3(FRAME_LENGTH,ROBOT_FRAME_SIZE,FRAME_LENGTH),glm::vec3(FRAME_LENGTH+ROBOT_FRAME_SIZE,ROBOT_FRAME_SIZE+ROBOT_HEIGHT,ROBOT_FRAME_SIZE+ROBOT_HEIGHT));
+    frame frame8(glm::vec3(0.0,ROBOT_FRAME_SIZE,FRAME_LENGTH),glm::vec3(ROBOT_FRAME_SIZE,ROBOT_FRAME_SIZE+ROBOT_HEIGHT,ROBOT_FRAME_SIZE+ROBOT_HEIGHT));
+    frame frame9(glm::vec3(ROBOT_FRAME_SIZE,ROBOT_FRAME_SIZE+ROBOT_HEIGHT,0.0),glm::vec3(ROBOT_FRAME_SIZE+FRAME_LENGTH,ROBOT_FRAME_SIZE+ROBOT_FRAME_SIZE+ROBOT_HEIGHT,ROBOT_FRAME_SIZE));
+    frame frame10(glm::vec3(FRAME_LENGTH,ROBOT_FRAME_SIZE+ROBOT_HEIGHT,ROBOT_FRAME_SIZE),glm::vec3(ROBOT_FRAME_SIZE+FRAME_LENGTH,ROBOT_FRAME_SIZE+ROBOT_FRAME_SIZE+ROBOT_HEIGHT,ROBOT_FRAME_SIZE+FRAME_LENGTH));
+    frame frame11(glm::vec3(FRAME_LENGTH,ROBOT_FRAME_SIZE+ROBOT_HEIGHT,FRAME_LENGTH),glm::vec3(0.0,ROBOT_FRAME_SIZE+ROBOT_FRAME_SIZE+ROBOT_HEIGHT,FRAME_LENGTH+ROBOT_FRAME_SIZE));
+    frame frame12(glm::vec3(ROBOT_FRAME_SIZE,ROBOT_FRAME_SIZE+ROBOT_HEIGHT,FRAME_LENGTH),glm::vec3(0.0,ROBOT_FRAME_SIZE+ROBOT_FRAME_SIZE+ROBOT_HEIGHT,0.0));
+    std::vector<frame> frameParts;
+    frameParts.push_back(frame1);
+    frameParts.push_back(frame2);
+    frameParts.push_back(frame3);
+    frameParts.push_back(frame4);
+    frameParts.push_back(frame5);
+    frameParts.push_back(frame6);
+    frameParts.push_back(frame7);
+    frameParts.push_back(frame8);
+    frameParts.push_back(frame9);
+    frameParts.push_back(frame10);
+    frameParts.push_back(frame11);
+    frameParts.push_back(frame12);
+    return frameParts;
 }

@@ -21,7 +21,8 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h \
     model.h \
     coordinatestruct.h \
-    glwidget.h
+    glwidget.h \
+    framestruct.h
 
 FORMS    += mainwindow.ui
 

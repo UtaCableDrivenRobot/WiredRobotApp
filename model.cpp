@@ -1,6 +1,7 @@
 #include "model.h"
 #include <QtDebug>
 #include <QFile>
+#include <glm/vec3.hpp>
 #define trajDir "C:\\Users\\Martin\\Downloads\\CASPR-master\\CASPR-master\\data\\model_config\\models\\SCDM\\spatial_manipulators\\PoCaBot_spatial\\PoCaBot_spatial_trajectories.xml"
 #define fileHeader "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<!DOCTYPE trajectories SYSTEM \"../../../../templates/trajectories.dtd\">\n<trajectories>\n\t<joint_trajectories>\n\t\t<quintic_spline_trajectory id=\"traj_1\" time_definition = \"relative\" time_step=\"0.05\">\n\t\t\t<points>"
 #define fileCloser "\n\t\t\t</points>\n\t\t</quintic_spline_trajectory>\n\t</joint_trajectories>\n</trajectories>"
@@ -21,6 +22,8 @@ Model::Model()
     firstPoint.roll = 0;
     firstPoint.time = 0;
     coordinateList.push_back(firstPoint);
+    glm::vec3 myVector3(-5,-1,-1);
+    qDebug()<<myVector3[0];
 }
 
 

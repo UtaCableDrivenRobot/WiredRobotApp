@@ -2,13 +2,13 @@
 #define COORDINATESTRUCT_H
 
 struct coordinate{
-    double x;
-    double y;
-    double z;
-    double yaw;
-    double pitch;
-    double roll;
-    double time;
+    float x;
+    float y;
+    float z;
+    float yaw;
+    float pitch;
+    float roll;
+    float time;
 };
 
 #endif // COORDINATESTRUCT_H

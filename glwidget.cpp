@@ -9,6 +9,9 @@ GLWidget::GLWidget(QWidget *parent) :
     timer.start(16);
 }
 
+
+
+
 void GLWidget::initializeGL()
 {
     glClearColor(0.2f,0.2f,0.2f,1.0f);
@@ -28,8 +31,8 @@ void GLWidget::paintGL()
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     // glOrtho(-1,1,-1,1,1,30);
-    glFrustum(-1,1,-1,1,1,30);
-    gluLookAt(5,5,5,0,0,0,0,1,0);
+    glFrustum(-1,1,-1,1,1,5000);
+    gluLookAt(2500,3000,3000,0,0,0,0,1,0);
 
     // drawing stuff
     glMatrixMode(GL_MODELVIEW);
@@ -62,6 +65,8 @@ void GLWidget::resizeGL(int w, int h)
 void GLWidget::setModel(Model* newModel)
 {
     myModel = newModel;
+    robotFrame = myModel->getFrame();
+
 }
 
 
@@ -95,9 +100,13 @@ void GLWidget::createRobotFrame()
     float xMin = -1*xMax;
     float zMax = myModel->FRAME_LENGTH/2;
     float zMin = -1*zMax;
-    float frame = myModel->ROBOT_FRAME_SIZE;
     glNewList(2,GL_COMPILE);
     drawBox(1,1,1,-2,-2,-2);
+
+    for(frame frameItem : robotFrame)
+    {
+        drawBox(frameItem.point1[0],frameItem.point1[1],frameItem.point1[2],frameItem.point2[0],frameItem.point2[1],frameItem.point2[2]);
+    }
     glEndList();
 
 }

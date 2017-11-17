@@ -2,6 +2,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/vec4.hpp> // glm::vec4
 #include <glm/mat4x4.hpp> // glm::mat4
+#include <QtDebug>
 EndEffector::EndEffector()
 {
     initializePoints();
@@ -67,7 +68,11 @@ void EndEffector::translatePosition(float xAmount, float yAmount, float zAmount,
 
     for(unsigned int i = 0; i < sizeof(points)/sizeof(points[0]); i = i + 1)
     {
-        glm::vec4 currPoint(points[i][0],points[i][1],points[i][2],0);
-        points[i] =fullChange *  currPoint;
+        glm::vec4 currPoint(points[i][0],points[i][1],points[i][2],1);
+        currPoint = fullChange *  currPoint;
+        glm::vec3 newPoint(currPoint[0],currPoint[1],currPoint[2]);
+
+        points[i] = newPoint;
     }
+    qDebug()<< points[0][0];
 }

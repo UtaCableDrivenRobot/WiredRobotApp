@@ -23,7 +23,6 @@ void GLWidget::initializeGL()
     glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
     createAxisPaint();
     createRobotFrame();
-    createRobotEndEffector();
 }
 
 void GLWidget::paintGL()
@@ -53,7 +52,7 @@ void GLWidget::paintGL()
     */
     glPushMatrix();
     glLoadIdentity();
-    glCallList(3) ;
+    paintRobotEndEffector();
     glPopMatrix();
 
 
@@ -79,9 +78,8 @@ void GLWidget::setModel(Model* newModel)
 
 }
 
-void GLWidget::createRobotEndEffector()
+void GLWidget::paintRobotEndEffector()
 {
-    glNewList(3,GL_COMPILE);
     glm::vec3 p1(endEffector->points[0]);
     glm::vec3 p2(endEffector->points[1]);
     glm::vec3 p3(endEffector->points[2]);
@@ -90,7 +88,6 @@ void GLWidget::createRobotEndEffector()
     glm::vec3 p6(endEffector->points[5]);
     glm::vec3 p7(endEffector->points[6]);
     glm::vec3 p8(endEffector->points[7]);
-    glBegin(GL_QUADS);
     //Boxes have 8 points
     //      6-------7
     //    / |      /|
@@ -146,7 +143,6 @@ void GLWidget::createRobotEndEffector()
 
 
     glEnd();
-    glEndList();
 }
 
 // Draws X Y Z lines
@@ -247,11 +243,6 @@ void GLWidget::drawBox(float x1, float y1,float z1, float x2, float y2, float z2
 
     glEnd();
 
-
-}
-
-void GLWidget::drawBox(EndEffector endEffector)
-{
 
 }
 

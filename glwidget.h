@@ -7,15 +7,15 @@
 #include <GL/glu.h>
 #include <vector>
 #include "endeffector.h"
+#include <glm/vec3.hpp>
 
 class GLWidget : public QGLWidget
 {
 public:
     explicit GLWidget(QWidget *parent=0);
-
     void initializeGL();
     void paintGL();
-    void resizeGL(int w, int h);
+    void resizeGL(int w, int);
     void setModel(Model* newModel);
 private:
     QTimer timer;
@@ -24,7 +24,7 @@ private:
     void createAxisPaint();
     void createRobotFrame();
     void paintRobotEndEffector();
-    void drawBox(float x1, float y1,float z1, float x2, float y2, float z2);
+    void drawBox(glm::vec3 p1, glm::vec3 p2, glm::vec3 p3, glm::vec3 p4, glm::vec3 p5, glm::vec3 p6, glm::vec3 p7, glm::vec3 p8 );
     void drawBox(EndEffector endEffector);
     std::vector<frame> robotFrame;
 };

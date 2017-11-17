@@ -48,8 +48,6 @@ void EndEffector::translatePosition(float xAmount, float yAmount, float zAmount,
     // https://puu.sh/ynB1D/e552da43e3.png
     // Model = glm::rotate(Model, angle_in_degrees, glm::vec3(x, y, z)); // where x, y, z is axis of rotation (e.g. 0 1 0)
     glm::mat4 rollMatrix;
-    qDebug()<<"ROLL";
-    qDebug()<<rollMatrix[0][0];
     rollMatrix = glm::rotate(rollMatrix,glm::radians(rollAngle),rollVector);
     pitchVector4 =rollMatrix * pitchVector4;
     yawVector4 =rollMatrix * yawVector4;
@@ -65,13 +63,7 @@ void EndEffector::translatePosition(float xAmount, float yAmount, float zAmount,
 
 
     glm::mat4 translateMatrix;
-    qDebug() << "before";
-    qDebug() <<QString::fromStdString(glm::to_string(translateMatrix));
-    qDebug() <<QString::fromStdString(glm::to_string(translateVector));
     translateMatrix = glm::translate(translateMatrix,translateVector);
-    qDebug() << "after";
-    qDebug() <<QString::fromStdString(glm::to_string(translateMatrix));
-    qDebug() <<QString::fromStdString(glm::to_string(translateVector));
 
     glm::mat4 fullChange = translateMatrix * yawMatrix * pitchMatrix * rollMatrix;
 

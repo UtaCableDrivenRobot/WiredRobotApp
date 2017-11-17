@@ -6,6 +6,7 @@
 #include <vector>
 #include <QString>
 #include "framestruct.h"
+#include "endeffector.h"
 
 class Model
 {
@@ -16,8 +17,11 @@ public:
     bool insertNewPoint(float x, float y, float z, float yaw, float pitch, float roll,float time);
     int getSelectedIndex();
     int getDataAmount();
-    void writeData(float x, float y, float z, float yaw, float pitch, float roll,float time);
     coordinate getSelectedCoordinate();
+    EndEffector* getEndEffector();
+
+    void writeData(float x, float y, float z, float yaw, float pitch, float roll,float time);
+
     bool deleteCurrentIdex();
     bool emptyWorkingPoints();
     void writeToFile(QString fileName);
@@ -34,6 +38,7 @@ private:
     int currentPoint = 0;
     std::vector<frame> makeFrame();
     std::vector<frame> robotFrame;
+    EndEffector myEndEffector;
 
     const float ROBOT_AREA_INFILL = 0.8;
     const float ROBOT_X_MIN = (1-ROBOT_AREA_INFILL)/2*FRAME_LENGTH;

@@ -6,6 +6,7 @@
 #include "framestruct.h"
 #include <GL/glu.h>
 #include <vector>
+#include "endeffector.h"
 
 class GLWidget : public QGLWidget
 {
@@ -19,9 +20,11 @@ public:
 private:
     QTimer timer;
     Model* myModel;
+    EndEffector* endEffector;
     void createAxisPaint();
     void createRobotFrame();
     void drawBox(float x1, float y1,float z1, float x2, float y2, float z2);
+    void drawBox(EndEffector endEffector);
     std::vector<frame> robotFrame;
 };
 

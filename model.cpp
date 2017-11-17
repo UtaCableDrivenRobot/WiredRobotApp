@@ -199,3 +199,8 @@ std::vector<frame> Model::makeFrame()
     frameParts.push_back(frame12);
     return frameParts;
 }
+
+EndEffector *Model::getEndEffector()
+{
+    return &myEndEffector;
+}

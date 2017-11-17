@@ -1,6 +1,7 @@
 #include "glwidget.h"
 #include <QtDebug>
 
+
 GLWidget::GLWidget(QWidget *parent) :
     QGLWidget(parent)
 {
@@ -66,6 +67,7 @@ void GLWidget::setModel(Model* newModel)
 {
     myModel = newModel;
     robotFrame = myModel->getFrame();
+    endEffector = myModel->getEndEffector();
 
 }
 
@@ -174,6 +176,11 @@ void GLWidget::drawBox(float x1, float y1,float z1, float x2, float y2, float z2
 
     glEnd();
 
+
+}
+
+void GLWidget::drawBox(EndEffector endEffector)
+{
 
 }
 

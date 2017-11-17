@@ -113,7 +113,6 @@ void MainWindow::on_comboBox_currentIndexChanged(int index)
 {
     if(index==-1)return;
     myModel.setCurrentPoint(index);
-    qDebug() << index;
     updateBottomData();
 }
 
@@ -141,7 +140,6 @@ coordinate* MainWindow::getCoordinateField()
     newPoint->time = ui->timeSecondsLineEdit->text().toDouble(&timeOk);
     if(!(xOk && yOk && zOk && yawOk && pitchOk && rollOk && timeOk))
     {
-        qDebug() << "didn't clear ok logic";
         delete newPoint;
         return NULL;
     }

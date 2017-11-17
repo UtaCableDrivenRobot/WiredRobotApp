@@ -5,7 +5,6 @@
 GLWidget::GLWidget(QWidget *parent) :
     QGLWidget(parent)
 {
-    qDebug() <<"parent called";
     connect(&timer,SIGNAL(timeout()),this,SLOT(updateGL()));
     timer.start(16);
 }
@@ -33,8 +32,8 @@ void GLWidget::paintGL()
     glLoadIdentity();
     //glOrtho(-1,1,-1,1,1,500);
     glFrustum(-1,1,-1,1,1,5000);
-    //gluLookAt(1700,1500,3000,1000,1000,1000,0,1,0);
-    gluLookAt(250,100,250,0,0,0,0,1,0);
+    gluLookAt(1700,1500,3000,1000,1000,1000,0,1,0);
+    //gluLookAt(250,100,250,0,0,0,0,1,0);
 
     // drawing stuff
     glMatrixMode(GL_MODELVIEW);
@@ -44,12 +43,12 @@ void GLWidget::paintGL()
     glLoadIdentity();
     glCallList(1) ;
     glPopMatrix();
-    /*
+
     glPushMatrix();
     glLoadIdentity();
     glCallList(2) ;
     glPopMatrix();
-    */
+
     glPushMatrix();
     glLoadIdentity();
     paintRobotEndEffector();

@@ -16,13 +16,15 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     model.cpp \
-    glwidget.cpp
+    glwidget.cpp \
+    endeffector.cpp
 
 HEADERS  += mainwindow.h \
     model.h \
     coordinatestruct.h \
     glwidget.h \
-    framestruct.h
+    framestruct.h \
+    endeffector.h
 
 FORMS    += mainwindow.ui
 

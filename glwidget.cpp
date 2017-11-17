@@ -1,10 +1,10 @@
 #include "glwidget.h"
 #include <QtDebug>
 
+
 GLWidget::GLWidget(QWidget *parent) :
     QGLWidget(parent)
 {
-    qDebug() <<"parent called";
     connect(&timer,SIGNAL(timeout()),this,SLOT(updateGL()));
     timer.start(16);
 }
@@ -33,6 +33,7 @@ void GLWidget::paintGL()
     //glOrtho(-1,1,-1,1,1,500);
     glFrustum(-1,1,-1,1,1,5000);
     gluLookAt(1700,1500,3000,1000,1000,1000,0,1,0);
+    //gluLookAt(250,100,250,0,0,0,0,1,0);
 
     // drawing stuff
     glMatrixMode(GL_MODELVIEW);
@@ -42,9 +43,15 @@ void GLWidget::paintGL()
     glLoadIdentity();
     glCallList(1) ;
     glPopMatrix();
+
     glPushMatrix();
     glLoadIdentity();
     glCallList(2) ;
+    glPopMatrix();
+
+    glPushMatrix();
+    glLoadIdentity();
+    paintRobotEndEffector();
     glPopMatrix();
 
 
@@ -66,9 +73,76 @@ void GLWidget::setModel(Model* newModel)
 {
     myModel = newModel;
     robotFrame = myModel->getFrame();
+    endEffector = myModel->getEndEffector();
 
 }
 
+void GLWidget::paintRobotEndEffector()
+{
+    glm::vec3 p1(endEffector->points[0]);
+    glm::vec3 p2(endEffector->points[1]);
+    glm::vec3 p3(endEffector->points[2]);
+    glm::vec3 p4(endEffector->points[3]);
+    glm::vec3 p5(endEffector->points[4]);
+    glm::vec3 p6(endEffector->points[5]);
+    glm::vec3 p7(endEffector->points[6]);
+    glm::vec3 p8(endEffector->points[7]);
+    //Boxes have 8 points
+    //      6-------7
+    //    / |      /|
+    //   /  |     / |
+    //  2___|____3  |
+    //  |   |    |  |
+    //  |   |    |  |
+    //  |   | ___|_8
+    //  | /5     |
+    //  1________4/
+    //
+    //6 faces
+    glBegin(GL_QUADS);
+    //Top Face
+    glColor3f(1,0,0);
+    glVertex3f(p2[0],p2[1],p2[2]);
+    glVertex3f(p3[0],p3[1],p3[2]);
+    glVertex3f(p7[0],p7[1],p7[2]);
+    glVertex3f(p6[0],p6[1],p6[2]);
+    //Left Face
+    glColor3f(0,1,0);
+    glVertex3f(p2[0],p2[1],p2[2]);
+    glVertex3f(p6[0],p6[1],p6[2]);
+    glVertex3f(p5[0],p5[1],p5[2]);
+    glVertex3f(p1[0],p1[1],p1[2]);
+    //Back
+    glColor3f(0,0,1);
+    glVertex3f(p6[0],p6[1],p6[2]);
+    glVertex3f(p7[0],p7[1],p7[2]);
+    glVertex3f(p8[0],p8[1],p8[2]);
+    glVertex3f(p5[0],p5[1],p5[2]);
+    //Right
+    glColor3f(1,1,0);
+    glVertex3f(p3[0],p3[1],p3[2]);
+    glVertex3f(p7[0],p7[1],p7[2]);
+    glVertex3f(p8[0],p8[1],p8[2]);
+    glVertex3f(p4[0],p4[1],p4[2]);
+    //Near
+    glColor3f(0,1,1);
+    glVertex3f(p3[0],p3[1],p3[2]);
+    glVertex3f(p4[0],p4[1],p4[2]);
+    glVertex3f(p1[0],p1[1],p1[2]);
+    glVertex3f(p2[0],p2[1],p2[2]);
+    //Bottom
+    glColor3f(1,1,1);
+    glVertex3f(p1[0],p1[1],p1[2]);
+    glVertex3f(p5[0],p5[1],p5[2]);
+    glVertex3f(p8[0],p8[1],p8[2]);
+    glVertex3f(p4[0],p4[1],p4[2]);
+
+
+
+
+
+    glEnd();
+}
 
 // Draws X Y Z lines
 void GLWidget::createAxisPaint()
@@ -77,32 +151,26 @@ void GLWidget::createAxisPaint()
     glBegin(GL_LINES);
     glColor3f(1,0,0);
     glVertex3f(0,0,0);
-    glVertex3f(2,0,0);
+    glVertex3f(300,0,0);
     glEnd();
 
     glBegin(GL_LINES);
     glColor3f(0,1,0);
     glVertex3f(0,0,0);
-    glVertex3f(0,2,0);
+    glVertex3f(0,300,0);
     glEnd();
 
     glBegin(GL_LINES);
     glColor3f(0,0,1);
     glVertex3f(0,0,0);
-    glVertex3f(0,0,2);
+    glVertex3f(0,0,300);
     glEnd();
     glEndList();
 }
 
 void GLWidget::createRobotFrame()
 {
-    float xMax = myModel->FRAME_LENGTH/2;
-    float xMin = -1*xMax;
-    float zMax = myModel->FRAME_LENGTH/2;
-    float zMin = -1*zMax;
     glNewList(2,GL_COMPILE);
-    // drawBox(1,1,1,-2,-2,-2);
-
     for(frame frameItem : robotFrame)
     {
         drawBox(frameItem.point1[0],frameItem.point1[1],frameItem.point1[2],frameItem.point2[0],frameItem.point2[1],frameItem.point2[2]);

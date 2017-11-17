@@ -98,13 +98,7 @@ void GLWidget::createAxisPaint()
 
 void GLWidget::createRobotFrame()
 {
-    float xMax = myModel->FRAME_LENGTH/2;
-    float xMin = -1*xMax;
-    float zMax = myModel->FRAME_LENGTH/2;
-    float zMin = -1*zMax;
     glNewList(2,GL_COMPILE);
-    // drawBox(1,1,1,-2,-2,-2);
-
     for(frame frameItem : robotFrame)
     {
         drawBox(frameItem.point1[0],frameItem.point1[1],frameItem.point1[2],frameItem.point2[0],frameItem.point2[1],frameItem.point2[2]);

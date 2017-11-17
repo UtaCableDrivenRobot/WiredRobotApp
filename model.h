@@ -39,7 +39,7 @@ private:
     std::vector<frame> makeFrame();
     std::vector<frame> robotFrame;
     EndEffector myEndEffector;
-
+    void updateEndEffector();
     const float ROBOT_AREA_INFILL = 0.8;
     const float ROBOT_X_MIN = (1-ROBOT_AREA_INFILL)/2*FRAME_LENGTH;
     const float ROBOT_Y_MIN = (1-ROBOT_AREA_INFILL)/2*ROBOT_HEIGHT;

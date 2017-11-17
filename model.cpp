@@ -41,6 +41,7 @@ bool Model::pushNewPoint(float x, float y, float z, float yaw, float pitch, floa
         return false;
     }
     currentPoint = static_cast<int>(coordinateList.size())-1;
+    updateEndEffector();
     return true;
 }
 
@@ -50,6 +51,7 @@ bool Model::deleteCurrentIdex()
     if(currentPoint==0) return false;
     coordinateList.erase(coordinateList.begin() + currentPoint);
     currentPoint-=1;
+    updateEndEffector();
     return true;
 }
 
@@ -58,6 +60,7 @@ bool Model::emptyWorkingPoints()
     int N= coordinateList.size();
     coordinateList.erase(coordinateList.begin()+1, coordinateList.begin() +N);
     currentPoint=0;
+    updateEndEffector();
     return true;
 }
 
@@ -80,6 +83,7 @@ bool Model::insertNewPoint(float x, float y, float z, float yaw, float pitch, fl
     newPoint.time = time;
     coordinateList.insert(coordinateList.begin() + currentPoint + 1,newPoint);
     currentPoint += 1;
+    updateEndEffector();
     return true;
 }
 
@@ -112,6 +116,7 @@ int Model::getDataAmount()
 void Model::setCurrentPoint(int index)
 {
     currentPoint = index;
+    updateEndEffector();
 }
 
 int Model::getSelectedIndex()
@@ -203,4 +208,17 @@ std::vector<frame> Model::makeFrame()
 EndEffector *Model::getEndEffector()
 {
     return &myEndEffector;
+}
+
+void Model::updateEndEffector()
+{
+    myEndEffector.translatePosition(
+        coordinateList[currentPoint].x,
+        coordinateList[currentPoint].y,
+        coordinateList[currentPoint].z,
+        coordinateList[currentPoint].yaw,
+        coordinateList[currentPoint].pitch,
+        coordinateList[currentPoint].roll
+    );
+
 }

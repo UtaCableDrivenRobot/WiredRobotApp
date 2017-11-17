@@ -9,9 +9,6 @@ GLWidget::GLWidget(QWidget *parent) :
     timer.start(16);
 }
 
-
-
-
 void GLWidget::initializeGL()
 {
     glClearColor(0.2f,0.2f,0.2f,1.0f);

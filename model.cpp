@@ -25,7 +25,6 @@ Model::Model()
     robotFrame = makeFrame();
 }
 
-
 // Inserts new point at the end off the list
 // Returns false if the point couldn't be added
 bool Model::pushNewPoint(float x, float y, float z, float yaw, float pitch, float roll, float time)
@@ -33,37 +32,36 @@ bool Model::pushNewPoint(float x, float y, float z, float yaw, float pitch, floa
     // Push point on end
     // Change current point to the last one and then insert
     int saveCurrentPos = currentPoint;
-    currentPoint = static_cast<int>(coordinateList.size())-1;
+    setCurrentPoint(static_cast<int>(coordinateList.size())-1);
     if(!Model::insertNewPoint(x,y,z,yaw,pitch,roll,time))
     {
         // if adding the point failed...
-        currentPoint = saveCurrentPos;
+        setCurrentPoint(saveCurrentPos);
         return false;
     }
-    currentPoint = static_cast<int>(coordinateList.size())-1;
-    updateEndEffector();
+    setCurrentPoint(static_cast<int>(coordinateList.size())-1);
     return true;
 }
 
+// Deletes the currently selected index
+// Returns false if it can't delete that point
 bool Model::deleteCurrentIdex()
 {
     // Don't delete the starting point D:
     if(currentPoint==0) return false;
     coordinateList.erase(coordinateList.begin() + currentPoint);
-    currentPoint-=1;
-    updateEndEffector();
+    setCurrentPoint(currentPoint-1);
     return true;
 }
 
+// Clear all points from the coordinate list except the first one
 bool Model::emptyWorkingPoints()
 {
     int N= coordinateList.size();
     coordinateList.erase(coordinateList.begin()+1, coordinateList.begin() +N);
-    currentPoint=0;
-    updateEndEffector();
+    setCurrentPoint(0);
     return true;
 }
-
 
 // Inserts new point after the current position
 // Returns false if the point couldn't be added
@@ -82,17 +80,10 @@ bool Model::insertNewPoint(float x, float y, float z, float yaw, float pitch, fl
     newPoint.roll = roll;
     newPoint.time = time;
     coordinateList.insert(coordinateList.begin() + currentPoint + 1,newPoint);
-    currentPoint += 1;
-    updateEndEffector();
+    setCurrentPoint(currentPoint + 1);
     return true;
 }
 
-void writeData(float x, float y, float z, float yaw, float pitch, float roll,float time)
-{
-    std::ofstream output_file("./example.txt");
-
-
-}
 
 // Returns if the point being added is within the bounds of the robot
 bool Model::isPointValid(float x, float y, float z,float yaw,float pitch,float roll)
@@ -106,32 +97,35 @@ bool Model::isPointValid(float x, float y, float z,float yaw,float pitch,float r
     return true;
 }
 
-
-// Return how many items there are in the list
+// Return how many items there are in the coordinate list
 int Model::getDataAmount()
 {
     return static_cast<int>(coordinateList.size());
 }
 
+// Sets the current state of the index to the point
 void Model::setCurrentPoint(int index)
 {
     currentPoint = index;
     updateEndEffector();
 }
 
+// Returns the integer of the currently selected state
 int Model::getSelectedIndex()
 {
     return currentPoint;
 }
 
+// Returns the currently selected coordinate class
 coordinate Model::getSelectedCoordinate()
 {
     return coordinateList[currentPoint];
 }
 
+// Writes the content of the coordinate vector to a file
 void Model::writeToFile(QString fileName){
     int count, temp;
-    float a,b,c, yaw, pitch, roll, t;
+    float a, b, c, yaw, pitch, roll, t;
     if(fileName==NULL){
         fileName=trajDir;
     }
@@ -167,13 +161,15 @@ void Model::writeToFile(QString fileName){
     out<<fileCloser;
     outputFile.close();
     return;
-
 }
+
+// Returns the outer frame of the robot
 std::vector<frame> Model::getFrame()
 {
     return robotFrame;
 }
 
+// Makes the outer frame of the robot.
 std::vector<frame> Model::makeFrame()
 {
     // https://puu.sh/ymSp4/85b41d2c20.png
@@ -205,11 +201,13 @@ std::vector<frame> Model::makeFrame()
     return frameParts;
 }
 
+// Returns the End Effector class
 EndEffector *Model::getEndEffector()
 {
     return &myEndEffector;
 }
 
+// Updates the End Effector coordinates based on the current position
 void Model::updateEndEffector()
 {
     myEndEffector.translatePosition(
@@ -220,5 +218,4 @@ void Model::updateEndEffector()
         coordinateList[currentPoint].pitch,
         coordinateList[currentPoint].roll
     );
-
 }

@@ -16,6 +16,7 @@ public:
     void clearAllPoints();
     std::vector<coordinate> getFullRoughCoordinates();
 private:
+    const float FRAME_FREQ = 0.02f; // Seconds per Frame
     void updateFineCoordinateList();
     std::vector<coordinate> roughCoordinateList;
     std::vector<coordinate> fineCoordinateList;

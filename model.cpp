@@ -20,10 +20,8 @@ Model::Model()
 // Push point to the end of the model
 bool Model::pushNewPoint(float x, float y, float z, float yaw, float pitch, float roll, float time)
 {
-    qDebug() << "pushing new point" + QString::number(x);
     if(isPointValid(x,y,z,yaw,pitch,roll))
     {
-        qDebug() << "this one was valid";
         myCoordinates.pushNewCoordinate(x,y,z,yaw,pitch,roll,time);
         currentPoint+=1;
         return true;

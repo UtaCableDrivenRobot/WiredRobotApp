@@ -198,10 +198,7 @@ void MainWindow::on_actionOpen_triggered()
            }
        }
     }
-    //remove double first point
-    myModel.setCurrentPoint(1);
-    myModel.deleteCurrentIdex();
-    myModel.setCurrentPoint(myModel.getDataAmount()-1);
+    myModel.setCurrentPoint(0);
     inputFile.close();
     //update GUI with values
     updateBottomData();

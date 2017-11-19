@@ -194,14 +194,12 @@ void MainWindow::on_actionOpen_triggered()
                yaw=list[3].toDouble();
                pitch=list[4].toDouble();
                roll=list[5].toDouble();
+               qDebug() << "pushing new point";
                myModel.pushNewPoint(a,b,c,yaw,pitch,roll, t);
            }
        }
     }
-    //remove double first point
-    myModel.setCurrentPoint(1);
-    myModel.deleteCurrentIdex();
-    myModel.setCurrentPoint(myModel.getDataAmount()-1);
+    myModel.setCurrentPoint(0);
     inputFile.close();
     //update GUI with values
     updateBottomData();

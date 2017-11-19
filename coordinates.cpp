@@ -1,4 +1,5 @@
 #include "coordinates.h"
+#include <QDebug>
 
 Coordinates::Coordinates()
 {
@@ -36,7 +37,12 @@ void Coordinates::pushNewCoordinate(float x, float y, float z, float yaw, float 
     newPoint.pitch = pitch;
     newPoint.roll = roll;
     newPoint.time = time;
+    qDebug() << "actually pushed the point";
     roughCoordinateList.push_back(newPoint);
+    for(coordinate item: roughCoordinateList)
+    {
+        qDebug() << QString::number( item.x);
+    }
 }
 
 void Coordinates::insertNewCoordinate(float x, float y, float z, float yaw, float pitch, float roll, float time,int position)

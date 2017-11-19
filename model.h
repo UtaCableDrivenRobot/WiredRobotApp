@@ -12,23 +12,21 @@ class Model
 {
 public:
     Model();
+    const float FRAME_LENGTH = 2000;
+    const float ROBOT_HEIGHT = 2000; // TODO: Measure this out
+    const float ROBOT_FRAME_SIZE = 20;
     void setCurrentPoint(int index);
     bool pushNewPoint(float x,float y,float z,float yaw,float pitch,float roll,float time);
     bool insertNewPoint(float x, float y, float z, float yaw, float pitch, float roll,float time);
-    int getSelectedIndex();
-    int getDataAmount();
-    coordinate getSelectedCoordinate();
-    EndEffector* getEndEffector();
     void writeData(float x, float y, float z, float yaw, float pitch, float roll,float time);
     bool deleteCurrentIdex();
     void emptyWorkingPoints();
     void writeToFile(QString fileName);
     std::vector<frame> getFrame();
-    const float FRAME_LENGTH = 2000;
-    const float ROBOT_HEIGHT = 2000; // TODO: Measure this out
-    const float ROBOT_FRAME_SIZE = 20;
-
-
+    int getSelectedIndex();
+    int getDataAmount();
+    coordinate getSelectedCoordinate();
+    EndEffector* getEndEffector();
 private:
     const float ROBOT_AREA_INFILL = 0.8;
     const float ROBOT_X_MIN = (1-ROBOT_AREA_INFILL)/2*FRAME_LENGTH;
@@ -46,8 +44,6 @@ private:
     std::vector<frame> robotFrame;
     EndEffector myEndEffector;
     int currentPoint = 0;
-
-
 };
 
 #endif // MODEL_H

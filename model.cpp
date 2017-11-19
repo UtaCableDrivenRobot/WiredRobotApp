@@ -13,34 +13,20 @@
 
 Model::Model()
 {
-    coordinate firstPoint;
-    firstPoint.x = ROBOT_X_MIN;
-    firstPoint.y = ROBOT_Y_MIN;
-    firstPoint.z = ROBOT_Z_MIN;
-    firstPoint.yaw = 0;
-    firstPoint.pitch = 0;
-    firstPoint.roll = 0;
-    firstPoint.time = 0;
-    coordinateList.push_back(firstPoint);
     robotFrame = makeFrame();
+    Coordinates myCoordinates(ROBOT_X_MIN,ROBOT_Y_MIN,ROBOT_Z_MIN);
 }
 
-// Inserts new point at the end off the list
-// Returns false if the point couldn't be added
+// Push point to the end of the model
 bool Model::pushNewPoint(float x, float y, float z, float yaw, float pitch, float roll, float time)
 {
-    // Push point on end
-    // Change current point to the last one and then insert
-    int saveCurrentPos = currentPoint;
-    setCurrentPoint(static_cast<int>(coordinateList.size())-1);
-    if(!Model::insertNewPoint(x,y,z,yaw,pitch,roll,time))
+    if(isPointValid(x,y,z,yaw,pitch,roll))
     {
-        // if adding the point failed...
-        setCurrentPoint(saveCurrentPos);
-        return false;
+        myCoordinates.pushNewCoordinate(x,y,z,yaw,pitch,roll,time);
+        currentPoint+=1;
+        return true;
     }
-    setCurrentPoint(static_cast<int>(coordinateList.size())-1);
-    return true;
+    return false;
 }
 
 // Deletes the currently selected index
@@ -49,39 +35,27 @@ bool Model::deleteCurrentIdex()
 {
     // Don't delete the starting point D:
     if(currentPoint==0) return false;
-    coordinateList.erase(coordinateList.begin() + currentPoint);
+    myCoordinates.deleteIndex(currentPoint);
     setCurrentPoint(currentPoint-1);
     return true;
 }
 
 // Clear all points from the coordinate list except the first one
-bool Model::emptyWorkingPoints()
+void Model::emptyWorkingPoints()
 {
-    int N= coordinateList.size();
-    coordinateList.erase(coordinateList.begin()+1, coordinateList.begin() +N);
-    setCurrentPoint(0);
-    return true;
+    myCoordinates.clearAllPoints();
 }
 
 // Inserts new point after the current position
 // Returns false if the point couldn't be added
 bool Model::insertNewPoint(float x, float y, float z, float yaw, float pitch, float roll,float time)
 {
-    if(!isPointValid(x,y,z,yaw,pitch,roll))
+    if(isPointValid(x,y,z,yaw,pitch,roll))
     {
-        return false;
+        myCoordinates.insertNewCoordinate(x,y,z,yaw,pitch,roll,time,currentPoint+1);
+        return true;
     }
-    coordinate newPoint;
-    newPoint.x = x;
-    newPoint.y = y;
-    newPoint.z = z;
-    newPoint.yaw = yaw;
-    newPoint.pitch = pitch;
-    newPoint.roll = roll;
-    newPoint.time = time;
-    coordinateList.insert(coordinateList.begin() + currentPoint + 1,newPoint);
-    setCurrentPoint(currentPoint + 1);
-    return true;
+    return false;
 }
 
 
@@ -100,7 +74,7 @@ bool Model::isPointValid(float x, float y, float z,float yaw,float pitch,float r
 // Return how many items there are in the coordinate list
 int Model::getDataAmount()
 {
-    return static_cast<int>(coordinateList.size());
+    return myCoordinates.getListSize();
 }
 
 // Sets the current state of the index to the point
@@ -119,12 +93,13 @@ int Model::getSelectedIndex()
 // Returns the currently selected coordinate class
 coordinate Model::getSelectedCoordinate()
 {
-    return coordinateList[currentPoint];
+    return myCoordinates.getCoordinateAtPosition(currentPoint);
 }
 
 // Writes the content of the coordinate vector to a file
 void Model::writeToFile(QString fileName){
     int count, temp;
+    std::vector<coordinate> roughCoordinates = myCoordinates.getFullRoughCoordinates();
     float a, b, c, yaw, pitch, roll, t;
     if(fileName==NULL){
         fileName=trajDir;
@@ -133,15 +108,15 @@ void Model::writeToFile(QString fileName){
     outputFile.open((QIODevice::WriteOnly | QIODevice::Text));
     QTextStream out(&outputFile);
     out<<fileHeader;
-    temp=coordinateList.size();
+    temp=roughCoordinates.size();
     for( count=0; count<temp; count++){
-        a=coordinateList[count].x/1000;
-        b=coordinateList[count].y/1000;
-        c=coordinateList[count].z/1000;
-        yaw=coordinateList[count].yaw;
-        pitch=coordinateList[count].pitch;
-        roll=coordinateList[count].roll;
-        t=coordinateList[count].time;
+        a=roughCoordinates[count].x/1000;
+        b=roughCoordinates[count].y/1000;
+        c=roughCoordinates[count].z/1000;
+        yaw=roughCoordinates[count].yaw;
+        pitch=roughCoordinates[count].pitch;
+        roll=roughCoordinates[count].roll;
+        t=roughCoordinates[count].time;
         QString coor = "\n\t\t\t\t\t<q>"
                 + QString::number(a) + " "
                 + QString::number(b) + " "
@@ -210,12 +185,13 @@ EndEffector *Model::getEndEffector()
 // Updates the End Effector coordinates based on the current position
 void Model::updateEndEffector()
 {
+    coordinate currentCoordinate = myCoordinates.getCoordinateAtPosition(currentPoint);
     myEndEffector.translatePosition(
-        coordinateList[currentPoint].x,
-        coordinateList[currentPoint].y,
-        coordinateList[currentPoint].z,
-        coordinateList[currentPoint].yaw,
-        coordinateList[currentPoint].pitch,
-        coordinateList[currentPoint].roll
+        currentCoordinate.x,
+        currentCoordinate.y,
+        currentCoordinate.z,
+        currentCoordinate.yaw,
+        currentCoordinate.pitch,
+        currentCoordinate.roll
     );
 }

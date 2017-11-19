@@ -17,14 +17,16 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     model.cpp \
     glwidget.cpp \
-    endeffector.cpp
+    endeffector.cpp \
+    coordinates.cpp
 
 HEADERS  += mainwindow.h \
     model.h \
     coordinatestruct.h \
     glwidget.h \
     framestruct.h \
-    endeffector.h
+    endeffector.h \
+    coordinates.h
 
 FORMS    += mainwindow.ui
 

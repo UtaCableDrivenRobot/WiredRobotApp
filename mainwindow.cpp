@@ -225,3 +225,13 @@ void MainWindow::on_actionSave_As_triggered()
     return;
 
 }
+
+void MainWindow::on_playBtn_clicked()
+{
+    myModel.setPlay();
+}
+
+void MainWindow::on_stopBtn_clicked()
+{
+    myModel.setStop();
+}

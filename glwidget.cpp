@@ -69,6 +69,7 @@ void GLWidget::setModel(Model* newModel)
 
 void GLWidget::paintRobotEndEffector()
 {
+    myModel->updateEndEffector();
     glm::vec3 p1(endEffector->points[0]);
     glm::vec3 p2(endEffector->points[1]);
     glm::vec3 p3(endEffector->points[2]);

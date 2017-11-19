@@ -8,6 +8,7 @@
 #include "framestruct.h"
 #include "endeffector.h"
 #include "coordinates.h"
+#include <QTime>
 class Model
 {
 public:
@@ -25,8 +26,11 @@ public:
     std::vector<frame> getFrame();
     int getSelectedIndex();
     int getDataAmount();
+    void updateEndEffector();
     coordinate getSelectedCoordinate();
     EndEffector* getEndEffector();
+    void setPlay();
+    void setStop();
 private:
     const float ROBOT_AREA_INFILL = 0.8;
     const float ROBOT_X_MIN = (1-ROBOT_AREA_INFILL)/2*FRAME_LENGTH;
@@ -38,12 +42,14 @@ private:
     const float MAX_ROTATION = 30.1;
     const float END_EFFECTOR = 100;
     bool isPointValid(float x, float y, float z, float yaw, float pitch, float roll);
-    void updateEndEffector();
     std::vector<frame> makeFrame();
     Coordinates myCoordinates;
     std::vector<frame> robotFrame;
     EndEffector myEndEffector;
     int currentPoint = 0;
+    enum PlayState{play,stop};
+    PlayState playState = stop;
+    QTime timer;
 };
 
 #endif // MODEL_H

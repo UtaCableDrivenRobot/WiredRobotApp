@@ -34,6 +34,10 @@ private slots:
 
     void on_actionNew_triggered();
 
+    void on_playBtn_clicked();
+
+    void on_stopBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
     Model myModel;

@@ -82,7 +82,6 @@ int Model::getDataAmount()
 void Model::setCurrentPoint(int index)
 {
     currentPoint = index;
-    updateEndEffector();
 }
 
 // Returns the integer of the currently selected state
@@ -186,7 +185,15 @@ EndEffector *Model::getEndEffector()
 // Updates the End Effector coordinates based on the current position
 void Model::updateEndEffector()
 {
-    coordinate currentCoordinate = myCoordinates.getCoordinateAtPosition(currentPoint);
+    coordinate currentCoordinate;
+    if(playState==stop)
+    {
+        currentCoordinate = myCoordinates.getCoordinateAtPosition(currentPoint);
+
+    }else
+    {
+        currentCoordinate = myCoordinates.getFineCoordinate((float)timer.elapsed()/1000);
+    }
     myEndEffector.translatePosition(
         currentCoordinate.x,
         currentCoordinate.y,
@@ -195,4 +202,16 @@ void Model::updateEndEffector()
         currentCoordinate.pitch,
         currentCoordinate.roll
     );
+
+}
+
+void Model::setPlay()
+{
+    timer.start();
+    playState = play;
+}
+
+void Model::setStop()
+{
+    playState = stop;
 }

@@ -50,7 +50,6 @@ void Coordinates::updateFineCoordinateList()
 {
     float actualTotalTime = 0;
     float totalTimeElapsedThisFrame=0;
-    qDebug() << "inside update fine";
     for(unsigned int i=0;i<roughCoordinateList.size()-1;i++)
     {
         while(totalTimeElapsedThisFrame<roughCoordinateList[i+1].time)
@@ -74,7 +73,6 @@ void Coordinates::updateFineCoordinateList()
             newPoint.roll = rollAngle;
             newPoint.time = actualTotalTime;
             fineCoordinateList.push_back(newPoint);
-            qDebug() << fineCoordinateList[fineCoordinateList.size()-1].time;
             totalTimeElapsedThisFrame+=FRAME_FREQ;
             actualTotalTime+=FRAME_FREQ;
         }
@@ -94,7 +92,6 @@ coordinate Coordinates::getCoordinateAtPosition(int i)
 
 coordinate Coordinates::getFineCoordinate(float time)
 {
-    qDebug() << time;
     for(coordinate item: fineCoordinateList)
     {
         if(item.time>time)

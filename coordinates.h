@@ -16,7 +16,9 @@ public:
     void clearAllPoints();
     std::vector<coordinate> getFullRoughCoordinates();
 private:
+    void updateFineCoordinateList();
     std::vector<coordinate> roughCoordinateList;
+    std::vector<coordinate> fineCoordinateList;
 };
 
 #endif // COORDINATES_H

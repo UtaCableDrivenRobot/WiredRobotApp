@@ -51,6 +51,12 @@ void Coordinates::insertNewCoordinate(float x, float y, float z, float yaw, floa
     newPoint.roll = roll;
     newPoint.time = time;
     roughCoordinateList.insert(roughCoordinateList.begin()+position,newPoint);
+    updateFineCoordinateList();
+}
+
+void Coordinates::updateFineCoordinateList()
+{
+
 }
 
 void Coordinates::deleteIndex(int i)

@@ -43,7 +43,7 @@ void GLWidget::paintGL()
     rotateXMat = glm::rotate(rotateXMat,glm::radians((*eyeRotation)[0]),xVec);
     rotateYMat = glm::rotate(rotateYMat,glm::radians((*eyeRotation)[1]),yVec);
     translate = glm::translate(translate,center);
-    eye = translate*rotateXMat*rotateYMat*eye;
+    eye = translate*rotateYMat*rotateXMat*eye;
     glFrustum(-1,1,-1,1,1,10000);
     gluLookAt(eye[0],eye[1],eye[2],500,500,500,0,1,0);
 

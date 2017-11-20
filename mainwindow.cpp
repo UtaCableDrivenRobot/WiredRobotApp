@@ -1,11 +1,12 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <string>
+#include <iostream>
 #include <QtDebug>
 #include "QMessageBox"
 #include <QDialog>
 #include<QFileDialog>
-
+#define stepSize 0.000475
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -235,3 +236,34 @@ void MainWindow::on_stopBtn_clicked()
 {
     myModel.setStop();
 }
+
+void MainWindow::on_actionExport_to_Teensy_triggered()
+{
+    std::vector <std::vector <int>> cableMatrix;
+    std::ifstream infile("C:\\Users\\Martin\\Desktop\\array.txt");
+    std::string line;
+    std::string delimiter= ",";
+    std::string subvalue;
+    size_t pos = 0;
+    std::vector<int> temp;
+    int step, prevStep=0;;
+    while(getline(infile, line)){
+        while ((pos = line.find(delimiter)) != std::string::npos){
+            subvalue=line.substr(0, line.find(delimiter));
+            step=atof(subvalue.c_str())/stepSize;
+            step=step-prevStep;
+            prevStep=atof(subvalue.c_str())/stepSize;
+            temp.push_back(step);
+            line.erase(0, pos + delimiter.length());
+        }
+        temp.erase(temp.begin()); //remove first element since it is garbage
+        qDebug()<<temp<<endl;
+        cableMatrix.push_back(temp);
+        temp.clear();
+    }
+    //serial
+    return;
+}
+
+
+

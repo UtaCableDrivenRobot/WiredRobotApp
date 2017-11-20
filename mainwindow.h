@@ -38,6 +38,8 @@ private slots:
 
     void on_stopBtn_clicked();
 
+    void on_actionExport_to_Teensy_triggered();
+
 private:
     Ui::MainWindow *ui;
     Model myModel;

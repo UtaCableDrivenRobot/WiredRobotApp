@@ -29,7 +29,7 @@ void GLWidget::paintGL()
     glLoadIdentity();
     //glOrtho(-1,1,-1,1,1,500);
     glFrustum(-1,1,-1,1,1,5000);
-    gluLookAt(1700,1500,3000,1000,1000,1000,0,1,0);
+    gluLookAt(500,500,1700,500,500,500,0,1,0);
     //gluLookAt(250,100,250,0,0,0,0,1,0);
     glMatrixMode(GL_MODELVIEW);
 

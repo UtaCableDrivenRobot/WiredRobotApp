@@ -1,9 +1,16 @@
 #include "glwidget.h"
 #include <QtDebug>
+#include <glm/vec3.hpp>
+#include <glm/mat4x4.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include "glm/ext.hpp"
 
 
 GLWidget::GLWidget(QWidget *parent) :
-    QGLWidget(parent)
+    QGLWidget(parent),
+    xVec(1,0,0),
+    yVec(0,1,0),
+    zVec(0,0,1)
 {
     connect(&timer,SIGNAL(timeout()),this,SLOT(updateGL()));
     timer.start(16);
@@ -28,8 +35,24 @@ void GLWidget::paintGL()
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     //glOrtho(-1,1,-1,1,1,500);
-    glFrustum(-1,1,-1,1,1,5000);
-    gluLookAt(500,500,1700,500,500,500,0,1,0);
+    float rotationDegreeX = 45;
+    float rotationDegreeY = 45;
+    float rotationDegreeZ = 0;
+    glm::mat4 rotateXMat;
+    glm::mat4 rotateYMat;
+    glm::mat4 rotateZMat;
+    glm::mat4 translate;
+    glm::vec3 center(500,500,500);
+    glm::vec4 eye(0,0,1000,1);
+    rotateXMat = glm::rotate(rotateXMat,glm::radians(rotationDegreeX),xVec);
+    rotateYMat = glm::rotate(rotateYMat,glm::radians(rotationDegreeY),yVec);
+    rotateZMat = glm::rotate(rotateZMat,glm::radians(rotationDegreeZ),zVec);
+    translate = glm::translate(translate,center);
+    eye = translate*rotateXMat*rotateYMat*rotateZMat*eye;
+    glFrustum(-1,1,-1,1,1,10000);
+    gluLookAt(eye[0],eye[1],eye[2],500,500,500,0,1,0);
+
+
     //gluLookAt(250,100,250,0,0,0,0,1,0);
     glMatrixMode(GL_MODELVIEW);
 

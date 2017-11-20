@@ -14,6 +14,8 @@
 Model::Model() : myCoordinates(ROBOT_X_MIN,ROBOT_Y_MIN,ROBOT_Z_MIN)
 {
     robotFrame = makeFrame();
+    eyeRotation.push_back(-30.0f);
+    eyeRotation.push_back(0);
 }
 
 // Push point to the end of the model
@@ -213,4 +215,27 @@ void Model::setPlay()
 void Model::setStop()
 {
     playState = stop;
+}
+
+
+void Model::setEyeRotationX(int x)
+{
+    //normalize input (0-100) to -1 to 1
+    float normalized = ((float)x-50.0f)/99.0f;
+    //Set x range. Negative numbers raise the camera up. want to have lowest as 10 and heighest -90
+    eyeRotation[0] = (normalized*70.0f)-30.0f;
+
+}
+
+void Model::setEyeRotationY(int y)
+{
+    // normalize input (0-100) to -1 to 1
+    float normalized = ((float)y-50.0f)/99.0f;
+    // range should be -360 to 360
+    eyeRotation[1] = normalized*360;
+}
+
+std::vector<float>* Model::getEyeRotation()
+{
+    return &eyeRotation;
 }

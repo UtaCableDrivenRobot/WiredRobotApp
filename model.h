@@ -13,8 +13,8 @@ class Model
 {
 public:
     Model();
-    const float FRAME_LENGTH = 2000;
-    const float ROBOT_HEIGHT = 2000; // TODO: Measure this out
+    const float FRAME_LENGTH = 1000;
+    const float ROBOT_HEIGHT = 1000; // TODO: Measure this out
     const float ROBOT_FRAME_SIZE = 20;
     void setCurrentPoint(int index);
     bool pushNewPoint(float x,float y,float z,float yaw,float pitch,float roll,float time);

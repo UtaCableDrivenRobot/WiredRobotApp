@@ -341,6 +341,8 @@
     <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
     <addaction name="actionSave_As"/>
+    <addaction name="separator"/>
+    <addaction name="actionExport_to_Teensy"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -371,6 +373,11 @@
   <action name="actionSave_As">
    <property name="text">
     <string>Save As</string>
+   </property>
+  </action>
+  <action name="actionExport_to_Teensy">
+   <property name="text">
+    <string>Export to Teensy</string>
    </property>
   </action>
  </widget>

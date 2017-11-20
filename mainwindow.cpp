@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     updateComboBox();
     ui->glWidget->setModel(&myModel);
-    ui->xSlider->setValue(0);
+    ui->xSlider->setValue(50);
     ui->ySlider->setValue(50);
 }
 

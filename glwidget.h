@@ -30,6 +30,7 @@ private:
     const glm::vec3 xVec;
     const glm::vec3 yVec;
     const glm::vec3 zVec;
+    std::vector<float>* eyeRotation;
 
 };
 

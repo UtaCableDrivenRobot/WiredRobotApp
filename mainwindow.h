@@ -38,6 +38,10 @@ private slots:
 
     void on_stopBtn_clicked();
 
+    void on_xSlider_sliderMoved(int position);
+
+    void on_ySlider_sliderMoved(int position);
+
 private:
     Ui::MainWindow *ui;
     Model myModel;

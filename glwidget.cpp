@@ -35,20 +35,15 @@ void GLWidget::paintGL()
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     //glOrtho(-1,1,-1,1,1,500);
-    float rotationDegreeX = 45;
-    float rotationDegreeY = 45;
-    float rotationDegreeZ = 0;
     glm::mat4 rotateXMat;
     glm::mat4 rotateYMat;
-    glm::mat4 rotateZMat;
     glm::mat4 translate;
     glm::vec3 center(500,500,500);
     glm::vec4 eye(0,0,1000,1);
-    rotateXMat = glm::rotate(rotateXMat,glm::radians(rotationDegreeX),xVec);
-    rotateYMat = glm::rotate(rotateYMat,glm::radians(rotationDegreeY),yVec);
-    rotateZMat = glm::rotate(rotateZMat,glm::radians(rotationDegreeZ),zVec);
+    rotateXMat = glm::rotate(rotateXMat,glm::radians((*eyeRotation)[0]),xVec);
+    rotateYMat = glm::rotate(rotateYMat,glm::radians((*eyeRotation)[1]),yVec);
     translate = glm::translate(translate,center);
-    eye = translate*rotateXMat*rotateYMat*rotateZMat*eye;
+    eye = translate*rotateXMat*rotateYMat*eye;
     glFrustum(-1,1,-1,1,1,10000);
     gluLookAt(eye[0],eye[1],eye[2],500,500,500,0,1,0);
 
@@ -88,6 +83,7 @@ void GLWidget::setModel(Model* newModel)
     myModel = newModel;
     robotFrame = myModel->getFrame();
     endEffector = myModel->getEndEffector();
+    eyeRotation = myModel->getEyeRotation();
 }
 
 void GLWidget::paintRobotEndEffector()

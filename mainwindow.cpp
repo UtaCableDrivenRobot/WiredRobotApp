@@ -13,6 +13,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     updateComboBox();
     ui->glWidget->setModel(&myModel);
+    ui->xSlider->setValue(0);
+    ui->ySlider->setValue(50);
 }
 
 MainWindow::~MainWindow()
@@ -234,4 +236,14 @@ void MainWindow::on_playBtn_clicked()
 void MainWindow::on_stopBtn_clicked()
 {
     myModel.setStop();
+}
+
+void MainWindow::on_xSlider_sliderMoved(int position)
+{
+    myModel.setEyeRotationX(position);
+}
+
+void MainWindow::on_ySlider_sliderMoved(int position)
+{
+    myModel.setEyeRotationY(position);
 }

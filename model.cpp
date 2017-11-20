@@ -14,6 +14,8 @@
 Model::Model() : myCoordinates(ROBOT_X_MIN,ROBOT_Y_MIN,ROBOT_Z_MIN)
 {
     robotFrame = makeFrame();
+    eyeRotation.push_back(0);
+    eyeRotation.push_back(1);
 }
 
 // Push point to the end of the model
@@ -213,4 +215,24 @@ void Model::setPlay()
 void Model::setStop()
 {
     playState = stop;
+}
+
+void Model::setEyeRotationX(int x)
+{
+    float degreeX = -(float)x*45.0f/99.0f;
+    qDebug() << degreeX;
+    eyeRotation[0] = degreeX;
+}
+
+void Model::setEyeRotationY(int y)
+{
+    float degreeY = ((float)y-50.0f)*360.0f/99.0f;
+    qDebug() << degreeY;
+    eyeRotation[1] = degreeY;
+}
+
+std::vector<float>* Model::getEyeRotation()
+{
+    qDebug() << eyeRotation;
+    return &eyeRotation;
 }

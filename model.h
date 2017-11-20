@@ -17,6 +17,8 @@ public:
     const float ROBOT_HEIGHT = 1000; // TODO: Measure this out
     const float ROBOT_FRAME_SIZE = 20;
     void setCurrentPoint(int index);
+    void setEyeRotationX(int x);
+    void setEyeRotationY(int y);
     bool pushNewPoint(float x,float y,float z,float yaw,float pitch,float roll,float time);
     bool insertNewPoint(float x, float y, float z, float yaw, float pitch, float roll,float time);
     void writeData(float x, float y, float z, float yaw, float pitch, float roll,float time);
@@ -29,6 +31,7 @@ public:
     void updateEndEffector();
     coordinate getSelectedCoordinate();
     EndEffector* getEndEffector();
+    std::vector<float> *getEyeRotation();
     void setPlay();
     void setStop();
 private:
@@ -50,6 +53,7 @@ private:
     enum PlayState{play,stop};
     PlayState playState = stop;
     QTime timer;
+    std::vector<float> eyeRotation;
 };
 
 #endif // MODEL_H

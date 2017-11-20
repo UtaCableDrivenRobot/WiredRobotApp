@@ -11,10 +11,9 @@
 
 
 
-Model::Model()
+Model::Model() : myCoordinates(ROBOT_X_MIN,ROBOT_Y_MIN,ROBOT_Z_MIN)
 {
     robotFrame = makeFrame();
-    Coordinates myCoordinates(ROBOT_X_MIN,ROBOT_Y_MIN,ROBOT_Z_MIN);
 }
 
 // Push point to the end of the model

@@ -57,7 +57,6 @@ void Coordinates::updateFineCoordinateList()
 
     if(roughCoordinateList.size()==1)
     {
-
         fineCoordinateList.push_back(roughCoordinateList[0]);
         return;
     }

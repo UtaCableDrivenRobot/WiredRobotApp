@@ -38,9 +38,9 @@ private slots:
 
     void on_stopBtn_clicked();
 
-    void on_xSlider_sliderMoved(int position);
+    void on_xSlider_valueChanged(int value);
 
-    void on_ySlider_sliderMoved(int position);
+    void on_ySlider_valueChanged(int value);
 
 private:
     Ui::MainWindow *ui;

@@ -238,12 +238,12 @@ void MainWindow::on_stopBtn_clicked()
     myModel.setStop();
 }
 
-void MainWindow::on_xSlider_sliderMoved(int position)
+void MainWindow::on_xSlider_valueChanged(int value)
 {
-    myModel.setEyeRotationX(position);
+    myModel.setEyeRotationX(value);
 }
 
-void MainWindow::on_ySlider_sliderMoved(int position)
+void MainWindow::on_ySlider_valueChanged(int value)
 {
-    myModel.setEyeRotationY(position);
+    myModel.setEyeRotationY(value);
 }

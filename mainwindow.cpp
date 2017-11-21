@@ -246,7 +246,7 @@ void MainWindow::on_actionExport_to_Teensy_triggered()
     std::string subvalue;
     size_t pos = 0;
     std::vector<int> temp;
-    int step, prevStep=0;;
+    int step, prevStep=0, totalLen;
     while(getline(infile, line)){
         while ((pos = line.find(delimiter)) != std::string::npos){
             subvalue=line.substr(0, line.find(delimiter));
@@ -261,9 +261,43 @@ void MainWindow::on_actionExport_to_Teensy_triggered()
         cableMatrix.push_back(temp);
         temp.clear();
     }
-    //serial
+
+
+    totalLen=cableMatrix.at(0).size();
+    QByteArray packet;
+    /* Tried pulling out datastream object but cant reset the pointer after clearing packet, had issues where packet grew to size 17*n
+     *
+     * QDataStream out(&packet, QIODevice::WriteOnly | QIODevice::Append);
+     * out.setByteOrder(QDataStream::BigEndian);
+     */
+    quint8 header=170,len,operation,motor,checksum;
+    quint32 accel=100000, velo=100000, steps;
+    for(int count=0; count<totalLen; count++){
+        //create and send 8 motor packets
+        for(int motorC=0; motorC<8; motorC++){
+            QDataStream out(&packet, QIODevice::WriteOnly | QIODevice::Append);
+            out.setByteOrder(QDataStream::BigEndian);
+            len=17;
+            operation=10;
+            motor=motorC;
+            steps=cableMatrix.at(motorC).at(count);
+            checksum=header^len^operation^motor^accel^velo^steps;
+            out << header<<len<<operation<<motor<<accel<<velo<<steps<<checksum;
+            //send packet now
+            qDebug()<<packet.toHex()<<endl; //replace with serical comm
+            packet.clear();
+        }
+        //create and send execute packet
+        QDataStream out(&packet, QIODevice::WriteOnly | QIODevice::Append);
+        out.setByteOrder(QDataStream::BigEndian);
+        quint8 header=170, len=4, operation=12, checksum;
+        checksum=header^len^operation;
+        out<<header<<len<<operation<<checksum;
+        qDebug()<<packet.toHex()<<endl;//replace with serial comm
+        packet.clear();
+        out.resetStatus();
+    }
     return;
 }
-
 
 

@@ -44,7 +44,6 @@ private:
     bool isPointValid(float x, float y, float z, float yaw, float pitch, float roll);
     std::vector<frame> makeFrame();
     Coordinates myCoordinates;
-    std::vector <std::vector <float>> stepMatrix;
     std::vector<frame> robotFrame;
     EndEffector myEndEffector;
     int currentPoint = 0;

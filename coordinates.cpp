@@ -12,6 +12,7 @@ Coordinates::Coordinates()
     firstPoint.roll = 0;
     firstPoint.time = 0;
     roughCoordinateList.push_back(firstPoint);
+    updateFineCoordinateList();
 }
 
 Coordinates::Coordinates(float xmin,float ymin, float zmin)
@@ -25,6 +26,7 @@ Coordinates::Coordinates(float xmin,float ymin, float zmin)
     firstPoint.roll = 0;
     firstPoint.time = 0;
     roughCoordinateList.push_back(firstPoint);
+    updateFineCoordinateList();
 }
 
 void Coordinates::pushNewCoordinate(float x, float y, float z, float yaw, float pitch, float roll, float time)
@@ -48,8 +50,17 @@ void Coordinates::insertNewCoordinate(float x, float y, float z, float yaw, floa
 
 void Coordinates::updateFineCoordinateList()
 {
+
     float actualTotalTime = 0;
     float totalTimeElapsedThisFrame=0;
+    fineCoordinateList.erase(fineCoordinateList.begin(),fineCoordinateList.end());
+
+    if(roughCoordinateList.size()==1)
+    {
+
+        fineCoordinateList.push_back(roughCoordinateList[0]);
+        return;
+    }
     for(unsigned int i=0;i<roughCoordinateList.size()-1;i++)
     {
         while(totalTimeElapsedThisFrame<roughCoordinateList[i+1].time)
@@ -83,6 +94,7 @@ void Coordinates::updateFineCoordinateList()
 void Coordinates::deleteIndex(int i)
 {
     roughCoordinateList.erase(roughCoordinateList.begin() + i);
+    updateFineCoordinateList();
 }
 
 coordinate Coordinates::getCoordinateAtPosition(int i)

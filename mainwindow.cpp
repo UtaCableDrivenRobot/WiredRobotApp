@@ -14,6 +14,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     updateComboBox();
     ui->glWidget->setModel(&myModel);
+    ui->xSlider->setValue(50);
+    ui->ySlider->setValue(50);
 }
 
 MainWindow::~MainWindow()
@@ -301,3 +303,12 @@ void MainWindow::on_actionExport_to_Teensy_triggered()
 }
 
 
+void MainWindow::on_xSlider_valueChanged(int value)
+{
+    myModel.setEyeRotationX(value);
+}
+
+void MainWindow::on_ySlider_valueChanged(int value)
+{
+    myModel.setEyeRotationY(value);
+}

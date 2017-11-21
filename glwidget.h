@@ -27,6 +27,11 @@ private:
     void drawBox(glm::vec3 p1, glm::vec3 p2, glm::vec3 p3, glm::vec3 p4, glm::vec3 p5, glm::vec3 p6, glm::vec3 p7, glm::vec3 p8 );
     void drawBox(EndEffector endEffector);
     std::vector<frame> robotFrame;
+    const glm::vec3 xVec;
+    const glm::vec3 yVec;
+    const glm::vec3 zVec;
+    std::vector<float>* eyeRotation;
+
 };
 
 #endif // GLWIDGET_H

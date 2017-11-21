@@ -221,16 +221,16 @@ void Model::setStop()
 void Model::setEyeRotationX(int x)
 {
     //normalize input (0-100) to -1 to 1
-    float normalized = ((float)x-50.0f)/99.0f;
-    //Set x range. Negative numbers raise the camera up. want to have lowest as 10 and heighest -90
-    eyeRotation[0] = (normalized*70.0f)-30.0f;
+    float normalized = ((float)x-50.0f)/99.0f*2.0f;
+    //Set x range. Negative numbers raise the camera up. want to have lowest as 20 and heighest -80
+    eyeRotation[0] = (normalized*50.0f)-30.0f;
 
 }
 
 void Model::setEyeRotationY(int y)
 {
     // normalize input (0-100) to -1 to 1
-    float normalized = ((float)y-50.0f)/99.0f;
+    float normalized = ((float)y-50.0f)/99.0f*2.0f;
     // range should be -360 to 360
     eyeRotation[1] = normalized*360;
 }

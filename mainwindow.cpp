@@ -242,6 +242,11 @@ void MainWindow::on_stopBtn_clicked()
 
 void MainWindow::on_actionExport_to_Teensy_triggered()
 {
+    for(std::vector<float> item: myModel.getAllWireLengths())
+    {
+        // each of these items holds a vector that has the lengths that the wires need to be in mm
+        qDebug() << item;
+    }
     std::vector <std::vector <int>> cableMatrix;
     std::ifstream infile("C:\\Users\\Martin\\Desktop\\array.txt");
     std::string line;

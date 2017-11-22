@@ -32,6 +32,7 @@ public:
     coordinate getSelectedCoordinate();
     EndEffector* getEndEffector();
     std::vector<float> *getEyeRotation();
+    std::vector<glm::vec3> *getWireStarts();
     void setPlay();
     void setStop();
 private:

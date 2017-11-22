@@ -39,7 +39,7 @@ void GLWidget::paintGL()
     glm::mat4 rotateYMat;
     glm::mat4 translate;
     glm::vec3 center(500,500,500);
-    glm::vec4 eye(0,0,1000,1);
+    glm::vec4 eye(0,0,1200,1);
     rotateXMat = glm::rotate(rotateXMat,glm::radians((*eyeRotation)[0]),xVec);
     rotateYMat = glm::rotate(rotateYMat,glm::radians((*eyeRotation)[1]),yVec);
     translate = glm::translate(translate,center);
@@ -68,6 +68,12 @@ void GLWidget::paintGL()
     glLoadIdentity();
     paintRobotEndEffector();
     glPopMatrix();
+
+    // Wires
+    glPushMatrix();
+    glLoadIdentity();
+    paintWireStarts();
+    glPopMatrix();
 }
 
 void GLWidget::resizeGL(int w, int)
@@ -84,6 +90,7 @@ void GLWidget::setModel(Model* newModel)
     robotFrame = myModel->getFrame();
     endEffector = myModel->getEndEffector();
     eyeRotation = myModel->getEyeRotation();
+    wireStarts = myModel->getWireStarts();
 }
 
 void GLWidget::paintRobotEndEffector()
@@ -98,6 +105,18 @@ void GLWidget::paintRobotEndEffector()
     glm::vec3 p7(endEffector->points[6]);
     glm::vec3 p8(endEffector->points[7]);
     drawBox(p1,p2,p3,p4,p5,p6,p7,p8);
+}
+
+void GLWidget::paintWireStarts()
+{
+    glBegin(GL_LINES);
+    glColor3f(1,1,1);
+    for(unsigned int i=0;i<8;i++)
+    {
+        glVertex3f((*wireStarts)[i][0],(*wireStarts)[i][1],(*wireStarts)[i][2]);
+        glVertex3f(endEffector->points[i][0],endEffector->points[i][1],endEffector->points[i][2]);
+    }
+    glEnd();
 }
 
 // Draws X Y Z lines

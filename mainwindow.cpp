@@ -6,6 +6,7 @@
 #include "QMessageBox"
 #include <QDialog>
 #include<QFileDialog>
+#include <QtSerialPort/QSerialPort>
 #define stepSize 0.000475
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -241,6 +242,11 @@ void MainWindow::on_stopBtn_clicked()
 
 void MainWindow::on_actionExport_to_Teensy_triggered()
 {
+    for(std::vector<float> item: myModel.getAllWireLengths())
+    {
+        // each of these items holds a vector that has the lengths that the wires need to be in mm
+        qDebug() << item;
+    }
     std::vector <std::vector <int>> cableMatrix;
     std::ifstream infile("C:\\Users\\Martin\\Desktop\\array.txt");
     std::string line;
@@ -266,39 +272,76 @@ void MainWindow::on_actionExport_to_Teensy_triggered()
 
 
     totalLen=cableMatrix.at(0).size();
+
+
+
+    QSerialPort port;
+    QByteArray exit;
+    QDataStream e(&exit, QIODevice::WriteOnly | QIODevice::Append);
     QByteArray packet;
-    /* Tried pulling out datastream object but cant reset the pointer after clearing packet, had issues where packet grew to size 17*n
-     *
-     * QDataStream out(&packet, QIODevice::WriteOnly | QIODevice::Append);
-     * out.setByteOrder(QDataStream::BigEndian);
-     */
-    quint8 header=170,len,operation,motor,checksum;
-    quint32 accel=100000, velo=100000, steps;
+    quint8 header=170,exitCode=180,len,operation,motor,checksum;
+    quint32 accel=10000, velo=1000, steps;
+    e.setByteOrder(QDataStream::BigEndian);
+    e<<exitCode;
+    port.setPortName("COM5");
+    port.setBaudRate(QSerialPort::Baud115200);
+    port.setParity(QSerialPort::NoParity);
+    port.setStopBits(QSerialPort::OneStop);
+    port.setFlowControl(QSerialPort::NoFlowControl);
+    if(!port.open(QIODevice::ReadWrite)){
+        //error
+        qDebug() << port.errorString();
+        qDebug()  << port.portName();
+
+    }
+
     for(int count=0; count<totalLen; count++){
-        //create and send 8 motor packets
         for(int motorC=0; motorC<8; motorC++){
             QDataStream out(&packet, QIODevice::WriteOnly | QIODevice::Append);
             out.setByteOrder(QDataStream::BigEndian);
             len=17;
-            operation=10;
+            operation=11;
             motor=motorC;
+            checksum=0;
             steps=cableMatrix.at(motorC).at(count);
-            checksum=header^len^operation^motor^accel^velo^steps;
-            out << header<<len<<operation<<motor<<accel<<velo<<steps<<checksum;
-            //send packet now
-            qDebug()<<packet.toHex()<<endl; //replace with serical comm
+            out << header<<len<<operation<<motor<<accel<<velo<<steps;
+            for(int i=0; i<packet.size(); i++){
+                checksum=checksum^packet[i];
+            }
+            out<<checksum;
+            qDebug()<<packet.toHex().toUpper()<<endl;
+            port.write(packet.constData(), 17);
+            port.flush();
+            while(!port.waitForReadyRead(-1)){
+                Sleep(1);
+            }
+            QByteArray ret=port.readAll();
+            qDebug()<<ret<<endl;
             packet.clear();
         }
-        //create and send execute packet
         QDataStream out(&packet, QIODevice::WriteOnly | QIODevice::Append);
         out.setByteOrder(QDataStream::BigEndian);
-        quint8 header=170, len=4, operation=12, checksum;
-        checksum=header^len^operation;
-        out<<header<<len<<operation<<checksum;
-        qDebug()<<packet.toHex()<<endl;//replace with serial comm
+        len=4;
+        operation=12;
+        checksum=0;
+        out << header<<len<<operation;
+        for(int i=0; i<packet.size(); i++){
+            checksum=checksum^packet[i];
+        }
+        out<<checksum;
+        qDebug()<<packet.toHex().toUpper()<<endl;
+        port.write(packet.constData(), 4);
+        port.flush();
+        while(!port.waitForReadyRead(-1)){
+            Sleep(1);
+        }
+        QByteArray temp=port.readAll();
+        qDebug()<<temp<<endl;
         packet.clear();
-        out.resetStatus();
     }
+    port.write(exit.constData(), 1);
+    port.flush();
+    port.close();
     return;
 }
 

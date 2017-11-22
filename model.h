@@ -26,6 +26,7 @@ public:
     void emptyWorkingPoints();
     void writeToFile(QString fileName);
     std::vector<frame> getFrame();
+    std::vector<std::vector<float>> getAllWireLengths();
     int getSelectedIndex();
     int getDataAmount();
     void updateEndEffector();

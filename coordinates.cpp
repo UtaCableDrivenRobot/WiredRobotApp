@@ -113,6 +113,11 @@ coordinate Coordinates::getFineCoordinate(float time)
     return fineCoordinateList[fineCoordinateList.size()-1];
 }
 
+std::vector<coordinate> Coordinates::getFullFineCoordinate()
+{
+    return fineCoordinateList;
+}
+
 int Coordinates::getListSize()
 {
     return static_cast<int>(roughCoordinateList.size());

@@ -224,6 +224,31 @@ std::vector<glm::vec3> *Model::getWireStarts()
     return &wireStarts;
 }
 
+std::vector<std::vector<float>> Model::getAllWireLengths()
+{
+    std::vector<std::vector<float>> wireLengths;
+    std::vector<coordinate> fineCoordinates = myCoordinates.getFullFineCoordinate();
+    for(coordinate currentCoordinate: (fineCoordinates))
+    {
+        myEndEffector.translatePosition(
+            currentCoordinate.x,
+            currentCoordinate.y,
+            currentCoordinate.z,
+            currentCoordinate.yaw,
+            currentCoordinate.pitch,
+            currentCoordinate.roll
+        );
+        // Find the distance between each of these points and the corner pieces
+        std::vector<float> newLine;
+        for(unsigned int i=0;i<8;i++)
+        {
+            newLine.push_back(sqrt(pow(myEndEffector.points[i][0]-wireStarts[i][0],2)+pow(myEndEffector.points[i][1]-wireStarts[i][1],2)+pow(myEndEffector.points[i][2]-wireStarts[i][2],2)));
+        }
+        wireLengths.push_back(newLine);
+    }
+    return wireLengths;
+}
+
 // Updates the End Effector coordinates based on the current position
 void Model::updateEndEffector()
 {

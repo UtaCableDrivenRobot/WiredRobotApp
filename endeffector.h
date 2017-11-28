@@ -10,9 +10,9 @@ public:
     glm::vec3 points[8];
     void translatePosition(float xAmount, float yAmount, float zAmount, float yawAngle, float pitchAngle, float rollAngle);
 private:
-    const float modelOuterWidth=200;
-    const float modelOuterHeight=200;
-    const float modelOuterDepth=200;
+    const float modelOuterWidth=92;
+    const float modelOuterHeight=92;
+    const float modelOuterDepth=92;
     void initializePoints();
 };
 

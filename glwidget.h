@@ -8,6 +8,7 @@
 #include <vector>
 #include "endeffector.h"
 #include <glm/vec3.hpp>
+#include <glm/glm.hpp>
 
 class GLWidget : public QGLWidget
 {
@@ -35,7 +36,7 @@ private:
     std::vector<glm::vec3> *wireStarts;
 
     GLfloat light_diffuse[4] = {1.0, 1.0, 1.0, 1.0};  /* Red diffuse light. */
-    GLfloat light_position[4] = {1.0, 1.0, 1.0, 0.0};  /* Infinite light location. */
+    GLfloat light_position[4] = {1500.0, 1500.0, 1500.0, 0.0};  /* Infinite light location. */
 
 };
 

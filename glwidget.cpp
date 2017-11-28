@@ -20,6 +20,9 @@ void GLWidget::initializeGL()
 {
     glClearColor(0.2f,0.2f,0.2f,1.0f);
     glEnable(GL_DEPTH_TEST);
+    /* Enable a single OpenGL light. */
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
     glEnable(GL_LIGHT0);
     glEnable(GL_LIGHTING);
     glEnable(GL_COLOR_MATERIAL);

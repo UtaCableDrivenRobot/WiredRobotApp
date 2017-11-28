@@ -34,6 +34,9 @@ private:
     std::vector<float>* eyeRotation;
     std::vector<glm::vec3> *wireStarts;
 
+    GLfloat light_diffuse[4] = {1.0, 1.0, 1.0, 1.0};  /* Red diffuse light. */
+    GLfloat light_position[4] = {1.0, 1.0, 1.0, 0.0};  /* Infinite light location. */
+
 };
 
 #endif // GLWIDGET_H

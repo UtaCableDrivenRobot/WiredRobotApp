@@ -23,14 +23,14 @@ EndEffector::EndEffector()
 //  1________4/
 //
 void EndEffector::initializePoints(){
-    points[0] = glm::vec3(-1*modelOuterDepth/2,-1*modelOuterHeight/2,-1*modelOuterWidth/2);
-    points[1] = glm::vec3(-1*modelOuterDepth/2,modelOuterHeight/2,-1*modelOuterWidth/2);
-    points[2] = glm::vec3(modelOuterDepth/2,modelOuterHeight/2,-1*modelOuterWidth/2);
-    points[3] = glm::vec3(modelOuterDepth/2,-1*modelOuterHeight/2,-1*modelOuterWidth/2);
-    points[4] = glm::vec3(-1*modelOuterDepth/2,-1*modelOuterHeight/2,modelOuterWidth/2);
-    points[5] = glm::vec3(-1*modelOuterDepth/2,modelOuterHeight/2,modelOuterWidth/2);
-    points[6] = glm::vec3(modelOuterDepth/2,modelOuterHeight/2,modelOuterWidth/2);
-    points[7] = glm::vec3(modelOuterDepth/2,-1*modelOuterHeight/2,modelOuterWidth/2);
+    points[0] = glm::vec3(-1*modelOuterDepth/2,-1*modelOuterHeight/2,modelOuterWidth/2);
+    points[1] = glm::vec3(-1*modelOuterDepth/2,modelOuterHeight/2,modelOuterWidth/2);
+    points[2] = glm::vec3(modelOuterDepth/2,modelOuterHeight/2,modelOuterWidth/2);
+    points[3] = glm::vec3(modelOuterDepth/2,-1*modelOuterHeight/2,modelOuterWidth/2);
+    points[4] = glm::vec3(-1*modelOuterDepth/2,-1*modelOuterHeight/2,-1*modelOuterWidth/2);
+    points[5] = glm::vec3(-1*modelOuterDepth/2,modelOuterHeight/2,-1*modelOuterWidth/2);
+    points[6] = glm::vec3(modelOuterDepth/2,modelOuterHeight/2,-1*modelOuterWidth/2);
+    points[7] = glm::vec3(modelOuterDepth/2,-1*modelOuterHeight/2,-1*modelOuterWidth/2);
 }
 
 void EndEffector::translatePosition(float xAmount, float yAmount, float zAmount, float yawAngle, float pitchAngle, float rollAngle){

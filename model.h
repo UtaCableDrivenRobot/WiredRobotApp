@@ -45,8 +45,8 @@ private:
     const float ROBOT_Y_MAX = ROBOT_HEIGHT - ROBOT_Y_MIN;
     const float ROBOT_Z_MAX = ROBOT_LENGTH - ROBOT_Z_MIN;
     // TODO: this needs to be measured
-    const float LATERAL_WIRE_OFFSET = 18.0f;
-    const float VERTICLE_WIRE_OFFSET = 12.0f;
+    const float LATERAL_WIRE_OFFSET = 38.0f;
+    const float VERTICLE_WIRE_OFFSET = 42.0f;
     const float MAX_ROTATION = 30.1;
     const float END_EFFECTOR = 100;
     bool isPointValid(float x, float y, float z, float yaw, float pitch, float roll);

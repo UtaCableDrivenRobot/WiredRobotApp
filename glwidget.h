@@ -24,6 +24,7 @@ private:
     EndEffector* endEffector;
     void createAxisPaint();
     void createRobotFrame();
+    void createGround();
     void paintRobotEndEffector();
     void drawBox(glm::vec3 p1, glm::vec3 p2, glm::vec3 p3, glm::vec3 p4, glm::vec3 p5, glm::vec3 p6, glm::vec3 p7, glm::vec3 p8 );
     void drawBox(EndEffector endEffector);
@@ -35,8 +36,9 @@ private:
     std::vector<float>* eyeRotation;
     std::vector<glm::vec3> *wireStarts;
 
-    GLfloat light_diffuse[4] = {1.0, 1.0, 1.0, 1.0};  /* Red diffuse light. */
-    GLfloat light_position[4] = {1500.0, 1500.0, 1500.0, 0.0};  /* Infinite light location. */
+    GLfloat light_diffuse[4] = {0.8,0.8 , 0.8, 1.0};  /* Main Light. */
+    GLfloat light_ambient[4] = {0.3, 0.3 , 0.3, 1.0};  /*Ambient. */
+    GLfloat light_position[4] = {1.0, 1.0, 1.0, 0.0};  /* Infinite light location. */
 
 };
 

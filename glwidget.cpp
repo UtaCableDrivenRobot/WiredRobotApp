@@ -18,17 +18,19 @@ GLWidget::GLWidget(QWidget *parent) :
 
 void GLWidget::initializeGL()
 {
-    glClearColor(0.2f,0.2f,0.2f,1.0f);
+    glClearColor(0.9f,0.9f,0.9f,1.0f);
     glEnable(GL_DEPTH_TEST);
     /* Enable a single OpenGL light. */
     glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
     glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+    glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
     glEnable(GL_LIGHT0);
     glEnable(GL_LIGHTING);
     glEnable(GL_COLOR_MATERIAL);
     glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
     createAxisPaint();
     createRobotFrame();
+    createGround();
 }
 
 void GLWidget::paintGL()
@@ -66,6 +68,14 @@ void GLWidget::paintGL()
     glCallList(2) ;
     glPopMatrix();
 
+    //Floor
+
+    glPushMatrix();
+    glLoadIdentity();
+    glCallList(3);
+    glPopMatrix();
+
+
     //Robot Endeffector
     glPushMatrix();
     glLoadIdentity();
@@ -77,6 +87,23 @@ void GLWidget::paintGL()
     glLoadIdentity();
     paintWireStarts();
     glPopMatrix();
+}
+
+void GLWidget::createGround()
+{
+    glNewList(3,GL_COMPILE);
+
+    glBegin(GL_QUADS);
+    glColor3f(0.25f,0.16f,0.1f);
+    glVertex3f(-10000,0,-10000);
+    glVertex3f(-10000,0,10000);
+    glVertex3f(10000,0,10000);
+    glVertex3f(10000,0,-10000);
+
+    glEnd();
+
+    glEndList();
+
 }
 
 void GLWidget::resizeGL(int w, int)

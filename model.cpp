@@ -11,7 +11,7 @@
 
 
 
-Model::Model() : myCoordinates(338.1375,503.375,338.1375)
+Model::Model() : myCoordinates(330.2,358.45,330.2)
 {
     robotFrame = makeFrame();
     wireStarts = makeWireStarts();

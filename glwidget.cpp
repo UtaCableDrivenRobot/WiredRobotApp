@@ -108,22 +108,22 @@ void GLWidget::paintRobotEndEffector()
 
 
     // TESTING REMOVE LATER
-    std::vector<float> newLine;
-    for(unsigned int i=0;i<8;i++)
-    {
-        newLine.push_back(sqrt(pow(endEffector->points[i][0]-(*wireStarts)[i][0],2)+pow(endEffector->points[i][1]-(*wireStarts)[i][1],2)+pow(endEffector->points[i][2]-(*wireStarts)[i][2],2)));
-    }
+//    std::vector<float> newLine;
+//    for(unsigned int i=0;i<8;i++)
+//    {
+//        newLine.push_back(sqrt(pow(endEffector->points[i][0]-(*wireStarts)[i][0],2)+pow(endEffector->points[i][1]-(*wireStarts)[i][1],2)+pow(endEffector->points[i][2]-(*wireStarts)[i][2],2)));
+//    }
 
 
-    qDebug() << "   "+QString::number((floor(newLine[5])))+"-----"+QString::number(floor(newLine[6]));
-    qDebug() << "    /|      /  |";
-    qDebug() << "   / |     /   |";
-    qDebug() << QString::number(floor(newLine[1]))+"_|____"+QString::number(floor(newLine[2]))+"  |";
-    qDebug() << "  |  |      |  |";
-    qDebug() << "  |  |      |  |";
-    qDebug() << " |  | _____|_"+QString::number(floor(newLine[7]));
-    qDebug() << " |/"+QString::number(floor(newLine[4]))+"     | /";
-    qDebug() << QString::number(floor(newLine[0]))+"______"+QString::number(floor(newLine[3]))+"/";
+//    qDebug() << "   "+QString::number((floor(newLine[5])))+"-----"+QString::number(floor(newLine[6]));
+//    qDebug() << "    /|      /  |";
+//    qDebug() << "   / |     /   |";
+//    qDebug() << QString::number(floor(newLine[1]))+"_|____"+QString::number(floor(newLine[2]))+"  |";
+//    qDebug() << "  |  |      |  |";
+//    qDebug() << "  |  |      |  |";
+//    qDebug() << " |  | _____|_"+QString::number(floor(newLine[7]));
+//    qDebug() << " |/"+QString::number(floor(newLine[4]))+"     | /";
+//    qDebug() << QString::number(floor(newLine[0]))+"______"+QString::number(floor(newLine[3]))+"/";
 }
 
 void GLWidget::paintWireStarts()

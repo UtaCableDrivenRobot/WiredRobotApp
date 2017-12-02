@@ -18,7 +18,7 @@ GLWidget::GLWidget(QWidget *parent) :
 
 void GLWidget::initializeGL()
 {
-    glClearColor(0.9f,0.9f,0.9f,1.0f);
+    glClearColor(0.8f,0.8f,0.8f,1.0f);
     glEnable(GL_DEPTH_TEST);
     /* Enable a single OpenGL light. */
     glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
@@ -94,7 +94,10 @@ void GLWidget::createGround()
     glNewList(3,GL_COMPILE);
 
     glBegin(GL_QUADS);
-    glColor3f(0.25f,0.16f,0.1f);
+    //glClearColor(0.2f,0.2f,0.2f,1.0f);
+    //glColor3f(0.25f,0.16f,0.1f);
+    glColor3f(0.2f,0.2f,0.2f);
+    glNormal3f(0,1,0);
     glVertex3f(-10000,0,-10000);
     glVertex3f(-10000,0,10000);
     glVertex3f(10000,0,10000);
@@ -138,22 +141,22 @@ void GLWidget::paintRobotEndEffector()
 
 
     // TESTING REMOVE LATER
-//    std::vector<float> newLine;
-//    for(unsigned int i=0;i<8;i++)
-//    {
-//        newLine.push_back(sqrt(pow(endEffector->points[i][0]-(*wireStarts)[i][0],2)+pow(endEffector->points[i][1]-(*wireStarts)[i][1],2)+pow(endEffector->points[i][2]-(*wireStarts)[i][2],2)));
-//    }
+    std::vector<float> newLine;
+    for(unsigned int i=0;i<8;i++)
+    {
+        newLine.push_back(sqrt(pow(endEffector->points[i][0]-(*wireStarts)[i][0],2)+pow(endEffector->points[i][1]-(*wireStarts)[i][1],2)+pow(endEffector->points[i][2]-(*wireStarts)[i][2],2)));
+    }
 
 
-//    qDebug() << "   "+QString::number((floor(newLine[5])))+"-----"+QString::number(floor(newLine[6]));
-//    qDebug() << "    /|      /  |";
-//    qDebug() << "   / |     /   |";
-//    qDebug() << QString::number(floor(newLine[1]))+"_|____"+QString::number(floor(newLine[2]))+"  |";
-//    qDebug() << "  |  |      |  |";
-//    qDebug() << "  |  |      |  |";
-//    qDebug() << " |  | _____|_"+QString::number(floor(newLine[7]));
-//    qDebug() << " |/"+QString::number(floor(newLine[4]))+"     | /";
-//    qDebug() << QString::number(floor(newLine[0]))+"______"+QString::number(floor(newLine[3]))+"/";
+    qDebug() << "   "+QString::number((floor(newLine[5])))+"-----"+QString::number(floor(newLine[6]));
+    qDebug() << "    /|      /  |";
+    qDebug() << "   / |     /   |";
+    qDebug() << QString::number(floor(newLine[1]))+"_|____"+QString::number(floor(newLine[2]))+"  |";
+    qDebug() << "  |  |      |  |";
+    qDebug() << "  |  |      |  |";
+    qDebug() << " |  | _____|_"+QString::number(floor(newLine[7]));
+    qDebug() << " |/"+QString::number(floor(newLine[4]))+"     | /";
+    qDebug() << QString::number(floor(newLine[0]))+"______"+QString::number(floor(newLine[3]))+"/";
 }
 
 void GLWidget::paintWireStarts()
@@ -188,18 +191,41 @@ void GLWidget::createAxisPaint()
 
 void GLWidget::createRobotFrame()
 {
+    //Boxes have 8 points
+    //      ---------
+    //    / |      /|
+    //   /  |     / |
+    //  ____|____2  |
+    //  |   |    |  |
+    //  |   |    |  |
+    //  |   1 ___|__
+    //  | /      |
+    //  __________/
+    //
+    // TO
+    //      6-------7
+    //    / |      /|
+    //   /  |     / |
+    //  2___|____3  |
+    //  |   |    |  |
+    //  |   |    |  |
+    //  |   | ___|_8
+    //  | /5     |
+    //  1________4/
+    //
     glNewList(2,GL_COMPILE);
     for(frame frameItem : robotFrame)
     {
-        glm::vec3 p1(frameItem.point1[0],frameItem.point1[1],frameItem.point1[2]);
-        glm::vec3 p2(frameItem.point1[0],frameItem.point2[1],frameItem.point1[2]);
-        glm::vec3 p3(frameItem.point2[0],frameItem.point2[1],frameItem.point1[2]);
-        glm::vec3 p4(frameItem.point2[0],frameItem.point1[1],frameItem.point1[2]);
-        glm::vec3 p5(frameItem.point1[0],frameItem.point1[1],frameItem.point2[2]);
-        glm::vec3 p6(frameItem.point1[0],frameItem.point2[1],frameItem.point2[2]);
-        glm::vec3 p7(frameItem.point2[0],frameItem.point2[1],frameItem.point2[2]);
-        glm::vec3 p8(frameItem.point2[0],frameItem.point1[1],frameItem.point2[2]);
+        glm::vec3 p1(frameItem.point1[0],frameItem.point1[1],frameItem.point2[2]);
+        glm::vec3 p2(frameItem.point1[0],frameItem.point2[1],frameItem.point2[2]);
+        glm::vec3 p3(frameItem.point2[0],frameItem.point2[1],frameItem.point2[2]);
+        glm::vec3 p4(frameItem.point2[0],frameItem.point1[1],frameItem.point2[2]);
+        glm::vec3 p5(frameItem.point1[0],frameItem.point1[1],frameItem.point1[2]);
+        glm::vec3 p6(frameItem.point1[0],frameItem.point2[1],frameItem.point1[2]);
+        glm::vec3 p7(frameItem.point2[0],frameItem.point2[1],frameItem.point1[2]);
+        glm::vec3 p8(frameItem.point2[0],frameItem.point1[1],frameItem.point1[2]);
         drawBox(p1, p2, p3, p4, p5, p6, p7, p8);
+
     }
     glEndList();
 }

@@ -1,4 +1,4 @@
-/***********************************************************************************************************************
+                      /***********************************************************************************************************************
  * @FILE serial_accelstepper_control.ino
  * @BRIEF An example Arduino sketch showing USB-serial communications with the Teensy microcontroller for stepper control
  * using the AccelStepper library
@@ -36,30 +36,30 @@ const int LED_ON = HIGH;
 const int LED_OFF = LOW;
 const int STEPPER_ENABLED = HIGH;
 const int STEPPER_DISABLED = LOW;
-const int STEPPER_1_STEP_PIN = 2;
-const int STEPPER_1_DIR_PIN = 3;
-const int STEPPER_1_ENABLE_PIN = 4;
-const int STEPPER_2_STEP_PIN = 5;
-const int STEPPER_2_DIR_PIN = 6;
-const int STEPPER_2_ENABLE_PIN = 7;
-const int STEPPER_3_STEP_PIN = 8;
-const int STEPPER_3_DIR_PIN = 9;
-const int STEPPER_3_ENABLE_PIN = 10;
-const int STEPPER_4_STEP_PIN = 14;
-const int STEPPER_4_DIR_PIN = 15;
-const int STEPPER_4_ENABLE_PIN = 16;
+const int STEPPER_1_STEP_PIN = 1;
+const int STEPPER_1_DIR_PIN = 2;
+const int STEPPER_1_ENABLE_PIN = 3;
+const int STEPPER_2_STEP_PIN = 4;
+const int STEPPER_2_DIR_PIN = 5;
+const int STEPPER_2_ENABLE_PIN = 6;
+const int STEPPER_3_STEP_PIN = 7;
+const int STEPPER_3_DIR_PIN = 8;
+const int STEPPER_3_ENABLE_PIN = 9;
+const int STEPPER_4_STEP_PIN = 29;
+const int STEPPER_4_DIR_PIN = 30;
+const int STEPPER_4_ENABLE_PIN = 31;
 const int STEPPER_5_STEP_PIN = 17;
 const int STEPPER_5_DIR_PIN = 18;
 const int STEPPER_5_ENABLE_PIN = 19;
 const int STEPPER_6_STEP_PIN = 20;
 const int STEPPER_6_DIR_PIN = 21;
 const int STEPPER_6_ENABLE_PIN = 22;
-const int STEPPER_7_STEP_PIN = 29;
-const int STEPPER_7_DIR_PIN = 30;
-const int STEPPER_7_ENABLE_PIN = 31;
-const int STEPPER_8_STEP_PIN = 35;
-const int STEPPER_8_DIR_PIN = 36;
-const int STEPPER_8_ENABLE_PIN = 37;
+const int STEPPER_7_STEP_PIN = 14;
+const int STEPPER_7_DIR_PIN = 15;
+const int STEPPER_7_ENABLE_PIN = 16; 
+const int STEPPER_8_STEP_PIN = 34;
+const int STEPPER_8_DIR_PIN = 35;
+const int STEPPER_8_ENABLE_PIN = 36;
 
 // define serial communication parameters
 const unsigned long BAUD_RATE = 115200;
@@ -437,5 +437,4 @@ void loop()
     }
   }
 }
-
 

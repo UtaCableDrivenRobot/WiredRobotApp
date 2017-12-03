@@ -26,7 +26,7 @@
  *    Executes all deferred commands simultaneously
  *
  * @ORIGINAL AUTHOR Christopher D. McMurrough
- * @MODIFIED AUTHORS Martin Zamora Martine
+ * @MODIFIED AUTHORS Martin Zamora Martinez
  *                   Taylor
  *                   Robert
  *                   Patrick

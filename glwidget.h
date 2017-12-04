@@ -37,7 +37,7 @@ private:
     std::vector<glm::vec3> *wireStarts;
 
     GLfloat light_diffuse[4] = {0.8,0.8 , 0.8, 1.0};  /* Main Light. */
-    GLfloat light_ambient[4] = {0.3, 0.3 , 0.3, 1.0};  /*Ambient. */
+    GLfloat light_ambient[4] = {0.4, 0.4 , 0.4, 1.0};  /*Ambient. */
     GLfloat light_position[4] = {-1.0, -1.0, -1.0, 0.0};  /* DIRECTION Infinite light location. */
 
 };

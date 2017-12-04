@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "model.h"
 #include "calibrationform.h"
+#include "teensyapi.h"
 
 namespace Ui {
 class MainWindow;

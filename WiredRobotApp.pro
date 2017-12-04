@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     glwidget.cpp \
     endeffector.cpp \
     coordinates.cpp \
-    calibrationform.cpp
+    calibrationform.cpp \
+    teensyapi.cpp
 
 HEADERS  += mainwindow.h \
     model.h \
@@ -28,7 +29,8 @@ HEADERS  += mainwindow.h \
     framestruct.h \
     endeffector.h \
     coordinates.h \
-    calibrationform.h
+    calibrationform.h \
+    teensyapi.h
 
 FORMS    += mainwindow.ui \
     calibrationform.ui

@@ -7,7 +7,7 @@
 #include <QDialog>
 #include<QFileDialog>
 #include <QtSerialPort/QSerialPort>
-#define stepSize 0.0475
+#define stepSize 0.475
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -243,7 +243,6 @@ void MainWindow::on_stopBtn_clicked()
 void MainWindow::on_actionExport_to_Teensy_triggered()
 {
     int count=0,totalLen;
-    std::vector <std::vector <int>> cableMatrix;
     std::vector <std::vector <float>> cableMatrix2;
     std::vector <std::vector <int>> stepMat;
     std::vector<int> temp2;
@@ -251,34 +250,33 @@ void MainWindow::on_actionExport_to_Teensy_triggered()
     {
         // each of these items holds a vector that has the lengths that the wires need to be in mm
         if(count==0){
-            totalLen=item.size()-1;
         }
         else{
             cableMatrix2.push_back(item);
+            qDebug()<<item;
         }
         count++;
     }
     if(count==1){
         return;
     }
+    totalLen=count-1;
     for(int i=1; i<totalLen; i++){
         for(int j=0; j<8; j++){
-            float diff= cableMatrix2[i][j]-cableMatrix2[i-1][j];
-            diff=(float)diff/stepSize;
+            int diff= ((int)(cableMatrix2[i][j]/stepSize))-((int)(cableMatrix2[i-1][j]/stepSize));
             temp2.push_back(diff);
         }
         stepMat.push_back(temp2);
+        qDebug()<<temp2;
         temp2.clear();
     }
-    qDebug() <<stepMat;
-
 
     QSerialPort port;
     QByteArray exit;
     QDataStream e(&exit, QIODevice::WriteOnly | QIODevice::Append);
     QByteArray packet;
     quint8 header=170,exitCode=180,len,operation,motor,checksum;
-    quint32 accel=200, velo=20000, steps;
+    qint32 accel=200, velo=20000, steps;
     e.setByteOrder(QDataStream::BigEndian);
     e<<exitCode;
     port.setPortName("COM5");
@@ -286,14 +284,9 @@ void MainWindow::on_actionExport_to_Teensy_triggered()
     port.setParity(QSerialPort::NoParity);
     port.setStopBits(QSerialPort::OneStop);
     port.setFlowControl(QSerialPort::NoFlowControl);
-    if(!port.open(QIODevice::ReadWrite)){
-        //error
-        qDebug() << port.errorString();
-        qDebug()  << port.portName();
-        return;
 
-    }
-
+    std::vector <QByteArray> packetSet;
+    std::vector<std::vector<QByteArray>> packetMatrix;
     for(int count=0; count<totalLen-1; count++){
         for(int motorC=0; motorC<8; motorC++){
             QDataStream out(&packet, QIODevice::WriteOnly | QIODevice::Append);
@@ -308,12 +301,7 @@ void MainWindow::on_actionExport_to_Teensy_triggered()
                 checksum=checksum^packet[i];
             }
             out<<checksum;
-            port.write(packet.constData(), 17);
-            port.flush();
-            while(!port.waitForReadyRead(-1)){
-                Sleep(1);
-            }
-            QByteArray ret=port.readAll();
+            packetSet.push_back(packet);
             packet.clear();
         }
         QDataStream out(&packet, QIODevice::WriteOnly | QIODevice::Append);
@@ -326,13 +314,35 @@ void MainWindow::on_actionExport_to_Teensy_triggered()
             checksum=checksum^packet[i];
         }
         out<<checksum;
-        port.write(packet.constData(), 4);
+        packetSet.push_back(packet);
+        packetMatrix.push_back(packetSet);
+        qDebug() << packetSet;
+        packet.clear();
+        packetSet.clear();
+    }
+    if(!port.open(QIODevice::ReadWrite)){
+        qDebug() << port.errorString();
+        qDebug()  << port.portName();
+        return;
+    }
+    for(int count=0; count<totalLen-1; count++){
+        for(int motorC=0; motorC<8; motorC++){
+            port.write(packetMatrix.at(count).at(motorC).constData(), 17);
+            port.flush();
+            while(!port.waitForReadyRead(-1)){
+                Sleep(1);
+            }
+            QByteArray ret=port.readAll();
+            qDebug()<<ret.toHex().toUpper();
+        }
+
+        port.write(packetMatrix.at(count).at(8).constData(), 4);
         port.flush();
         while(!port.waitForReadyRead(-1)){
             Sleep(1);
         }
-        QByteArray temp=port.readAll();
-        packet.clear();
+        QByteArray ret=port.readAll();
+        qDebug()<<ret.toHex().toUpper();
     }
     port.write(exit.constData(), 1);
     port.flush();

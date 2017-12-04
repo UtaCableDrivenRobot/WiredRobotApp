@@ -343,6 +343,7 @@
     <addaction name="actionSave_As"/>
     <addaction name="separator"/>
     <addaction name="actionExport_to_Teensy"/>
+    <addaction name="actionCalibrate_Form"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -378,6 +379,11 @@
   <action name="actionExport_to_Teensy">
    <property name="text">
     <string>Export to Teensy</string>
+   </property>
+  </action>
+  <action name="actionCalibrate_Form">
+   <property name="text">
+    <string>Calibrate Form</string>
    </property>
   </action>
  </widget>

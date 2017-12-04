@@ -18,7 +18,8 @@ SOURCES += main.cpp\
     model.cpp \
     glwidget.cpp \
     endeffector.cpp \
-    coordinates.cpp
+    coordinates.cpp \
+    calibrationform.cpp
 
 HEADERS  += mainwindow.h \
     model.h \
@@ -26,9 +27,11 @@ HEADERS  += mainwindow.h \
     glwidget.h \
     framestruct.h \
     endeffector.h \
-    coordinates.h
+    coordinates.h \
+    calibrationform.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    calibrationform.ui
 
 LIBS += -lopengl32 -lglu32
 

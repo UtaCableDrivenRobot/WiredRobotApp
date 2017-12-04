@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "model.h"
+#include "calibrationform.h"
 
 namespace Ui {
 class MainWindow;
@@ -44,11 +45,14 @@ private slots:
 
     void on_ySlider_valueChanged(int value);
 
+    void on_actionCalibrate_Form_triggered();
+
 private:
     Ui::MainWindow *ui;
     Model myModel;
     void updateComboBox();
     coordinate *getCoordinateField();
+    CalibrationForm calibraiton;
 };
 
 #endif // MAINWINDOW_H

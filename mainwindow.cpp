@@ -360,3 +360,8 @@ void MainWindow::on_ySlider_valueChanged(int value)
 {
     myModel.setEyeRotationY(value);
 }
+
+void MainWindow::on_actionCalibrate_Form_triggered()
+{
+    calibraiton.show();
+}

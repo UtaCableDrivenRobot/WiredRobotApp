@@ -4,6 +4,8 @@
 #include <QtSerialPort/QSerialPort>
 #include <QDataStream>
 #include <QDebug>
+#include <thread>
+#include <chrono>
 
 TeensyAPI::TeensyAPI()
 {
@@ -45,7 +47,7 @@ void TeensyAPI::sendTeensyCoordinates(std::vector<std::vector<float>> wireLength
     {
         currentMotorPositions.push_back(wireLengthsStepList[0][i]);
     }
-    for(int listPosition=1;listPosition<wireLengthsStepList.size();listPosition++)
+    for(unsigned int listPosition=1;listPosition<wireLengthsStepList.size();listPosition++)
     {
         std::vector<int> singleStepDifference;
         for(int motorNumber=0;motorNumber<8;motorNumber++)
@@ -72,7 +74,7 @@ void TeensyAPI::sendTeensyCoordinates(std::vector<std::vector<float>> wireLength
 
     std::vector <QByteArray> packetSet;
     std::vector<std::vector<QByteArray>> packetMatrix;
-    for(int count=0; count<stepDifferences.size(); count++){
+    for(unsigned int count=0; count<stepDifferences.size(); count++){
         for(int motorC=0; motorC<8; motorC++){
             QDataStream out(&packet, QIODevice::WriteOnly | QIODevice::Append);
             out.setByteOrder(QDataStream::BigEndian);
@@ -110,12 +112,12 @@ void TeensyAPI::sendTeensyCoordinates(std::vector<std::vector<float>> wireLength
         qDebug()  << port.portName();
         return;
     }
-    for(int count=0; count<stepDifferences.size(); count++){
+    for(unsigned int count=0; count<stepDifferences.size(); count++){
         for(int motorC=0; motorC<8; motorC++){
             port.write(packetMatrix.at(count).at(motorC).constData(), 17);
             port.flush();
             while(!port.waitForReadyRead(-1)){
-                Sleep(1);
+                std::this_thread::sleep_for(std::chrono::milliseconds(5));
             }
             QByteArray ret=port.readAll();
             qDebug()<<ret.toHex().toUpper();
@@ -124,7 +126,7 @@ void TeensyAPI::sendTeensyCoordinates(std::vector<std::vector<float>> wireLength
         port.write(packetMatrix.at(count).at(8).constData(), 4);
         port.flush();
         while(!port.waitForReadyRead(-1)){
-            Sleep(1);
+            std::this_thread::sleep_for(std::chrono::milliseconds(5));
         }
         QByteArray ret=port.readAll();
         qDebug()<<ret.toHex().toUpper();

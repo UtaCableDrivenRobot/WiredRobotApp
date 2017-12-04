@@ -6,6 +6,8 @@
 #include "QMessageBox"
 #include <QDialog>
 #include<QFileDialog>
+
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -15,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->glWidget->setModel(&myModel);
     ui->xSlider->setValue(50);
     ui->ySlider->setValue(50);
+    //teensy.foundPort();
+
 }
 
 MainWindow::~MainWindow()
@@ -240,7 +244,6 @@ void MainWindow::on_stopBtn_clicked()
 
 void MainWindow::on_actionExport_to_Teensy_triggered()
 {
-    TeensyAPI teensy;
     teensy.sendTeensyCoordinates(myModel.getAllWireLengths());
 }
 

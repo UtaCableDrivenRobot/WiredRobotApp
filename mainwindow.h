@@ -54,6 +54,7 @@ private:
     void updateComboBox();
     coordinate *getCoordinateField();
     CalibrationForm calibraiton;
+    TeensyAPI teensy;
 };
 
 #endif // MAINWINDOW_H

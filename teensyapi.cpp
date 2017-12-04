@@ -6,10 +6,29 @@
 #include <QDebug>
 #include <thread>
 #include <chrono>
+#include <QSerialPortInfo>
 
 TeensyAPI::TeensyAPI()
 {
+    // Assume the first port is for the teensy. Maybe make a selector later.
+    QList<QSerialPortInfo> portList = QSerialPortInfo::availablePorts();
+    if(portList.size()>0)
+    {
+        qDebug() << "port name:";
+        qDebug() << portList[0].portName();
+        portName = portList[0].portName();
+    }
+    else
+    {
+        qDebug() << "WARNING NO PORT FOUND!!";
+        portName = "";
+    }
 
+}
+
+bool TeensyAPI::foundPort()
+{
+    return portName=="" ? false:true;
 }
 
 
@@ -38,6 +57,7 @@ void TeensyAPI::sendTeensyCoordinates(std::vector<std::vector<float>> wireLength
 
     //________________________________________________________________________________________
     // Convert these steps difference between steps. IE number of steps from 1-2 then from 2-3
+    // Need to be careful about the number of steps taken. Don't lose anything in conversion from float to int
     //________________________________________________________________________________________
 
     std::vector<std::vector<int>> stepDifferences;
@@ -66,7 +86,7 @@ void TeensyAPI::sendTeensyCoordinates(std::vector<std::vector<float>> wireLength
     qint32 accel=200, velo=20000, steps;
     e.setByteOrder(QDataStream::BigEndian);
     e<<exitCode;
-    port.setPortName("COM6");
+    port.setPortName(portName);
     port.setBaudRate(QSerialPort::Baud115200);
     port.setParity(QSerialPort::NoParity);
     port.setStopBits(QSerialPort::OneStop);
@@ -83,6 +103,8 @@ void TeensyAPI::sendTeensyCoordinates(std::vector<std::vector<float>> wireLength
             motor=motorC;
             checksum=0;
             steps=stepDifferences.at(count).at(motorC);
+            // quick debug on the last motor.
+            qDebug() << stepDifferences.at(count).at(7);
             out << header<<len<<operation<<motor<<accel<<velo<<steps;
             for(int i=0; i<packet.size(); i++){
                 checksum=checksum^packet[i];

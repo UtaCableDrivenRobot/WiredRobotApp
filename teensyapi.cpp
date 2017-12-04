@@ -2,6 +2,8 @@
 #include <math.h>
 #define STEP_SIZE 0.475 // This is MM/Step?
 #include <QtSerialPort/QSerialPort>
+#include <QDataStream>
+#include <QDebug>
 
 TeensyAPI::TeensyAPI()
 {
@@ -70,7 +72,7 @@ void TeensyAPI::sendTeensyCoordinates(std::vector<std::vector<float>> wireLength
 
     std::vector <QByteArray> packetSet;
     std::vector<std::vector<QByteArray>> packetMatrix;
-    for(int count=0; count<totalLen-1; count++){
+    for(int count=0; count<stepDifferences.size(); count++){
         for(int motorC=0; motorC<8; motorC++){
             QDataStream out(&packet, QIODevice::WriteOnly | QIODevice::Append);
             out.setByteOrder(QDataStream::BigEndian);
@@ -108,7 +110,7 @@ void TeensyAPI::sendTeensyCoordinates(std::vector<std::vector<float>> wireLength
         qDebug()  << port.portName();
         return;
     }
-    for(int count=0; count<totalLen-1; count++){
+    for(int count=0; count<stepDifferences.size(); count++){
         for(int motorC=0; motorC<8; motorC++){
             port.write(packetMatrix.at(count).at(motorC).constData(), 17);
             port.flush();

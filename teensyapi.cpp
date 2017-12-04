@@ -66,7 +66,7 @@ void TeensyAPI::sendTeensyCoordinates(std::vector<std::vector<float>> wireLength
     qint32 accel=200, velo=20000, steps;
     e.setByteOrder(QDataStream::BigEndian);
     e<<exitCode;
-    port.setPortName("COM5");
+    port.setPortName("COM6");
     port.setBaudRate(QSerialPort::Baud115200);
     port.setParity(QSerialPort::NoParity);
     port.setStopBits(QSerialPort::OneStop);

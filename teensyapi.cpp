@@ -158,6 +158,7 @@ void TeensyAPI::sendTeensyCoordinates(std::vector<std::vector<float>> wireLength
 }
 
 void TeensyAPI::sendCalibration(quint8 motor, qint32 steps){
+    motor-=1;
     qDebug()<< motor<<steps;
     QSerialPort port;
     QByteArray packet;

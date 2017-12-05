@@ -17,8 +17,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->glWidget->setModel(&myModel);
     ui->xSlider->setValue(50);
     ui->ySlider->setValue(50);
-    //teensy.foundPort();
-
+    if(!teensy.foundPort())
+    {
+        QMessageBox messageBox;
+        messageBox.critical(0,"Error","No Teensy was found durring boot up.\nIn order to run the bot, plug in the teensy and restart.");
+        messageBox.setFixedSize(500,200);
+    }
 }
 
 MainWindow::~MainWindow()

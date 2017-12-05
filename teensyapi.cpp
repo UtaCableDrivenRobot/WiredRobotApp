@@ -7,6 +7,7 @@
 #include <thread>
 #include <chrono>
 #include <QSerialPortInfo>
+#include <QMessageBox>
 
 TeensyAPI::TeensyAPI()
 {
@@ -23,7 +24,6 @@ TeensyAPI::TeensyAPI()
         qDebug() << "WARNING NO PORT FOUND!!";
         portName = "";
     }
-
 }
 
 bool TeensyAPI::foundPort()

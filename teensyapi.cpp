@@ -11,19 +11,16 @@
 
 TeensyAPI::TeensyAPI()
 {
-    // Assume the first port is for the teensy. Maybe make a selector later.
-    QList<QSerialPortInfo> portList = QSerialPortInfo::availablePorts();
-    if(portList.size()>0)
-    {
-        qDebug() << "port name:";
-        qDebug() << portList[0].portName();
-        portName = portList[0].portName();
+
+    portName="";
+    // Scan though connected ports and choose teensyduino
+    foreach (const QSerialPortInfo &portList, QSerialPortInfo::availablePorts()){
+        if(!portList.isBusy() && (QString::number(portList.productIdentifier(), 16)=="483")){
+            portName = portList.portName();
+            return;
+        }
     }
-    else
-    {
-        qDebug() << "WARNING NO PORT FOUND!!";
-        portName = "";
-    }
+    return;
 }
 
 bool TeensyAPI::foundPort()

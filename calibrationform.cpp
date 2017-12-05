@@ -6,9 +6,15 @@ CalibrationForm::CalibrationForm(QWidget *parent) :
     ui(new Ui::CalibrationForm)
 {
     ui->setupUi(this);
+    setWindowTitle("Calibration Dialog");
 }
 
 CalibrationForm::~CalibrationForm()
 {
     delete ui;
+}
+
+void CalibrationForm::setTeensy(TeensyAPI *newTeensy)
+{
+    teensy = newTeensy;
 }

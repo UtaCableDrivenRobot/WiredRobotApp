@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    setWindowTitle("Wired Robot A");
     updateComboBox();
     ui->glWidget->setModel(&myModel);
     ui->xSlider->setValue(50);
@@ -20,9 +21,10 @@ MainWindow::MainWindow(QWidget *parent) :
     if(!teensy.foundPort())
     {
         QMessageBox messageBox;
-        messageBox.critical(0,"Error","No Teensy was found durring boot up.\nIn order to run the bot, plug in the teensy and restart.");
+        messageBox.critical(0,"Warning","No Teensy was found durring boot up.\nIn order to run the robotbot, plug in the teensy and restart.");
         messageBox.setFixedSize(500,200);
     }
+    calibraiton.setTeensy(&teensy);
 }
 
 MainWindow::~MainWindow()

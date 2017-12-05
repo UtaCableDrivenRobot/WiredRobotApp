@@ -17,6 +17,7 @@ TeensyAPI::TeensyAPI()
     foreach (const QSerialPortInfo &portList, QSerialPortInfo::availablePorts()){
         if(!portList.isBusy() && (QString::number(portList.productIdentifier(), 16)=="483")){
             portName = portList.portName();
+            qDebug()<<portName;
             return;
         }
     }
@@ -155,3 +156,32 @@ void TeensyAPI::sendTeensyCoordinates(std::vector<std::vector<float>> wireLength
     port.close();
     return;
 }
+
+void TeensyAPI::sendCalibration(quint8 motor, qint32 steps){
+    qDebug()<< motor<<steps;
+    QSerialPort port;
+    QByteArray packet;
+    quint8 header=170,len=17,operation=10,checksum=0;
+    qint32 accel=20000, velo=100;
+    QDataStream out(&packet, QIODevice::WriteOnly | QIODevice::Append);
+    out.setByteOrder(QDataStream::BigEndian);
+    port.setPortName(portName);
+    port.setBaudRate(QSerialPort::Baud115200);
+    port.setParity(QSerialPort::NoParity);
+    port.setStopBits(QSerialPort::OneStop);
+    port.setFlowControl(QSerialPort::NoFlowControl);
+    out << header<<len<<operation<<motor<<accel<<velo<<steps;
+    for(int i=0; i<packet.size(); i++){
+        checksum=checksum^packet[i];
+    }
+    out<<checksum;
+    if(!port.open(QIODevice::ReadWrite)){
+        qDebug() << port.errorString();
+        qDebug()  << port.portName();
+        return;
+    }
+    port.write(packet.constData(), 17);
+    port.flush();
+    port.close();
+}
+

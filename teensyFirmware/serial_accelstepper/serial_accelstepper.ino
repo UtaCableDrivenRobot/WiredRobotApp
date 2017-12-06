@@ -120,6 +120,16 @@ void setup()
   Stepper_6.setEnablePin(STEPPER_6_ENABLE_PIN);
   Stepper_7.setEnablePin(STEPPER_7_ENABLE_PIN);
   Stepper_8.setEnablePin(STEPPER_8_ENABLE_PIN);
+
+  Stepper_1.setMaxSpeed(100);
+  Stepper_2.setMaxSpeed(100);
+  Stepper_3.setMaxSpeed(100);
+  Stepper_4.setMaxSpeed(100);
+  Stepper_5.setMaxSpeed(100);
+  Stepper_6.setMaxSpeed(100);
+  Stepper_7.setMaxSpeed(100);
+  Stepper_8.setMaxSpeed(100);
+  
   
   // activate the stepper motors
   Stepper_1.enableOutputs();
@@ -169,16 +179,9 @@ boolean sendPacket(unsigned int payloadSize, byte *payload)
   return true;
 }
 
-void runMotors(int bufferCount, long positions[][8], MultiStepper steppers){
+void runMotors(int bufferCount, long positions[][8], MultiStepper steppers,long velos [][8]){
   int counter=0;
-  Stepper_1.setMaxSpeed(100);
-  Stepper_2.setMaxSpeed(100);
-  Stepper_3.setMaxSpeed(100);
-  Stepper_4.setMaxSpeed(100);
-  Stepper_5.setMaxSpeed(100);
-  Stepper_6.setMaxSpeed(100);
-  Stepper_7.setMaxSpeed(100);
-  Stepper_8.setMaxSpeed(100);
+
   steppers.addStepper(Stepper_1);
   steppers.addStepper(Stepper_2);
   steppers.addStepper(Stepper_3);
@@ -190,21 +193,21 @@ void runMotors(int bufferCount, long positions[][8], MultiStepper steppers){
 
   while(counter<bufferCount){
     Stepper_1.setCurrentPosition(0);
-    //Stepper_1.setMaxSpeed((float) velos[counter][0]);
+    Stepper_1.setSpeed((float) velos[counter][0]);
     Stepper_1.setCurrentPosition(0);
-    //Stepper_2.setMaxSpeed((float) velos[counter][1]);
+    Stepper_2.setSpeed((float) velos[counter][1]);
     Stepper_2.setCurrentPosition(0);
-    //Stepper_3.setMaxSpeed((float) velos[counter][2]);
+    Stepper_3.setSpeed((float) velos[counter][2]);
     Stepper_3.setCurrentPosition(0);
-    //Stepper_4.setMaxSpeed((float) velos[counter][3]);
+    Stepper_4.setSpeed((float) velos[counter][3]);
     Stepper_4.setCurrentPosition(0);
-    //Stepper_5.setMaxSpeed((float) velos[counter][4]);
+    Stepper_5.setSpeed((float) velos[counter][4]);
     Stepper_5.setCurrentPosition(0);
-    //Stepper_6.setMaxSpeed((float) velos[counter][5]);
+    Stepper_6.setSpeed((float) velos[counter][5]);
     Stepper_6.setCurrentPosition(0);
-    //Stepper_7.setMaxSpeed((float) velos[counter][6]);
+    Stepper_7.setSpeed((float) velos[counter][6]);
     Stepper_7.setCurrentPosition(0);
-    //Stepper_8.setMaxSpeed((float) velos[counter][7]);
+    Stepper_8.setSpeed((float) velos[counter][7]);
     Stepper_8.setCurrentPosition(0);
     steppers.moveTo(positions[counter]);
     steppers.runSpeedToPosition();
@@ -276,7 +279,7 @@ void loop()
   int packetSize = PACKET_MIN_BYTES;
 
   long positions[MAX_BUF][8];
-  //long velos[MAX_BUF][8];
+  long velos[MAX_BUF][8];
   // continuously check for received packets
   while(isRunning)
   {
@@ -296,7 +299,7 @@ void loop()
       }
       else if(count == 0 && b ==EXIT_BYTE)
       {
-        runMotors(packetCount, positions,steppers);
+        runMotors(packetCount, positions,steppers, velos);
         packetCount=0;
          //_reboot_Teensyduino_();
       }
@@ -332,7 +335,7 @@ void loop()
         count++;
       }
 
-      // check to see if we have acquired enough bytes for a full packet
+      // check to see if we have acq uired enough bytes for a full packet
       if(count >= packetSize)
       {
         // validate the packet
@@ -424,42 +427,42 @@ void loop()
             if(stepperID == 0)
             {
               positions[packetCount][stepperID]=stepPos;
-              //velos[packetCount][stepperID]=stepVel;
+              velos[packetCount][stepperID]=stepVel;
             }
             else if(stepperID == 1)
             {
               positions[packetCount][stepperID]=stepPos;
-              //velos[packetCount][stepperID]=stepVel;
+              velos[packetCount][stepperID]=stepVel;
             }
             else if(stepperID == 2)
             {
               positions[packetCount][stepperID]=stepPos;
-              //velos[packetCount][stepperID]=stepVel;
+              velos[packetCount][stepperID]=stepVel;
             }
             else if(stepperID == 3)
             {
               positions[packetCount][stepperID]=stepPos;
-              //velos[packetCount][stepperID]=stepVel;
+              velos[packetCount][stepperID]=stepVel;
             }
             else if(stepperID == 4)
             {
               positions[packetCount][stepperID]=stepPos;
-              //velos[packetCount][stepperID]=stepVel;
+              velos[packetCount][stepperID]=stepVel;
             }
             else if(stepperID == 5)
             {
               positions[packetCount][stepperID]=stepPos;
-              //velos[packetCount][stepperID]=stepVel;
+              velos[packetCount][stepperID]=stepVel;
             }
             else if(stepperID == 6)
             {
               positions[packetCount][stepperID]=stepPos;
-              //velos[packetCount][stepperID]=stepVel;
+              velos[packetCount][stepperID]=stepVel;
             }
             else if(stepperID == 7)
             {
               positions[packetCount][stepperID]=stepPos;
-              //velos[packetCount][stepperID]=stepVel;
+              velos[packetCount][stepperID]=stepVel;
             }          
           }
           else if(buffer[2] == STEP_COMMAND_EXECUTE && packetSize == STEP_COMMAND_EXECUTE_LENGTH)
@@ -469,7 +472,7 @@ void loop()
           }
           sendPacket(packetSize - PACKET_OVERHEAD_BYTES, buffer + 2);
           if(packetCount>=MAX_BUF){
-            runMotors(packetCount, positions,steppers);
+            runMotors(packetCount, positions,steppers,velos);
             packetCount=0;
           }
         }

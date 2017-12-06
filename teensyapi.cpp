@@ -101,7 +101,7 @@ void TeensyAPI::sendTeensyCoordinates(std::vector<std::vector<float>> wireLength
             motor=motorC;
             checksum=0;
             steps=stepDifferences.at(count).at(motorC);
-            velo=100;
+            velo=abs(steps/0.02);
             // quick debug on the last motor.
             qDebug() <<steps<<velo;
             out << header<<len<<operation<<motor<<accel<<velo<<steps;

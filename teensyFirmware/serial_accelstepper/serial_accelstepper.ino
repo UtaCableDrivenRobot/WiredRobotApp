@@ -118,8 +118,8 @@ void setup()
   Stepper_4.setEnablePin(STEPPER_4_ENABLE_PIN);
   Stepper_5.setEnablePin(STEPPER_5_ENABLE_PIN);
   Stepper_6.setEnablePin(STEPPER_6_ENABLE_PIN);
-  Stepper_7.setEnablePin(STEPPER_5_ENABLE_PIN);
-  Stepper_8.setEnablePin(STEPPER_6_ENABLE_PIN);
+  Stepper_7.setEnablePin(STEPPER_7_ENABLE_PIN);
+  Stepper_8.setEnablePin(STEPPER_8_ENABLE_PIN);
   
   // activate the stepper motors
   Stepper_1.enableOutputs();

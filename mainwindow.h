@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "model.h"
 #include "calibrationform.h"
+#include "teensyapi.h"
 
 namespace Ui {
 class MainWindow;
@@ -53,6 +54,7 @@ private:
     void updateComboBox();
     coordinate *getCoordinateField();
     CalibrationForm calibraiton;
+    TeensyAPI teensy;
 };
 
 #endif // MAINWINDOW_H

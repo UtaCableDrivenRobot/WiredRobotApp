@@ -135,7 +135,7 @@ void Model::writeToFile(QString fileName){
             out<<openPoint<<">"<<coor<<qDot<<closePoint;
         }
         else{
-            out<<openPoint<<" time=\""<<QString::number(t)<<".0\">"<<coor<<qDot<<closePoint;
+            out<<openPoint<<" time=\""<<QString::number(t)<<"\">"<<coor<<qDot<<closePoint;
         }
 
     }

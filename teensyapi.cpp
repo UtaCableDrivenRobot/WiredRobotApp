@@ -81,7 +81,7 @@ void TeensyAPI::sendTeensyCoordinates(std::vector<std::vector<float>> wireLength
     QDataStream e(&exit, QIODevice::WriteOnly | QIODevice::Append);
     QByteArray packet;
     quint8 header=170,exitCode=180,len,operation,motor,checksum;
-    qint32 accel=200, velo=20000, steps;
+    qint32 accel=200, velo=0, steps;
     e.setByteOrder(QDataStream::BigEndian);
     e<<exitCode;
     port.setPortName(portName);
@@ -101,8 +101,9 @@ void TeensyAPI::sendTeensyCoordinates(std::vector<std::vector<float>> wireLength
             motor=motorC;
             checksum=0;
             steps=stepDifferences.at(count).at(motorC);
+            velo=100;
             // quick debug on the last motor.
-            qDebug() << stepDifferences.at(count).at(7);
+            qDebug() <<steps<<velo;
             out << header<<len<<operation<<motor<<accel<<velo<<steps;
             for(int i=0; i<packet.size(); i++){
                 checksum=checksum^packet[i];
@@ -123,7 +124,6 @@ void TeensyAPI::sendTeensyCoordinates(std::vector<std::vector<float>> wireLength
         out<<checksum;
         packetSet.push_back(packet);
         packetMatrix.push_back(packetSet);
-        qDebug() << packetSet;
         packet.clear();
         packetSet.clear();
     }
@@ -140,7 +140,7 @@ void TeensyAPI::sendTeensyCoordinates(std::vector<std::vector<float>> wireLength
                 std::this_thread::sleep_for(std::chrono::milliseconds(5));
             }
             QByteArray ret=port.readAll();
-            qDebug()<<ret.toHex().toUpper();
+            //qDebug()<<ret.toHex().toUpper();
         }
 
         port.write(packetMatrix.at(count).at(8).constData(), 4);
@@ -149,7 +149,7 @@ void TeensyAPI::sendTeensyCoordinates(std::vector<std::vector<float>> wireLength
             std::this_thread::sleep_for(std::chrono::milliseconds(5));
         }
         QByteArray ret=port.readAll();
-        qDebug()<<ret.toHex().toUpper();
+        //qDebug()<<ret.toHex().toUpper();
     }
     port.write(exit.constData(), 1);
     port.flush();

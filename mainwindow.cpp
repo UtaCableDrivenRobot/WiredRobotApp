@@ -169,7 +169,7 @@ void MainWindow::on_actionNew_triggered()
 }
 void MainWindow::on_actionOpen_triggered()
 {
-    int temp=0,count,len;
+    int temp=0,count,len,pointCount=0;;
     float a, b,c,yaw,pitch,roll,t=0;
     //get file directory/name
     QString fileName = QFileDialog::getOpenFileName(this,
@@ -200,17 +200,20 @@ void MainWindow::on_actionOpen_triggered()
                QStringList list = line.split(QRegExp("\\s+"), QString::SkipEmptyParts);
                len=list[5].size(); //remove tailing brackets fom time value
                list[5].remove(len-4,len-1);
-               a=1000*list[0].toDouble();// convert meters to mm
-               b=1000*list[1].toDouble();
-               c=1000*list[2].toDouble();
-               yaw=list[3].toDouble();
-               pitch=list[4].toDouble();
-               roll=list[5].toDouble();
-               myModel.pushNewPoint(a,b,c,yaw,pitch,roll, t);
+               a=1000*list[0].toFloat();// convert meters to mm
+               b=1000*list[1].toFloat();
+               c=1000*list[2].toFloat();
+               yaw=list[3].toFloat();
+               pitch=list[4].toFloat();
+               roll=list[5].toFloat();
+               if(pointCount!=0){
+                   myModel.pushNewPoint(a,b,c,yaw,pitch,roll, t);
+               }
+               pointCount++;
            }
        }
     }
-    myModel.setCurrentPoint(0);
+    myModel.setCurrentPoint(pointCount);
     inputFile.close();
     //update GUI with values
     updateBottomData();
@@ -232,7 +235,7 @@ void MainWindow::on_actionSave_As_triggered()
 {
     //get file dir/name
     QString fileName = QFileDialog::getSaveFileName(this,
-                tr("Save Trajectory"), "/home/untitled.txt", tr("XML Files (*.XML);; Text files (*.txt)"));
+                tr("Save Trajectory"), "/home", tr("XML Files (*.XML);; Text files (*.txt)"));
     myModel.writeToFile(fileName);
     return;
 

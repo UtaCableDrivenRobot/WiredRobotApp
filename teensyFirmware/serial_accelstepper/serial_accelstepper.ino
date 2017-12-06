@@ -272,7 +272,6 @@ void loop()
   // create the serial packet receive buffer
   static byte buffer[PACKET_MAX_BYTES];
   int count = 0;
-  int buffCount=0;
   int packetCount=0;
   int packetSize = PACKET_MIN_BYTES;
 
@@ -298,6 +297,7 @@ void loop()
       else if(count == 0 && b ==EXIT_BYTE)
       {
         runMotors(packetCount, positions,steppers);
+        packetCount=0;
          //_reboot_Teensyduino_();
       }
       else if(count==0){
@@ -468,10 +468,6 @@ void loop()
             
           }
           sendPacket(packetSize - PACKET_OVERHEAD_BYTES, buffer + 2);
-          buffCount++;
-          if(buffCount>9){
-            buffCount=0;
-          }
           if(packetCount>=MAX_BUF){
             runMotors(packetCount, positions,steppers);
             packetCount=0;

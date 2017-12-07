@@ -127,6 +127,55 @@ void TeensyAPI::sendTeensyCoordinates(std::vector<std::vector<float>> wireLength
         packet.clear();
         packetSet.clear();
     }
+    //_____________________________________________________________________________________________________
+    // LAST MINUTE CHANGE NEVER NEVER NEVER WRITE CODE LIKE THIS AGAIN IT IS SO BAD I SHOULD NEVER DO THIS
+    //_____________________________________________________________________________________________________
+    //_____________________________________________________________________________________________________
+    //_____________________________________________________________________________________________________
+
+    for(unsigned int count=0; count<1; count++){
+        for(int motorC=0; motorC<8; motorC++){
+            QDataStream out(&packet, QIODevice::WriteOnly | QIODevice::Append);
+            out.setByteOrder(QDataStream::BigEndian);
+            len=17;
+            operation=11;
+            motor=motorC;
+            checksum=0;
+            steps=stepDifferences.at(count).at(motorC);
+            velo=steps/0.02;
+            // quick debug on the last motor.
+            qDebug() <<steps<<velo;
+            out << header<<len<<operation<<motor<<accel<<velo<<steps;
+            for(int i=0; i<packet.size(); i++){
+                checksum=checksum^packet[i];
+            }
+            out<<checksum;
+            packetSet.push_back(packet);
+            packet.clear();
+        }
+        QDataStream out(&packet, QIODevice::WriteOnly | QIODevice::Append);
+        out.setByteOrder(QDataStream::BigEndian);
+        len=4;
+        operation=12;
+        checksum=0;
+        out << header<<len<<operation;
+        for(int i=0; i<packet.size(); i++){
+            checksum=checksum^packet[i];
+        }
+        out<<checksum;
+        packetSet.push_back(packet);
+        packetMatrix.push_back(packetSet);
+        packet.clear();
+        packetSet.clear();
+    }
+
+
+
+
+    //_____________________________________________________________________________________________________
+    //_____________________________________________________________________________________________________
+    //_____________________________________________________________________________________________________
+    //_____________________________________________________________________________________________________
     if(!port.open(QIODevice::ReadWrite)){
         qDebug() << port.errorString();
         qDebug()  << port.portName();

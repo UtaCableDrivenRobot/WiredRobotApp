@@ -15,6 +15,8 @@ Model::Model() : myCoordinates(330.2,358.45,330.2)
 {
     qDebug() << "X MIN"+QString::number(ROBOT_X_MIN);
     qDebug() << "X MAX"+QString::number(ROBOT_X_MAX);
+    qDebug() << "Y MIN"+QString::number(ROBOT_Y_MIN);
+    qDebug() << "Y MAX"+QString::number(ROBOT_Y_MAX);
     qDebug() << "Z MIN"+QString::number(ROBOT_Z_MIN);
     qDebug() << "Z MAX"+QString::number(ROBOT_Z_MAX);
     robotFrame = makeFrame();

@@ -130,7 +130,15 @@ void setup()
   Stepper_6.enableOutputs();
   Stepper_7.enableOutputs();
   Stepper_8.enableOutputs();
-  
+
+  steppers.addStepper(Stepper_1);
+  steppers.addStepper(Stepper_2);
+  steppers.addStepper(Stepper_3);
+  steppers.addStepper(Stepper_4);
+  steppers.addStepper(Stepper_5);
+  steppers.addStepper(Stepper_6);
+  steppers.addStepper(Stepper_7);
+  steppers.addStepper(Stepper_8);
 
 
   // initialize the serial port
@@ -169,26 +177,26 @@ boolean sendPacket(unsigned int payloadSize, byte *payload)
   return true;
 }
 
-void runMotors(int bufferCount, long positions[][8], MultiStepper steppers){
+void runMotors(int bufferCount, long positions[][8], MultiStepper steppers, long velos[][8]){
   int counter=0;
-  Stepper_1.setMaxSpeed(100);
-  Stepper_2.setMaxSpeed(100);
-  Stepper_3.setMaxSpeed(100);
-  Stepper_4.setMaxSpeed(100);
-  Stepper_5.setMaxSpeed(100);
-  Stepper_6.setMaxSpeed(100);
-  Stepper_7.setMaxSpeed(100);
-  Stepper_8.setMaxSpeed(100);
-  steppers.addStepper(Stepper_1);
-  steppers.addStepper(Stepper_2);
-  steppers.addStepper(Stepper_3);
-  steppers.addStepper(Stepper_4);
-  steppers.addStepper(Stepper_5);
-  steppers.addStepper(Stepper_6);
-  steppers.addStepper(Stepper_7);
-  steppers.addStepper(Stepper_8);
-
+  long m;
+  
+ 
   while(counter<bufferCount){
+    m=0;
+    for(int i=0; i<8; i++){
+      if(m<velos[counter][i]){
+        m=velos[counter][i];
+      }
+    }
+    Stepper_1.setMaxSpeed(m);
+    Stepper_2.setMaxSpeed(m);
+    Stepper_3.setMaxSpeed(m);
+    Stepper_4.setMaxSpeed(m);
+    Stepper_5.setMaxSpeed(m);
+    Stepper_6.setMaxSpeed(m);
+    Stepper_7.setMaxSpeed(m);
+    Stepper_8.setMaxSpeed(m);
     Stepper_1.setCurrentPosition(0);
     //Stepper_1.setMaxSpeed((float) velos[counter][0]);
     Stepper_1.setCurrentPosition(0);
@@ -272,12 +280,11 @@ void loop()
   // create the serial packet receive buffer
   static byte buffer[PACKET_MAX_BYTES];
   int count = 0;
-  int buffCount=0;
   int packetCount=0;
   int packetSize = PACKET_MIN_BYTES;
 
   long positions[MAX_BUF][8];
-  //long velos[MAX_BUF][8];
+  long velos[MAX_BUF][8];
   // continuously check for received packets
   while(isRunning)
   {
@@ -297,7 +304,8 @@ void loop()
       }
       else if(count == 0 && b ==EXIT_BYTE)
       {
-        runMotors(packetCount, positions,steppers);
+        runMotors(packetCount, positions,steppers,velos);
+        packetCount=0;
          //_reboot_Teensyduino_();
       }
       else if(count==0){
@@ -424,42 +432,42 @@ void loop()
             if(stepperID == 0)
             {
               positions[packetCount][stepperID]=stepPos;
-              //velos[packetCount][stepperID]=stepVel;
+              velos[packetCount][stepperID]=stepVel;
             }
             else if(stepperID == 1)
             {
               positions[packetCount][stepperID]=stepPos;
-              //velos[packetCount][stepperID]=stepVel;
+              velos[packetCount][stepperID]=stepVel;
             }
             else if(stepperID == 2)
             {
               positions[packetCount][stepperID]=stepPos;
-              //velos[packetCount][stepperID]=stepVel;
+              velos[packetCount][stepperID]=stepVel;
             }
             else if(stepperID == 3)
             {
               positions[packetCount][stepperID]=stepPos;
-              //velos[packetCount][stepperID]=stepVel;
+              velos[packetCount][stepperID]=stepVel;
             }
             else if(stepperID == 4)
             {
               positions[packetCount][stepperID]=stepPos;
-              //velos[packetCount][stepperID]=stepVel;
+              velos[packetCount][stepperID]=stepVel;
             }
             else if(stepperID == 5)
             {
               positions[packetCount][stepperID]=stepPos;
-              //velos[packetCount][stepperID]=stepVel;
+              velos[packetCount][stepperID]=stepVel;
             }
             else if(stepperID == 6)
             {
               positions[packetCount][stepperID]=stepPos;
-              //velos[packetCount][stepperID]=stepVel;
+              velos[packetCount][stepperID]=stepVel;
             }
             else if(stepperID == 7)
             {
               positions[packetCount][stepperID]=stepPos;
-              //velos[packetCount][stepperID]=stepVel;
+              velos[packetCount][stepperID]=stepVel;
             }          
           }
           else if(buffer[2] == STEP_COMMAND_EXECUTE && packetSize == STEP_COMMAND_EXECUTE_LENGTH)
@@ -468,12 +476,8 @@ void loop()
             
           }
           sendPacket(packetSize - PACKET_OVERHEAD_BYTES, buffer + 2);
-          buffCount++;
-          if(buffCount>9){
-            buffCount=0;
-          }
           if(packetCount>=MAX_BUF){
-            runMotors(packetCount, positions,steppers);
+            runMotors(packetCount, positions,steppers,velos);
             packetCount=0;
           }
         }
@@ -483,4 +487,5 @@ void loop()
     }
   }
 }
+
 

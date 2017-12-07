@@ -339,6 +339,7 @@
     </property>
     <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
+    <addaction name="actionImport_CSV"/>
     <addaction name="actionSave"/>
     <addaction name="actionSave_As"/>
     <addaction name="separator"/>
@@ -384,6 +385,11 @@
   <action name="actionCalibrate_Form">
    <property name="text">
     <string>Calibrate Form</string>
+   </property>
+  </action>
+  <action name="actionImport_CSV">
+   <property name="text">
+    <string>Import CSV</string>
    </property>
   </action>
  </widget>

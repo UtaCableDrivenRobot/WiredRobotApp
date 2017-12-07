@@ -48,10 +48,15 @@ private slots:
 
     void on_actionCalibrate_Form_triggered();
 
+    void on_actionImport_CSV_triggered();
+
+
+
 private:
     Ui::MainWindow *ui;
     Model myModel;
     void updateComboBox();
+    void pushNewPointToModel(double x, double y, double z, double yaw, double pitch, double roll, double time);
     coordinate *getCoordinateField();
     CalibrationForm calibraiton;
     TeensyAPI teensy;

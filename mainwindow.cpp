@@ -77,24 +77,29 @@ void MainWindow::on_insertNextBtn_clicked()
     }
 }
 
+void MainWindow::pushNewPointToModel(double x,double y, double z, double yaw,double pitch, double roll, double time)
+{
+    if(!myModel.pushNewPoint(x,y,z,yaw,pitch,roll,time))
+    {
+        QMessageBox messageBox;
+        messageBox.critical(0,"Error","New coordinate is out of bounds!");
+        messageBox.setFixedSize(500,200);
+    }
+}
+
 void MainWindow::on_pushToEndBtn_clicked()
 {
     coordinate* formData = getCoordinateField();
     if(formData)
     {
-        if(!myModel.pushNewPoint(
+        pushNewPointToModel(
                     formData->x,
                     formData->y,
                     formData->z,
                     formData->yaw,
                     formData->pitch,
                     formData->roll,
-                    formData->time))
-        {
-            QMessageBox messageBox;
-            messageBox.critical(0,"Error","New coordinate is out of bounds!");
-            messageBox.setFixedSize(500,200);
-        }
+                    formData->time);
         updateComboBox();
         delete formData;
     }else
@@ -270,4 +275,41 @@ void MainWindow::on_ySlider_valueChanged(int value)
 void MainWindow::on_actionCalibrate_Form_triggered()
 {
     calibraiton.show();
+}
+
+void MainWindow::on_actionImport_CSV_triggered()
+{
+    myModel.emptyWorkingPoints();
+    QString fileName = QFileDialog::getOpenFileName(this, "Open the file");
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly | QFile::Text)) {
+        QMessageBox::warning(this,"..","File not opened.");
+        return;
+    }
+    QTextStream in(&file);
+    while(!in.atEnd())
+    {
+        QString newLine = in.readLine();
+        QStringList itemList = newLine.split(',');
+        qDebug()<< itemList.length();
+        if(itemList.length()==7)
+        {
+            bool xOk(false), yOk(false), zOk(false), yawOk(false), pitchOk(false), rollOk(false), timeOk(false);
+            double x = QString(itemList[0]).toDouble(&xOk);
+            double y = QString(itemList[1]).toDouble(&yOk);
+            double z = QString(itemList[2]).toDouble(&zOk);
+            double yaw = QString(itemList[3]).toDouble(&yawOk);
+            double pitch = QString(itemList[4]).toDouble(&pitchOk);
+            double roll = QString(itemList[5]).toDouble(&rollOk);
+            double time = QString(itemList[6]).toDouble(&timeOk);
+            if(xOk && yOk && zOk && yawOk && pitchOk && rollOk && timeOk)
+            {
+                qDebug()<< "pushing new point";
+                pushNewPointToModel(x,y,z,yaw,pitch,roll,time);
+            }
+        }
+
+    }
+    updateBottomData();
+    updateComboBox();
 }

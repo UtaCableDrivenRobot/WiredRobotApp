@@ -213,7 +213,7 @@ void MainWindow::on_actionOpen_triggered()
            }
        }
     }
-    myModel.setCurrentPoint(pointCount);
+    myModel.setCurrentPoint(0);
     inputFile.close();
     //update GUI with values
     updateBottomData();

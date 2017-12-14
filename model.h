@@ -39,7 +39,7 @@ public:
     void setPlay();
     void setStop();
 private:
-    const float ROBOT_AREA_INFILL = 0.37;
+    const float ROBOT_AREA_INFILL = 0.60;
     const float ROBOT_X_MIN = (1-ROBOT_AREA_INFILL)/2*ROBOT_FULL_LENGTH;
     const float ROBOT_Y_MIN = (1-ROBOT_AREA_INFILL)/2*ROBOT_FULL_HEIGHT;
     const float ROBOT_Z_MIN = (1-ROBOT_AREA_INFILL)/2*ROBOT_FULL_LENGTH;

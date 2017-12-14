@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE trajectories SYSTEM "../../../../templates/trajectories.dtd">
+<trajectories>
+	<joint_trajectories>
+		<quintic_spline_trajectory id="traj_1" time_definition = "relative" time_step="0.05">
+			<points>
+				<point>
+					<q>0.3302 0.35845 0.3302 0 0 0</q>
+					<q_dot>0.0 0.0 0.0 0.0 0.0 0.0</q_dot>
+					<q_ddot>0.0 0.0 0.0 0.0 0.0 0.0</q_ddot>
+				</point>
+				<point time="0.5">
+					<q>0.68 0.35845 0.3302 0 0 0</q>
+					<q_dot>0.0 0.0 0.0 0.0 0.0 0.0</q_dot>
+					<q_ddot>0.0 0.0 0.0 0.0 0.0 0.0</q_ddot>
+				</point>
+				<point time="0.5">
+					<q>0.68 0.35845 0.68 0 0 0</q>
+					<q_dot>0.0 0.0 0.0 0.0 0.0 0.0</q_dot>
+					<q_ddot>0.0 0.0 0.0 0.0 0.0 0.0</q_ddot>
+				</point>
+				<point time="0.5">
+					<q>0.33 0.35845 0.68 0 0 0</q>
+					<q_dot>0.0 0.0 0.0 0.0 0.0 0.0</q_dot>
+					<q_ddot>0.0 0.0 0.0 0.0 0.0 0.0</q_ddot>
+				</point>
+				<point time="0.5">
+					<q>0.33 0.71 0.68 0 0 0</q>
+					<q_dot>0.0 0.0 0.0 0.0 0.0 0.0</q_dot>
+					<q_ddot>0.0 0.0 0.0 0.0 0.0 0.0</q_ddot>
+				</point>
+				<point time="0.5">
+					<q>0.68 0.71 0.68 0 0 0</q>
+					<q_dot>0.0 0.0 0.0 0.0 0.0 0.0</q_dot>
+					<q_ddot>0.0 0.0 0.0 0.0 0.0 0.0</q_ddot>
+				</point>
+				<point time="0.5">
+					<q>0.68 0.71 0.33 0 0 0</q>
+					<q_dot>0.0 0.0 0.0 0.0 0.0 0.0</q_dot>
+					<q_ddot>0.0 0.0 0.0 0.0 0.0 0.0</q_ddot>
+				</point>
+				<point time="0.5">
+					<q>0.3302 0.35845 0.3302 0 0 0</q>
+					<q_dot>0.0 0.0 0.0 0.0 0.0 0.0</q_dot>
+					<q_ddot>0.0 0.0 0.0 0.0 0.0 0.0</q_ddot>
+				</point>
+			</points>
+		</quintic_spline_trajectory>
+	</joint_trajectories>
+</trajectories>

@@ -4,7 +4,7 @@
 ## What This Is
 This project contains the source code and files to run the cable driven robot devloped at UTA for the senior design class of fall 2017. This documentation is to help give an overview of what this project does, and how to run/continue development on this project.
 
-![Robot Image](http://www.robertaron.io/res/projects/wire-robot-4.gif)
+<img src="/wire-robot-4.gif?raw=true" width="100%">
 
 ## Tools Used
 * GUI was built with [QT Community Open Source](https://www1.qt.io/download-open-source/?hsCtaTracking=f977210e-de67-475f-a32b-65cec207fd03%7Cd62710cd-e1db-46aa-8d4d-2f1c1ffdacea)
